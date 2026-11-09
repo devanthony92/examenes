@@ -3,38 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Gran Examen de Geometría 5.° Primaria - Edición Tablet</title>
+  <title>Simulador Olímpico de Geometría y Medición - Edición Tablet</title>
 
-  <!-- Tipografías infantiles claras y legibles (Google Fonts: Fredoka y Quicksand) -->
+  <!-- Tipografías claras y técnicas (Google Fonts: Fredoka, Quicksand y JetBrains Mono para diagramas ASCII) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@500;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
 
   <!-- Iconos FontAwesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <!-- Librería Canvas-Confetti CDN para celebraciones -->
+  <!-- Librería Canvas-Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
   <style>
     /* ==========================================================================
-       VARIABLES Y OPTIMIZACIÓN TÁCTIL PARA SAMSUNG GALAXY TAB A9+ (11" 16:10)
-       Resolución referencia: 1920x1200 px (~1280x800 CSS px en horizontal / 800x1280 vertical)
+       OPTIMIZACIÓN PARA SAMSUNG GALAXY TAB A9+ (11" 16:10 - 1920x1200 / ~1280x800 CSS)
+       DISEÑO DE ALTO RIGOR COGNITIVO Y OLIMPIADA MATEMÁTICA
        ========================================================================== */
     :root {
-      --sky-blue: #4CC9F0;
-      --deep-blue: #4361EE;
-      --fun-yellow: #FFD166;
-      --sunny-orange: #FF9F1C;
-      --apple-green: #06D6A0;
-      --berry-pink: #FF5D8F;
-      --magic-purple: #7209B7;
+      --primary-blue: #2563EB;
+      --deep-indigo: #1E1B4B;
+      --sky-accent: #0EA5E9;
+      --amber-gold: #F59E0B;
+      --emerald-ok: #10B981;
+      --rose-err: #F43F5E;
+      --purple-olymp: #7C3AED;
+      --bg-surface: #F1F5F9;
       --card-bg: #FFFFFF;
-      --text-dark: #1E293B;
+      --text-main: #0F172A;
       --text-muted: #475569;
-      --border-radius-lg: 24px;
-      --border-radius-md: 16px;
-      --shadow-soft: 0 10px 28px rgba(67, 97, 238, 0.13);
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --shadow-card: 0 10px 30px rgba(15, 23, 42, 0.08);
     }
 
     * {
@@ -44,15 +45,15 @@
       user-select: none;
       -webkit-user-select: none;
       -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation; /* Elimina retraso táctil y zoom accidental en tablets */
+      touch-action: manipulation;
     }
 
     html, body {
       width: 100%;
       min-height: 100dvh;
       font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(135deg, #E0F4FF 0%, #FFF8E7 50%, #E8FCE8 100%);
-      color: var(--text-dark);
+      background: linear-gradient(135deg, #E2E8F0 0%, #EFF6FF 50%, #F0FDF4 100%);
+      color: var(--text-main);
       overflow-x: hidden;
     }
 
@@ -60,35 +61,26 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      padding: 12px 16px 20px;
+      padding: 12px 16px 24px;
     }
 
-    /* Contenedor adaptado al ancho 16:10 de la Galaxy Tab A9+ */
     .app-container {
       width: 100%;
       max-width: 1240px;
       display: flex;
       flex-direction: column;
       gap: 12px;
-      z-index: 1;
     }
 
     /* ==========================================================================
-       CABECERA COMPACTA TÁCTIL (CON PROGRESO Y MEDALLAS INTEGRADAS)
+       BARRA SUPERIOR DEL SIMULADOR OLÍMPICO
        ========================================================================== */
-    .tablet-header {
+    .top-bar {
       background: var(--card-bg);
-      border-radius: 20px;
+      border-radius: 18px;
       padding: 10px 18px;
-      box-shadow: var(--shadow-soft);
-      border: 3px solid #DCEBFF;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .header-top-row {
+      box-shadow: var(--shadow-card);
+      border: 2px solid #CBD5E1;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -96,211 +88,296 @@
       flex-wrap: wrap;
     }
 
-    .brand-title {
+    .brand-block {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .brand-icon {
+    .brand-logo {
       width: 44px;
       height: 44px;
-      border-radius: 13px;
-      background: linear-gradient(135deg, var(--deep-blue), var(--sky-blue));
-      color: white;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--deep-indigo), var(--primary-blue));
+      color: #FDE047;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.35rem;
-      box-shadow: 0 4px 10px rgba(67, 97, 238, 0.25);
     }
 
-    .brand-text h1 {
+    .brand-title h1 {
       font-family: 'Fredoka', sans-serif;
-      font-size: 1.25rem;
-      color: var(--deep-blue);
+      font-size: 1.2rem;
+      color: var(--deep-indigo);
       line-height: 1.1;
     }
 
-    .brand-text span {
-      font-size: 0.82rem;
+    .brand-title span {
+      font-size: 0.8rem;
       color: var(--text-muted);
       font-weight: 700;
     }
 
-    /* Barra central de progreso en la cabecera */
-    .progress-inline {
-      flex: 1;
-      min-width: 200px;
-      max-width: 380px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .progress-labels {
-      display: flex;
-      justify-content: space-between;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 0.88rem;
-      color: var(--text-muted);
-    }
-
-    .progress-track {
-      width: 100%;
-      height: 13px;
-      background: #E9F1FA;
-      border-radius: 20px;
-      padding: 2px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 5%;
-      background: linear-gradient(90deg, var(--sky-blue), var(--apple-green));
-      border-radius: 20px;
-      transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    /* Estadísticas y controles (Racha, Puntos, Pantalla Completa, Sonido) */
-    .stats-bar {
+    .top-actions {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .stat-pill {
-      display: flex;
+    .btn-menu-return {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 11px;
+      border: 2px solid #CBD5E1;
+      background: #F8FAFC;
+      color: var(--text-main);
+      cursor: pointer;
+      display: none;
       align-items: center;
       gap: 6px;
-      padding: 6px 13px;
-      border-radius: 50px;
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 600;
-      font-size: 0.95rem;
-      height: 40px;
     }
 
-    .score-pill {
-      background: #FFF3B0;
-      color: #B4690E;
-      border: 2px solid var(--fun-yellow);
+    .btn-menu-return:active {
+      background: #E2E8F0;
     }
 
-    .streak-pill {
-      background: #FFE4E6;
-      color: #BE123C;
-      border: 2px solid #FDA4AF;
-    }
-
-    .icon-action-btn {
-      background: #F0F4FF;
-      border: 2px solid #D0E0FF;
-      color: var(--deep-blue);
+    .icon-btn {
       width: 42px;
       height: 42px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 1.05rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.15s, background 0.15s;
-    }
-
-    .icon-action-btn:active {
-      transform: scale(0.93);
-      background: #DCEBFF;
-    }
-
-    /* Fila de las 6 medallas temáticas */
-    .medals-row {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 6px;
-    }
-
-    .medal-badge {
+      border-radius: 11px;
+      border: 2px solid #CBD5E1;
       background: #F8FAFC;
-      border: 2px dashed #CBD5E1;
-      border-radius: 10px;
-      padding: 5px 6px;
+      color: var(--primary-blue);
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: #94A3B8;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 1.05rem;
     }
-
-    .medal-badge.active {
-      border-style: solid;
-      border-color: var(--sky-blue);
-      background: #EBF8FF;
-      color: var(--deep-blue);
-    }
-
-    .medal-badge.earned {
-      border-style: solid;
-      border-color: var(--apple-green);
-      background: #E6FFFA;
-      color: #047857;
-    }
-
-    .medal-badge.earned i { color: #F59E0B; }
 
     /* ==========================================================================
-       TARJETA DE PREGUNTA: DISEÑO DIVIDIDO EN 2 COLUMNAS PARA TABLET HORIZONTAL
-       (Galaxy Tab A9+ Landscape: ~1280x800 CSS px -> Sin necesidad de scroll)
+       1. MENÚ INTERACTIVO DE SELECCIÓN DE MÓDULOS (PANTALLA INICIAL)
        ========================================================================== */
-    .question-card {
+    .menu-screen {
       background: var(--card-bg);
-      border-radius: var(--border-radius-lg);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      border: 3px solid #CBD5E1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .menu-hero {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .menu-hero .olymp-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FEF3C7;
+      color: #B45309;
+      border: 2px solid #FDE68A;
+      padding: 5px 14px;
+      border-radius: 50px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .menu-hero h2 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.65rem;
+      color: var(--deep-indigo);
+      margin-bottom: 6px;
+    }
+
+    .menu-hero p {
+      font-size: 0.96rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 820px) {
+      .modules-grid { grid-template-columns: 1fr; }
+    }
+
+    .module-card {
+      background: #F8FAFC;
+      border: 3px solid #CBD5E1;
+      border-radius: 18px;
+      padding: 18px 20px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s;
+      text-align: left;
+    }
+
+    .module-card:hover, .module-card:active {
+      transform: translateY(-3px);
+      border-color: var(--primary-blue);
+      background: #FFFFFF;
+      box-shadow: 0 8px 22px rgba(37, 99, 235, 0.14);
+    }
+
+    .module-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .module-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .module-card h3 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.18rem;
+      color: var(--deep-indigo);
+    }
+
+    .module-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.38;
+    }
+
+    .module-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 2px dashed #E2E8F0;
+      padding-top: 10px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.86rem;
+      color: var(--primary-blue);
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       2. PANTALLA DE EVALUACIÓN ACTIVA (OPTIMIZADA PARA GALAXY TAB A9+)
+       ========================================================================== */
+    .exam-screen {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .exam-screen.active {
+      display: flex;
+    }
+
+    /* Navegador rápido de las 10 preguntas del módulo */
+    .question-nav-strip {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 10px 16px;
+      border: 2px solid #CBD5E1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .q-pills-container {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .q-nav-pill {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 2px solid #CBD5E1;
+      background: #F8FAFC;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .q-nav-pill.current {
+      border-color: var(--primary-blue);
+      background: var(--primary-blue);
+      color: white;
+    }
+
+    .q-nav-pill.answered {
+      border-color: var(--emerald-ok);
+      background: #D1FAE5;
+      color: #065F46;
+    }
+
+    .finish-module-btn {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, var(--emerald-ok), #059669);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #047857;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Tarjeta de la pregunta actual */
+    .question-workspace-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
       padding: 18px 22px;
-      box-shadow: var(--shadow-soft);
-      border: 4px solid #DCEBFF;
+      box-shadow: var(--shadow-card);
+      border: 3px solid #CBD5E1;
       display: flex;
       flex-direction: column;
       gap: 14px;
     }
 
-    /* Enunciado superior a todo lo ancho */
-    .question-header-block {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      border-bottom: 2px solid #F1F5F9;
-      padding-bottom: 10px;
-    }
-
-    .badges-top {
+    .q-meta-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
       flex-wrap: wrap;
+      border-bottom: 2px solid #F1F5F9;
+      padding-bottom: 8px;
     }
 
-    .topic-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 4px 12px;
-      border-radius: 50px;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      background: #EEF2FF;
-      color: var(--deep-blue);
-    }
-
-    .mode-tag {
+    .q-type-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -308,1914 +385,1902 @@
       border-radius: 50px;
       font-family: 'Fredoka', sans-serif;
       font-size: 0.82rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    .mode-tag.input-mode {
-      background: #FEF3C7;
-      color: #B45309;
-      border: 2px solid #FDE68A;
-    }
+    .type-A { background: #DBEAFE; color: #1E40AF; }
+    .type-B { background: #F3E8FF; color: #6B21A8; }
+    .type-C { background: #FEF3C7; color: #92400E; }
+    .type-D { background: #FCE7F3; color: #9D174D; }
 
-    .mode-tag.choice-mode {
-      background: #E0F2FE;
-      color: #0369A1;
-      border: 2px solid #BAE6FD;
-    }
-
-    .question-title {
+    .q-title {
       font-family: 'Fredoka', sans-serif;
-      font-size: 1.3rem;
-      color: var(--text-dark);
-      line-height: 1.25;
+      font-size: 1.22rem;
+      color: var(--text-main);
+      line-height: 1.32;
     }
 
-    .question-instruction {
-      font-size: 0.95rem;
+    .q-instruction {
+      font-size: 0.92rem;
       color: var(--text-muted);
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    /* Cuerpo principal dividido en 2 paneles en Tablet Horizontal */
-    .tablet-split-workspace {
+    /* División en 2 Columnas para Tablet Horizontal (1280x800) */
+    .tablet-split {
       display: grid;
-      grid-template-columns: 1.05fr 1fr;
+      grid-template-columns: 1.08fr 1fr;
       gap: 18px;
       align-items: stretch;
     }
 
-    /* Adaptación a Tablet Vertical (Portrait ~800x1280) y pantallas menores */
     @media (max-width: 900px) {
-      .tablet-split-workspace {
-        grid-template-columns: 1fr;
-      }
-      .medals-row {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      .tablet-split { grid-template-columns: 1fr; }
     }
 
-    /* ==========================================================================
-       PANEL IZQUIERDO: ESCENARIO GRÁFICO INTERACTIVO
-       ========================================================================== */
-    .visual-stage {
-      background: linear-gradient(180deg, #F8FBFF 0%, #F0F7FF 100%);
-      border: 3px solid #D8E8FF;
-      border-radius: 20px;
+    /* Escenario Izquierdo: Diagrama ASCII / Matriz de Puntos / SVG Técnico */
+    .diagram-stage {
+      background: #0F172A;
+      color: #F8FAFC;
+      border: 3px solid #334155;
+      border-radius: 18px;
       padding: 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 290px;
+      min-height: 270px;
+      overflow-x: auto;
     }
 
-    .stage-controls {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 10px;
-    }
-
-    .mini-btn {
-      font-family: 'Fredoka', sans-serif;
-      font-size: 0.92rem;
-      min-height: 44px; /* Altura mínima táctil recomendada */
-      padding: 8px 16px;
-      border-radius: 12px;
-      border: 2.5px solid var(--deep-blue);
-      background: white;
-      color: var(--deep-blue);
-      cursor: pointer;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 3px 0 #CBD5E1;
-    }
-
-    .mini-btn:active {
-      transform: translateY(2px);
-      background: var(--deep-blue);
-      color: white;
-    }
-
-    /* Cubo 3D interactivo CSS */
-    .scene-3d {
-      width: 145px;
-      height: 145px;
-      perspective: 550px;
-      margin: 14px auto;
-    }
-    .cube-3d {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      transform: rotateX(-24deg) rotateY(-38deg);
-      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .cube-face {
-      position: absolute;
-      width: 145px;
-      height: 145px;
-      border: 3px solid #1E293B;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #1E293B;
-      opacity: 0.88;
-    }
-    .cube-face.front  { background: rgba(76, 201, 240, 0.85); transform: rotateY(  0deg) translateZ(72.5px); }
-    .cube-face.back   { background: rgba(255, 209, 102, 0.85); transform: rotateY(180deg) translateZ(72.5px); }
-    .cube-face.right  { background: rgba(6, 214, 160, 0.85); transform: rotateY( 90deg) translateZ(72.5px); }
-    .cube-face.left   { background: rgba(255, 93, 143, 0.85); transform: rotateY(-90deg) translateZ(72.5px); }
-    .cube-face.top    { background: rgba(167, 139, 250, 0.85); transform: rotateX( 90deg) translateZ(72.5px); }
-    .cube-face.bottom { background: rgba(255, 159, 28, 0.85); transform: rotateX(-90deg) translateZ(72.5px); }
-
-    /* ==========================================================================
-       PANEL DERECHO: OPCIONES MÚLTIPLES O CASILLAS + TECLADO TÁCTIL INTEGRADO
-       ========================================================================== */
-    .interaction-panel {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    /* Opciones Múltiples Táctiles */
-    .options-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-      height: 100%;
-      justify-content: center;
-    }
-
-    .option-btn {
-      background: #FFFFFF;
-      border: 3px solid #D0E2FF;
-      border-radius: 16px;
-      min-height: 60px;
-      padding: 12px 16px;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.06rem;
-      color: var(--text-dark);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-align: left;
-      box-shadow: 0 5px 0 #D0E2FF;
-      transition: transform 0.12s, background 0.15s;
-    }
-
-    .option-btn:active:not(:disabled) {
-      transform: translateY(3px);
-      box-shadow: 0 2px 0 #BAE6FD;
-    }
-
-    .option-letter {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
-      background: #EEF4FF;
-      color: var(--deep-blue);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-
-    .option-btn.correct {
-      background: #D1FAE5;
-      border-color: var(--apple-green);
-      box-shadow: 0 4px 0 #059669;
-      color: #065F46;
-    }
-    .option-btn.correct .option-letter { background: var(--apple-green); color: white; }
-
-    .option-btn.wrong {
-      background: #FFE4E6;
-      border-color: var(--berry-pink);
-      box-shadow: 0 4px 0 #E11D48;
-      color: #9F1239;
-    }
-    .option-btn.wrong .option-letter { background: var(--berry-pink); color: white; }
-
-    /* ==========================================================================
-       ZONA DE RESPUESTA ESCRITA + TECLADO NUMÉRICO TÁCTIL (EVITA TECLADO ANDROID)
-       ========================================================================== */
-    .written-answer-zone {
+    .diagram-stage.light-stage {
       background: #F8FAFC;
-      border: 3px solid #D8E8FF;
-      border-radius: 20px;
+      color: var(--text-main);
+      border-color: #CBD5E1;
+    }
+
+    .ascii-blueprint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.86rem;
+      line-height: 1.35;
+      white-space: pre;
+      color: #38BDF8;
+      text-align: left;
+      padding: 6px;
+    }
+
+    /* Escenario Derecho: Controles de Respuesta y Teclado Numérico Táctil */
+    .answer-stage {
+      background: #F8FAFC;
+      border: 2.5px solid #CBD5E1;
+      border-radius: 18px;
       padding: 14px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      height: 100%;
       justify-content: space-between;
+      gap: 12px;
     }
 
-    .inputs-wrapper {
+    .fields-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       justify-content: center;
-      width: 100%;
     }
 
-    .coord-input-card {
+    .input-group-box {
       background: white;
-      border: 2.5px solid #CBD5E1;
-      border-radius: 14px;
+      border: 2.5px solid #94A3B8;
+      border-radius: 12px;
       padding: 8px 12px;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 8px;
       font-family: 'Fredoka', sans-serif;
-      font-size: 1.15rem;
+      font-size: 1rem;
       font-weight: 700;
-      color: var(--text-dark);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04);
     }
 
-    .coord-input-card.field-ok {
-      border-color: var(--apple-green);
-      background: #ECFDF5;
-    }
-
-    .coord-input-card.field-err {
-      border-color: var(--berry-pink);
-      background: #FFF1F2;
-      animation: shakeError 0.4s ease;
-    }
-
-    .point-badge {
-      padding: 4px 9px;
-      border-radius: 8px;
-      color: white;
-      font-size: 0.92rem;
-      margin-right: 2px;
-    }
-
-    /* Casilla táctil interactiva (sin disparar el teclado flotante de Android) */
-    .touch-num-box {
-      min-width: 54px;
-      height: 44px;
-      padding: 0 8px;
-      border: 2.5px solid #94A3B8;
-      border-radius: 10px;
+    .touch-input-display {
+      min-width: 78px;
+      height: 42px;
+      padding: 0 10px;
+      border: 2.5px solid #64748B;
+      border-radius: 9px;
       background: #FFFFFF;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.25rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.15rem;
       font-weight: 700;
-      color: var(--deep-blue);
+      color: var(--primary-blue);
       cursor: pointer;
-      transition: all 0.15s;
     }
 
-    .touch-num-box.wide-box {
-      min-width: 82px;
+    .touch-input-display.active-field {
+      border-color: var(--primary-blue);
+      background: #EFF6FF;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.22);
     }
 
-    .touch-num-box.empty-placeholder {
-      color: #94A3B8;
-      font-weight: 600;
+    .unit-tag {
+      background: #E2E8F0;
+      color: #334155;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.88rem;
     }
 
-    /* Resaltado de la casilla activa seleccionada con el dedo */
-    .touch-num-box.active-box {
-      border-color: var(--deep-blue);
-      background: #EEF4FF;
-      box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.25);
-      transform: scale(1.04);
-    }
-
-    .touch-num-box.locked-box {
-      background: #D1FAE5;
-      border-color: #059669;
-      color: #065F46;
-      cursor: default;
-    }
-
-    /* Teclado Numérico Táctil en Pantalla para Niños (Especial para Galaxy Tab A9+) */
-    .tablet-numpad {
-      width: 100%;
-      max-width: 440px;
+    /* Teclado Numérico Táctil Olímpico (Incluye Punto Decimal '.' y Signo '-') */
+    .olymp-numpad {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 7px;
+      gap: 6px;
       background: #E2E8F0;
-      padding: 9px;
-      border-radius: 16px;
+      padding: 8px;
+      border-radius: 14px;
     }
 
-    .numpad-key {
-      min-height: 48px;
+    .num-key {
+      min-height: 46px;
       border: none;
-      border-radius: 11px;
-      background: #FFFFFF;
-      color: var(--text-dark);
+      border-radius: 10px;
+      background: white;
       font-family: 'Fredoka', sans-serif;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
+      color: var(--text-main);
       cursor: pointer;
       box-shadow: 0 3px 0 #94A3B8;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.08s, background 0.12s;
     }
 
-    .numpad-key:active {
+    .num-key:active {
       transform: translateY(2px);
       box-shadow: 0 1px 0 #94A3B8;
-      background: #E0F2FE;
+      background: #DBEAFE;
     }
 
-    .numpad-key.key-del {
+    .num-key.k-special {
+      background: #FEF3C7;
+      color: #B45309;
+    }
+
+    .num-key.k-del {
       background: #FFE4E6;
       color: #BE123C;
-      font-size: 1.05rem;
     }
 
-    .numpad-key.key-next {
+    .num-key.k-next {
+      grid-column: span 2;
       background: #DBEAFE;
       color: #1D4ED8;
-      font-size: 0.95rem;
-      grid-column: span 2;
+      font-size: 0.92rem;
+      gap: 5px;
     }
 
-    .numpad-key.key-submit {
-      grid-column: span 4;
-      background: linear-gradient(135deg, var(--sunny-orange), #F77F00);
+    .num-key.k-save {
+      grid-column: span 2;
+      background: var(--primary-blue);
       color: white;
-      font-size: 1.1rem;
-      box-shadow: 0 3px 0 #B45309;
+      font-size: 0.95rem;
+      box-shadow: 0 3px 0 #1E3A8A;
+      gap: 6px;
+    }
+
+    /* Opciones para preguntas Tipo D (Multi-selección o V/F justificado) */
+    .complex-options-list {
+      display: flex;
+      flex-direction: column;
       gap: 8px;
     }
 
-    @keyframes shakeError {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-6px); }
-      50% { transform: translateX(6px); }
-      75% { transform: translateX(-4px); }
-    }
-
-    /* ==========================================================================
-       BARRA INFERIOR DE RETROALIMENTACIÓN Y BOTÓN SIGUIENTE
-       ========================================================================== */
-    .feedback-box {
-      display: none;
-      border-radius: 16px;
-      padding: 12px 18px;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .feedback-box.show { display: flex; }
-
-    .feedback-box.success {
-      background: #ECFDF5;
-      border: 3px solid var(--apple-green);
-      color: #065F46;
-    }
-
-    .feedback-box.retry {
-      background: #FFF1F2;
-      border: 3px solid var(--berry-pink);
-      color: #9F1239;
-    }
-
-    .feedback-content {
+    .check-option-row {
+      background: white;
+      border: 2.5px solid #CBD5E1;
+      border-radius: 12px;
+      padding: 10px 14px;
       display: flex;
       align-items: center;
       gap: 12px;
-      flex: 1;
-      min-width: 220px;
-    }
-
-    .feedback-icon { font-size: 1.85rem; }
-
-    .feedback-text h3 {
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.12rem;
-    }
-
-    .feedback-text p {
-      font-size: 0.92rem;
-      font-weight: 600;
-    }
-
-    .next-btn {
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      min-height: 50px;
-      padding: 12px 24px;
-      border-radius: 14px;
-      border: none;
-      background: linear-gradient(135deg, var(--deep-blue), var(--sky-blue));
-      color: white;
       cursor: pointer;
-      box-shadow: 0 4px 0 #2B44B8;
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      flex-shrink: 0;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: all 0.15s;
     }
 
-    .next-btn:active {
-      transform: translateY(2px);
+    .check-option-row.selected {
+      border-color: var(--primary-blue);
+      background: #EFF6FF;
+      color: #1E3A8A;
     }
 
-    /* ==========================================================================
-       PANTALLA FINAL DE RESULTADOS
-       ========================================================================== */
-    .results-card {
-      display: none;
-      background: var(--card-bg);
-      border-radius: var(--border-radius-lg);
-      padding: 32px 24px;
-      text-align: center;
-      box-shadow: var(--shadow-soft);
-      border: 4px solid var(--fun-yellow);
-    }
-
-    .results-card.show { display: block; }
-
-    .trophy-circle {
-      width: 105px;
-      height: 105px;
-      margin: 0 auto 14px;
-      background: linear-gradient(135deg, #FFF3B0, #FFD166);
-      border-radius: 50%;
+    .check-box-indicator {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      border: 2.5px solid #64748B;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 3.4rem;
-      color: #D97706;
-    }
-
-    .results-title {
-      font-family: 'Fredoka', sans-serif;
-      font-size: 2rem;
-      color: var(--deep-blue);
-      margin-bottom: 6px;
-    }
-
-    .results-subtitle {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      max-width: 560px;
-      margin: 0 auto 20px;
-    }
-
-    .score-showcase {
-      display: inline-flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 18px;
-      background: #F8FAFC;
-      border: 3px solid #E2E8F0;
-      border-radius: 20px;
-      padding: 16px 26px;
-      margin-bottom: 22px;
-    }
-
-    .score-stat {
-      text-align: center;
-      padding: 0 12px;
-    }
-
-    .score-stat .big-num {
-      font-family: 'Fredoka', sans-serif;
-      font-size: 2.1rem;
-      color: var(--apple-green);
-      display: block;
-    }
-
-    .restart-btn {
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.18rem;
-      font-weight: 700;
-      min-height: 54px;
-      padding: 14px 32px;
-      border-radius: 16px;
-      border: none;
-      background: linear-gradient(135deg, var(--apple-green), #059669);
+      flex-shrink: 0;
+      background: white;
       color: white;
+    }
+
+    .check-option-row.selected .check-box-indicator {
+      background: var(--primary-blue);
+      border-color: var(--primary-blue);
+    }
+
+    /* Barra inferior de navegación entre preguntas 1 a 10 */
+    .question-footer-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 6px;
+    }
+
+    .nav-step-btn {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      min-height: 46px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: 2px solid #CBD5E1;
+      background: white;
+      color: var(--text-main);
       cursor: pointer;
-      box-shadow: 0 5px 0 #047857;
       display: inline-flex;
       align-items: center;
+      gap: 8px;
+    }
+
+    .nav-step-btn.primary {
+      background: var(--primary-blue);
+      border-color: var(--primary-blue);
+      color: white;
+    }
+
+    /* ==========================================================================
+       3. PANTALLA DE CALIFICACIÓN SOBRE 10 Y SOLUCIONARIO PASO A PASO
+       ========================================================================== */
+    .results-screen {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .results-screen.active {
+      display: flex;
+    }
+
+    .score-summary-banner {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      border: 3px solid var(--amber-gold);
+      text-align: center;
+    }
+
+    .grade-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+      border: 4px solid var(--amber-gold);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    .grade-circle strong {
+      font-size: 2.1rem;
+      color: #B45309;
+      line-height: 1;
+    }
+
+    .grade-circle span {
+      font-size: 0.8rem;
+      color: #92400E;
+    }
+
+    .review-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .review-item-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow-card);
+      border-left: 8px solid #CBD5E1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .review-item-card.review-ok {
+      border-left-color: var(--emerald-ok);
+    }
+
+    .review-item-card.review-fail {
+      border-left-color: var(--rose-err);
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .review-status-pill {
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .review-ok .review-status-pill {
+      background: #D1FAE5;
+      color: #065F46;
+    }
+
+    .review-fail .review-status-pill {
+      background: #FFE4E6;
+      color: #9F1239;
+    }
+
+    .comparison-boxes {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 4px 0;
+    }
+
+    .ans-pill {
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .ans-user {
+      background: #F1F5F9;
+      color: #334155;
+      border: 1.5px solid #CBD5E1;
+    }
+
+    .ans-expected {
+      background: #ECFDF5;
+      color: #047857;
+      border: 1.5px solid #6EE7B7;
+    }
+
+    .step-by-step-box {
+      background: #F8FAFC;
+      border: 2px dashed #CBD5E1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 0.92rem;
+      color: var(--text-main);
+      line-height: 1.45;
+    }
+
+    .step-by-step-box strong {
+      color: var(--primary-blue);
+      font-family: 'Fredoka', sans-serif;
     }
   </style>
 </head>
 <body>
 
   <main class="app-container">
-    <!-- CABECERA COMPACTA OPTIMIZADA PARA TABLET (Samsung Galaxy Tab A9+) -->
-    <header class="tablet-header" id="progressSection">
-      <div class="header-top-row">
+    <!-- BARRA SUPERIOR -->
+    <header class="top-bar">
+      <div class="brand-block">
+        <div class="brand-logo">
+          <i class="fa-solid fa-compass-drafting"></i>
+        </div>
         <div class="brand-title">
-          <div class="brand-icon">
-            <i class="fa-solid fa-tablet-screen-button"></i>
-          </div>
-          <div class="brand-text">
-            <h1>Geometría 5.° Primaria</h1>
-            <span>Edición Táctil · 20 Retos</span>
-          </div>
-        </div>
-
-        <!-- Barra de progreso integrada en la barra superior para ahorrar altura en 16:10 -->
-        <div class="progress-inline">
-          <div class="progress-labels">
-            <span id="questionCounterText">Pregunta 1 de 20</span>
-            <span id="progressPercentText">5%</span>
-          </div>
-          <div class="progress-track">
-            <div class="progress-fill" id="progressFill"></div>
-          </div>
-        </div>
-
-        <!-- Puntos, Racha, Pantalla Completa y Sonido -->
-        <div class="stats-bar">
-          <div class="stat-pill streak-pill" title="Racha sin errores">
-            <i class="fa-solid fa-fire"></i>
-            <b id="streakDisplay">0</b>
-          </div>
-          <div class="stat-pill score-pill" title="Puntos totales">
-            <i class="fa-solid fa-star"></i>
-            <span id="scoreDisplay">0</span>
-          </div>
-          <button id="fullscreenBtn" class="icon-action-btn" title="Pantalla Completa para Tablet">
-            <i class="fa-solid fa-expand" id="fullscreenIcon"></i>
-          </button>
-          <button id="soundToggleBtn" class="icon-action-btn" title="Sonido">
-            <i class="fa-solid fa-volume-high" id="soundIcon"></i>
-          </button>
+          <h1>Simulador Olímpico de Geometría y Medición</h1>
+          <span>Alto Rigor Cognitivo · Optimizado para Samsung Galaxy Tab A9+</span>
         </div>
       </div>
 
-      <!-- Medallas de los 6 bloques temáticos -->
-      <div class="medals-row" id="medalsRow"></div>
+      <div class="top-actions">
+        <button id="backToMenuBtn" class="btn-menu-return">
+          <i class="fa-solid fa-table-cells-large"></i>
+          <span>Cambiar Módulo</span>
+        </button>
+        <button id="fullscreenBtn" class="icon-btn" title="Pantalla Completa">
+          <i class="fa-solid fa-expand" id="fullscreenIcon"></i>
+        </button>
+      </div>
     </header>
 
-    <!-- TARJETA PRINCIPAL DE PREGUNTA (Diseño de 2 columnas en Tablet Horizontal) -->
-    <section class="question-card" id="questionCard">
-      <div class="question-header-block">
-        <div class="badges-top">
-          <div class="topic-tag" id="topicTag"></div>
-          <div class="mode-tag" id="modeTag"></div>
+    <!-- ======================================================================
+         1. MENÚ INTERACTIVO DE SELECCIÓN DE MÓDULO (INICIO)
+         ====================================================================== -->
+    <section class="menu-screen" id="menuScreen">
+      <div class="menu-hero">
+        <div class="olymp-pill">
+          <i class="fa-solid fa-medal"></i>
+          <span>Entrenamiento de Olimpiadas Matemáticas · Sin Adivinación al Azar</span>
         </div>
-        <h2 class="question-title" id="questionTitle"></h2>
-        <p class="question-instruction" id="questionInstruction"></p>
+        <h2>Selecciona el Módulo de Evaluación (10 Retos por Módulo)</h2>
+        <p>
+          Cada módulo combina 4 formatos de alto rigor: <b>Tipo A</b> (Cálculo Abierto Multipaso),
+          <b>Tipo B</b> (Análisis de Diagramas ASCII y Matrices), <b>Tipo C</b> (Problemas Inversos y Despeje Algebraico) y
+          <b>Tipo D</b> (Verdadero/Falso Demostrado y Selección Múltiple Compleja). Al finalizar recibirás tu nota sobre 10 y la solución paso a paso.
+        </p>
       </div>
 
-      <!-- Área dividida: Izquierda Gráfico | Derecha Respuestas / Teclado Táctil -->
-      <div class="tablet-split-workspace">
-        <div class="visual-stage" id="visualStage"></div>
-        <div class="interaction-panel" id="interactionContainer"></div>
-      </div>
-
-      <!-- Retroalimentación inmediata -->
-      <div class="feedback-box" id="feedbackBox">
-        <div class="feedback-content">
-          <div class="feedback-icon" id="feedbackIcon"></div>
-          <div class="feedback-text">
-            <h3 id="feedbackTitle"></h3>
-            <p id="feedbackMessage"></p>
+      <div class="modules-grid">
+        <!-- Módulo 1 -->
+        <button class="module-card" onclick="startModule(1)">
+          <div>
+            <div class="module-card-header">
+              <div class="module-icon" style="background: linear-gradient(135deg, #2563EB, #38BDF8);">
+                <i class="fa-solid fa-ruler-horizontal"></i>
+              </div>
+              <div>
+                <h3>Módulo 1: Medidas de Longitud y Conversión de Unidades</h3>
+              </div>
+            </div>
+            <p style="margin-top:10px;">
+              Conversiones encadenadas en el Sistema Métrico (km, hm, dam, m, dm, cm, mm) y Sistema Inglés (pulgadas, pies, yardas). Suma y resta de tramos heterogéneos y problemas inversos de escalas.
+            </p>
           </div>
-        </div>
-        <button class="next-btn" id="nextBtn" style="display: none;">
-          <span>Siguiente</span>
-          <i class="fa-solid fa-arrow-right"></i>
+          <div class="module-footer">
+            <span>10 Preguntas (Tipos A, B, C, D)</span>
+            <span>Iniciar Módulo 1 <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </button>
+
+        <!-- Módulo 2 -->
+        <button class="module-card" onclick="startModule(2)">
+          <div>
+            <div class="module-card-header">
+              <div class="module-icon" style="background: linear-gradient(135deg, #7C3AED, #A855F7);">
+                <i class="fa-solid fa-location-crosshairs"></i>
+              </div>
+              <div>
+                <h3>Módulo 2: Plano Cartesiano, Coordenadas y Movimientos</h3>
+              </div>
+            </div>
+            <p style="margin-top:10px;">
+              Coordenadas con decimales, deducción de vértices faltantes en paralelogramos y rombos inclinados, y transformaciones compuestas (traslación + rotación de 90° horario/antihorario + reflexión axial).
+            </p>
+          </div>
+          <div class="module-footer">
+            <span>10 Preguntas (Tipos A, B, C, D)</span>
+            <span>Iniciar Módulo 2 <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </button>
+
+        <!-- Módulo 3 -->
+        <button class="module-card" onclick="startModule(3)">
+          <div>
+            <div class="module-card-header">
+              <div class="module-icon" style="background: linear-gradient(135deg, #059669, #34D399);">
+                <i class="fa-solid fa-vector-square"></i>
+              </div>
+              <div>
+                <h3>Módulo 3: Áreas, Perímetros y Figuras Compuestas</h3>
+              </div>
+            </div>
+            <p style="margin-top:10px;">
+              Regiones sombreadas (círculo inscrito en cuadrado, rectángulo + semicírculo), cálculo de área desde el diámetro o plano cartesiano, lados escalonados ocultos (X) e igualación algebraica de perímetros.
+            </p>
+          </div>
+          <div class="module-footer">
+            <span>10 Preguntas (Tipos A, B, C, D)</span>
+            <span>Iniciar Módulo 3 <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </button>
+
+        <!-- Módulo 4 -->
+        <button class="module-card" onclick="startModule(4)">
+          <div>
+            <div class="module-card-header">
+              <div class="module-icon" style="background: linear-gradient(135deg, #D97706, #F59E0B);">
+                <i class="fa-solid fa-trophy"></i>
+              </div>
+              <div>
+                <h3>Módulo 4: Evaluación Integral de Olimpiada</h3>
+              </div>
+            </div>
+            <p style="margin-top:10px;">
+              10 retos de máxima dificultad que integran simultáneamente conversión de unidades, geometría analítica en el plano cartesiano, transformaciones rígidas y áreas sombreadas compuestas.
+            </p>
+          </div>
+          <div class="module-footer">
+            <span>10 Preguntas de Máximo Rigor</span>
+            <span>Iniciar Módulo 4 <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
         </button>
       </div>
     </section>
 
-    <!-- PANTALLA FINAL DE RESULTADOS -->
-    <section class="results-card" id="resultsCard">
-      <div class="trophy-circle">
-        <i class="fa-solid fa-trophy"></i>
-      </div>
-      <h2 class="results-title" id="finalTitle">¡Examen Completado!</h2>
-      <p class="results-subtitle" id="finalMessage"></p>
-
-      <div class="score-showcase">
-        <div class="score-stat">
-          <strong class="big-num" id="finalScoreNum">0</strong>
-          <span>Puntos Totales (Máx 2000)</span>
+    <!-- ======================================================================
+         2. PANTALLA DE EXAMEN ACTIVO (10 PREGUNTAS DEL MÓDULO)
+         ====================================================================== -->
+    <section class="exam-screen" id="examScreen">
+      <!-- Tira de navegación 1 al 10 -->
+      <div class="question-nav-strip">
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <strong id="activeModuleName" style="font-family:'Fredoka'; color:var(--deep-indigo); font-size:0.98rem;">Módulo</strong>
+          <div class="q-pills-container" id="qPillsContainer"></div>
         </div>
-        <div class="score-stat">
-          <strong class="big-num" id="finalGradeNum">20 / 20</strong>
-          <span>Nota Equivalente</span>
-        </div>
-        <div class="score-stat">
-          <strong class="big-num" id="finalFirstTryNum">0 / 20</strong>
-          <span>Al 1.er Intento</span>
-        </div>
-      </div>
-
-      <div>
-        <button class="restart-btn" id="restartBtn">
-          <i class="fa-solid fa-rotate-right"></i>
-          <span>Reiniciar los 20 Retos</span>
+        <button class="finish-module-btn" id="gradeModuleBtn">
+          <i class="fa-solid fa-clipboard-check"></i>
+          <span>Entregar y Calificar ( / 10)</span>
         </button>
       </div>
+
+      <!-- Tarjeta dividida en 2 columnas para Tablet -->
+      <div class="question-workspace-card">
+        <div class="q-meta-row">
+          <span class="q-type-badge" id="qTypeBadge">Tipo A</span>
+          <span id="qNumberLabel" style="font-family:'Fredoka'; font-weight:700; color:var(--text-muted);">Pregunta 1 de 10</span>
+        </div>
+
+        <h2 class="q-title" id="qTitle"></h2>
+        <p class="q-instruction" id="qInstruction"></p>
+
+        <div class="tablet-split">
+          <!-- Columna Izquierda: Representación Gráfica / ASCII / Coordenadas -->
+          <div class="diagram-stage" id="diagramStage"></div>
+
+          <!-- Columna Derecha: Entrada Analítica/Numérica o Selección Compleja -->
+          <div class="answer-stage" id="answerStage"></div>
+        </div>
+
+        <div class="question-footer-nav">
+          <button class="nav-step-btn" id="prevQBtn">
+            <i class="fa-solid fa-arrow-left"></i> Anterior
+          </button>
+          <span id="savedStatusText" style="font-size:0.88rem; font-weight:700; color:var(--emerald-ok);"></span>
+          <button class="nav-step-btn primary" id="nextQBtn">
+            Siguiente <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         3. PANTALLA DE RESULTADOS SOBRE 10 Y SOLUCIONARIO PASO A PASO
+         ====================================================================== -->
+    <section class="results-screen" id="resultsScreen">
+      <div class="score-summary-banner">
+        <div class="grade-circle">
+          <strong id="finalGradeNumber">0 / 10</strong>
+          <span>Calificación</span>
+        </div>
+        <h2 id="finalResultTitle" style="font-family:'Fredoka'; font-size:1.7rem; color:var(--deep-indigo); margin-bottom:6px;"></h2>
+        <p id="finalResultSubtitle" style="color:var(--text-muted); max-width:650px; margin:0 auto 16px;"></p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <button class="nav-step-btn primary" onclick="returnToMenu()">
+            <i class="fa-solid fa-table-cells-large"></i> Elegir Otro Módulo
+          </button>
+          <button class="nav-step-btn" onclick="retryCurrentModule()">
+            <i class="fa-solid fa-rotate-right"></i> Reintentar Este Módulo
+          </button>
+        </div>
+      </div>
+
+      <h3 style="font-family:'Fredoka'; font-size:1.3rem; color:var(--deep-indigo); padding-left:6px;">
+        <i class="fa-solid fa-book-open-reader"></i> Solucionario Matemático Paso a Paso:
+      </h3>
+      <div class="review-list" id="reviewList"></div>
     </section>
   </main>
 
   <script>
     /* ==========================================================================
-       MODO PANTALLA COMPLETA (IDEAL PARA SAMSUNG GALAXY TAB A9+) Y SONIDO
+       PANTALLA COMPLETA PARA TABLET
        ========================================================================== */
-    const fullscreenBtn = document.getElementById('fullscreenBtn');
-    const fullscreenIcon = document.getElementById('fullscreenIcon');
-
-    fullscreenBtn.addEventListener('click', () => {
-      playSound('click');
+    document.getElementById('fullscreenBtn').addEventListener('click', () => {
+      const icon = document.getElementById('fullscreenIcon');
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch(() => {});
-        fullscreenIcon.className = 'fa-solid fa-compress';
+        icon.className = 'fa-solid fa-compress';
       } else {
         document.exitFullscreen().catch(() => {});
-        fullscreenIcon.className = 'fa-solid fa-expand';
+        icon.className = 'fa-solid fa-expand';
       }
     });
 
-    let soundEnabled = true;
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    let audioCtx = null;
-
-    function playSound(type) {
-      if (!soundEnabled) return;
-      try {
-        if (!audioCtx) audioCtx = new AudioCtx();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const now = audioCtx.currentTime;
-
-        if (type === 'success') {
-          [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(freq, now + idx * 0.08);
-            gain.gain.setValueAtTime(0.16, now + idx * 0.08);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.22);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start(now + idx * 0.08);
-            osc.stop(now + idx * 0.08 + 0.22);
-          });
-        } else if (type === 'retry') {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(290, now);
-          osc.frequency.linearRampToValueAtTime(210, now + 0.25);
-          gain.gain.setValueAtTime(0.15, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start(now);
-          osc.stop(now + 0.28);
-        } else if (type === 'click') {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(600, now);
-          gain.gain.setValueAtTime(0.08, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start(now);
-          osc.stop(now + 0.05);
-        }
-      } catch (e) {}
-    }
-
-    document.getElementById('soundToggleBtn').addEventListener('click', () => {
-      soundEnabled = !soundEnabled;
-      document.getElementById('soundIcon').className =
-        soundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
-      if (soundEnabled) playSound('click');
-    });
-
     /* ==========================================================================
-       GENERADOR DE PLANOS CARTESIANOS SVG (Escala 0 a 6)
+       BASE DE DATOS RIGUROSA: 4 MÓDULOS × 10 PREGUNTAS = 40 RETOS OLÍMPICOS
+       Cada módulo incluye obligatoriamente preguntas Tipo A, Tipo B, Tipo C y Tipo D.
        ========================================================================== */
-    function buildCartesianGridSVG(points = [], polygons = [], extraSVG = '') {
-      let lines = '';
-      for (let i = 1; i <= 6; i++) {
-        const x = 55 + i * 40;
-        const y = 225 - i * 30;
-        lines += `<line x1="${x}" y1="25" x2="${x}" y2="225" stroke="#E2E8F0" stroke-width="1.5" />`;
-        lines += `<text x="${x - 4}" y="244" font-family="Fredoka" font-size="13" fill="#334155" font-weight="bold">${i}</text>`;
-        lines += `<line x1="55" y1="${y}" x2="310" y2="${y}" stroke="#E2E8F0" stroke-width="1.5" />`;
-        lines += `<text x="36" y="${y + 5}" font-family="Fredoka" font-size="13" fill="#334155" font-weight="bold">${i}</text>`;
+    const MODULES_DB = {
+      // ========================================================================
+      // MÓDULO 1: MEDIDAS DE LONGITUD Y CONVERSIÓN DE UNIDADES (10 PREGUNTAS)
+      // ========================================================================
+      1: {
+        title: "Módulo 1: Medidas de Longitud y Conversión de Unidades",
+        questions: [
+          {
+            id: "M1-Q1",
+            type: "A",
+            typeLabel: "Tipo A · Cálculo Abierto Multipaso",
+            title: "1. Un dron de topografía recorre tres tramos rectos: el primero de 1.45 km, el segundo de 8.5 hm y el tercero de 3200 dm. ¿Cuántos METROS (m) recorrió en total?",
+            instruction: "Convierte cada tramo a metros (m) y escribe la suma total exacta.",
+            diagramType: "ascii",
+            diagram:
+`  [Inicio] ─── 1.45 km ───► (P1) ─── 8.5 hm ───► (P2) ─── 3200 dm ───► [Meta]
+  
+  Escala Métrica:
+  1 km = 1000 m   |   1 hm = 100 m   |   1 m = 10 dm`,
+            inputs: [{ label: "Distancia Total", unit: "m", expected: 2620, tolerance: 0.01 }],
+            solution: "1) 1.45 km × 1000 = 1450 m.\n2) 8.5 hm × 100 = 850 m.\n3) 3200 dm ÷ 10 = 320 m.\n4) Total = 1450 m + 850 m + 320 m = 2620 m."
+          },
+          {
+            id: "M1-Q2",
+            type: "B",
+            typeLabel: "Tipo B · Análisis de Diagrama ASCII",
+            title: "2. Analiza el plano en texto de una viga escalonada. Extrae las medidas del dibujo y calcula cuánto mide el tramo oculto X en CENTÍMETROS (cm).",
+            instruction: "Observa que el largo total inferior es 3.2 m y los dos escalones superiores están dados en dm y mm.",
+            diagramType: "ascii",
+            diagram:
+`       |◄──── 14 dm ────►|◄── 650 mm ──►|◄──── X (cm) ────►|
+       +-----------------+--------------+------------------+
+       |                 |              |                  |
+       +-----------------+--------------+------------------+
+       |◄───────────────────── 3.2 m ─────────────────────►|`,
+            inputs: [{ label: "Tramo oculto X", unit: "cm", expected: 115, tolerance: 0.01 }],
+            solution: "1) Convertimos todo a centímetros (cm):\n   • Total inferior: 3.2 m × 100 = 320 cm.\n   • Tramo 1: 14 dm × 10 = 140 cm.\n   • Tramo 2: 650 mm ÷ 10 = 65 cm.\n2) Despejamos X: 320 cm - (140 cm + 65 cm) = 320 - 205 = 115 cm."
+          },
+          {
+            id: "M1-Q3",
+            type: "C",
+            typeLabel: "Tipo C · Problema Inverso y Despeje",
+            title: "3. Se corta un cable de fibra óptica de 0.48 km en 3 rollos iguales de longitud L (en metros) y aún sobra un trozo de 6 dam. ¿Cuántos METROS (m) mide cada rollo L?",
+            instruction: "Plantea la ecuación 3·L + 6 dam = 0.48 km en metros y despeja L.",
+            diagramType: "ascii",
+            diagram:
+`  |◄──── Rollo L ────►|◄──── Rollo L ────►|◄──── Rollo L ────►|◄─ 6 dam ─►|
+  |═══════════════════|═══════════════════|═══════════════════|═══════════|
+  |◄────────────────────────── Total: 0.48 km ───────────────────────────►|`,
+            inputs: [{ label: "Longitud de cada rollo L", unit: "m", expected: 140, tolerance: 0.01 }],
+            solution: "1) Convertimos a metros: 0.48 km = 480 m, y 6 dam = 60 m.\n2) Ecuación: 3·L + 60 = 480  ⇒  3·L = 420  ⇒  L = 420 ÷ 3 = 140 m."
+          },
+          {
+            id: "M1-Q4",
+            type: "A",
+            typeLabel: "Tipo A · Sistema Inglés de Unidades",
+            title: "4. Un tablón de madera importado mide 4 yardas (yd) y 2 pies (ft) de largo. Si se cortan 30 pulgadas (in), ¿cuántas PULGADAS (in) quedan?",
+            instruction: "Usa las equivalencias: 1 yarda = 3 pies, y 1 pie = 12 pulgadas.",
+            diagramType: "ascii",
+            diagram:
+`  Equivalencias Sistema Inglés:
+  • 1 yarda (yd) = 3 pies (ft) = 36 pulgadas (in)
+  • 1 pie (ft)   = 12 pulgadas (in)
+  
+  Tablón inicial: [ 4 yd + 2 ft ]  ──(Se cortan 30 in)──►  ¿Restante en in?`,
+            inputs: [{ label: "Longitud restante", unit: "in", expected: 138, tolerance: 0.01 }],
+            solution: "1) 4 yd × 36 in/yd = 144 in.\n2) 2 ft × 12 in/ft = 24 in.\n3) Largo inicial = 144 + 24 = 168 in.\n4) Restamos el corte: 168 in - 30 in = 138 in."
+          },
+          {
+            id: "M1-Q5",
+            type: "B",
+            typeLabel: "Tipo B · Análisis de Diagrama Escalonado",
+            title: "5. Observa el perfil de una escalera industrial. Si todos los escalones tienen la misma altura h (en mm), extrae los datos del diagrama y calcula h.",
+            instruction: "Fíjate que la plataforma superior está a 1.35 m del suelo y la base de concreto mide 1.5 dm.",
+            diagramType: "ascii",
+            diagram:
+`                        +─────────── Plataforma Superior (a 1.35 m del suelo)
+                    +───|  ↕ h
+                +───|  ↕ h
+            +───|  ↕ h
+        +───|  ↕ h  (4 escalones idénticos de altura h)
+  +─────+───────────────────────────
+  | Base de concreto: 1.5 dm de alto
+  +───────────────────────────────── Suelo (0 m)`,
+            inputs: [{ label: "Altura h de cada escalón", unit: "mm", expected: 300, tolerance: 0.01 }],
+            solution: "1) Convertimos a milímetros (mm):\n   • Altura total = 1.35 m × 1000 = 1350 mm.\n   • Base de concreto = 1.5 dm × 100 = 150 mm.\n2) Altura de los 4 escalones = 1350 - 150 = 1200 mm.\n3) Cada escalón mide h = 1200 ÷ 4 = 300 mm."
+          },
+          {
+            id: "M1-Q6",
+            type: "D",
+            typeLabel: "Tipo D · Selección Múltiple Compleja (Marca TODAS las verdaderas)",
+            title: "6. Analiza las siguientes 4 igualdades de conversión de unidades y selecciona ÚNICAMENTE todas las afirmaciones que sean VERDADERAS.",
+            instruction: "¡Atención! Para obtener el punto debes marcar todas las verdaderas y ninguna falsa.",
+            diagramType: "ascii",
+            diagram:
+`  Verifica cada cálculo antes de marcar:
+  (I)   2.5 km + 45 dam = 2950 m
+  (II)  5 yardas + 2 pies = 204 pulgadas (1 yd = 3 ft, 1 ft = 12 in)
+  (III) 0.08 hm - 35 dm = 45 m
+  (IV)  4200 mm + 180 cm = 6 m`,
+            options: [
+              { id: "I", text: "(I) 2.5 km + 45 dam = 2950 m", correct: true },
+              { id: "II", text: "(II) 5 yardas + 2 pies = 204 pulgadas", correct: true },
+              { id: "III", text: "(III) 0.08 hm - 35 dm = 45 m", correct: false },
+              { id: "IV", text: "(IV) 4200 mm + 180 cm = 6 m", correct: true }
+            ],
+            solution: "• (I) Verdadera: 2500 m + 450 m = 2950 m.\n• (II) Verdadera: 5 yd = 15 ft; 15 + 2 = 17 ft; 17 × 12 = 204 in.\n• (III) Falsa: 0.08 hm = 8 m y 35 dm = 3.5 m; 8 - 3.5 = 4.5 m (no 45 m).\n• (IV) Verdadera: 4.2 m + 1.8 m = 6 m."
+          },
+          {
+            id: "M1-Q7",
+            type: "C",
+            typeLabel: "Tipo C · Despeje de Escala y Unidades",
+            title: "7. En un mapa a escala, cada 2.5 cm dibujados representan 0.5 km reales. Si dos ciudades están separadas por 18 km reales, ¿cuántos MILÍMETROS (mm) las separan en el mapa?",
+            instruction: "Halla primero cuántos centímetros representa 1 km y luego convierte el resultado final a milímetros (mm).",
+            diagramType: "ascii",
+            diagram:
+`  Escala del Mapa:
+  [ 2.5 cm en papel ]  ◄══════►  [ 0.5 km en la realidad ]
+  [   ¿ ? mm papel  ]  ◄══════►  [ 18 km en la realidad  ]`,
+            inputs: [{ label: "Distancia en el mapa", unit: "mm", expected: 900, tolerance: 0.01 }],
+            solution: "1) Si 2.5 cm equivalen a 0.5 km, entonces 5 cm equivalen a 1 km.\n2) Para 18 km: 18 × 5 cm = 90 cm.\n3) Convertimos a milímetros: 90 cm × 10 = 900 mm."
+          },
+          {
+            id: "M1-Q8",
+            type: "A",
+            typeLabel: "Tipo A · Conversión Mixta Métrico-Inglés",
+            title: "8. Una tubería mide exactamente 100 pulgadas (in). Si sabemos que 1 pulgada = 2.54 cm, ¿cuántos DECÍMETROS (dm) mide la tubería?",
+            instruction: "Escribe el resultado exacto usando punto decimal (por ejemplo: 12.3).",
+            diagramType: "ascii",
+            diagram:
+`  Dato oficial: 1 in = 2.54 cm
+  Tubería = 100 in  ──►  ¿ cm ?  ──►  ¿ dm ? (Recuerda: 1 dm = 10 cm)`,
+            inputs: [{ label: "Longitud de la tubería", unit: "dm", expected: 25.4, tolerance: 0.05 }],
+            solution: "1) En centímetros: 100 in × 2.54 cm/in = 254 cm.\n2) Convertimos de cm a dm dividiendo entre 10: 254 ÷ 10 = 25.4 dm."
+          },
+          {
+            id: "M1-Q9",
+            type: "C",
+            typeLabel: "Tipo C · Problema Inverso de Perímetro con Unidades",
+            title: "9. El perímetro de un terreno rectangular es de 0.36 km. Si su largo mide 11 dam, ¿cuántos METROS (m) mide su ancho X?",
+            instruction: "Recuerda que el perímetro de un rectángulo es 2·Largo + 2·Ancho.",
+            diagramType: "ascii",
+            diagram:
+`                11 dam
+        +--------------------+
+        |                    |
+      X |   Perímetro Total  | X
+        |     = 0.36 km      |
+        +--------------------+
+                11 dam`,
+            inputs: [{ label: "Ancho X", unit: "m", expected: 70, tolerance: 0.01 }],
+            solution: "1) Perímetro en metros: 0.36 km × 1000 = 360 m.\n2) Largo en metros: 11 dam × 10 = 110 m.\n3) Dos largos suman: 2 × 110 = 220 m.\n4) Dos anchos suman: 360 - 220 = 140 m  ⇒  Ancho X = 140 ÷ 2 = 70 m."
+          },
+          {
+            id: "M1-Q10",
+            type: "D",
+            typeLabel: "Tipo D · Verdadero/Falso con Demostración Numérica",
+            title: "10. Afirmación: 'Un atleta que corre 35 hm + 120 dam + 4000 dm logra superar la meta de los 5 kilómetros'. Calcula cuántos metros recorrió en total y cuántos metros le faltan o sobran respecto a 5 km (5000 m).",
+            instruction: "Ingresa la distancia total recorrida en metros y la diferencia positiva respecto a 5000 m.",
+            diagramType: "ascii",
+            diagram:
+`  Tramo 1: 35 hm
+  Tramo 2: 120 dam
+  Tramo 3: 4000 dm
+  ────────────────────────────
+  Meta exigida: 5 km = 5000 m`,
+            inputs: [
+              { label: "Total recorrido", unit: "m", expected: 5100, tolerance: 0.01 },
+              { label: "Metros que superan la meta", unit: "m", expected: 100, tolerance: 0.01 }
+            ],
+            solution: "1) 35 hm = 3500 m.\n2) 120 dam = 1200 m.\n3) 4000 dm = 400 m.\n4) Suma total = 3500 + 1200 + 400 = 5100 m.\n5) Como 5100 m > 5000 m, la afirmación es VERDADERA y supera la meta por 100 m."
+          }
+        ]
+      },
+
+      // ========================================================================
+      // MÓDULO 2: PLANO CARTESIANO, COORDENADAS Y MOVIMIENTOS (10 PREGUNTAS)
+      // ========================================================================
+      2: {
+        title: "Módulo 2: Plano Cartesiano, Coordenadas y Movimientos en el Plano",
+        questions: [
+          {
+            id: "M2-Q1",
+            type: "B",
+            typeLabel: "Tipo B · Matriz de Coordenadas ASCII",
+            title: "1. Observa la matriz del plano cartesiano. Halla las coordenadas de A, B y C y calcula la suma (Xa + Xb + Xc) y la suma (Ya + Yb + Yc).",
+            instruction: "No confundas el eje horizontal X con el eje vertical Y.",
+            diagramType: "ascii",
+            diagram:
+`  Y ▲
+  6 | .   .   .   A   .   .
+  5 | .   B   .   .   .   .
+  4 | .   .   .   .   .   .
+  3 | .   .   .   .   .   .
+  2 | .   .   .   .   C   .
+  1 | .   .   .   .   .   .
+  0 +────────────────────────► X
+    0   1   2   3   4   5   6`,
+            inputs: [
+              { label: "Suma de abscisas (Xa+Xb+Xc)", unit: "u", expected: 11, tolerance: 0.01 },
+              { label: "Suma de ordenadas (Ya+Yb+Yc)", unit: "u", expected: 13, tolerance: 0.01 }
+            ],
+            solution: "1) Leemos del gráfico: A = (4, 6), B = (2, 5), C = (5, 2).\n2) Suma de X = 4 + 2 + 5 = 11.\n3) Suma de Y = 6 + 5 + 2 = 13."
+          },
+          {
+            id: "M2-Q2",
+            type: "C",
+            typeLabel: "Tipo C · Vértice Faltante en Paralelogramo Inclinado",
+            title: "2. Los puntos A(1, 1), B(5, 1) y C(7, 4) son tres vértices consecutivos de un paralelogramo ABCD. Deduce las coordenadas (Xd, Yd) del cuarto vértice D.",
+            instruction: "En un paralelogramo, el desplazamiento de A hacia B es idéntico al desplazamiento de D hacia C.",
+            diagramType: "ascii",
+            diagram:
+`  Y ▲
+  4 | .   .   D(?,?)──────────C(7,4)
+  3 | .   .  /               /
+  2 | .   . /               /
+  1 | .  A(1,1)──────────B(5,1)
+  0 +──────────────────────────────► X
+    0   1   2   3   4   5   6   7`,
+            inputs: [
+              { label: "Coordenada X de D", unit: "Xd", expected: 3, tolerance: 0.01 },
+              { label: "Coordenada Y de D", unit: "Yd", expected: 4, tolerance: 0.01 }
+            ],
+            solution: "1) La base AB es horizontal y mide 5 - 1 = 4 unidades.\n2) Por tanto, el lado superior DC también es horizontal a altura Y = 4 y mide 4 unidades.\n3) Xd = 7 - 4 = 3; Yd = 4. El vértice es D(3, 4)."
+          },
+          {
+            id: "M2-Q3",
+            type: "A",
+            typeLabel: "Tipo A · Coordenadas con Decimales (Punto Medio)",
+            title: "3. Un segmento une los puntos P(1.5, 2.5) y Q(6.5, 5.5). Calcula las coordenadas (Xm, Ym) del punto exactamente a la mitad del segmento.",
+            instruction: "El punto medio se obtiene promediando las X: (X1 + X2) ÷ 2, y promediando las Y: (Y1 + Y2) ÷ 2.",
+            diagramType: "ascii",
+            diagram:
+`  P(1.5, 2.5) ────────● M(Xm, Ym) ──────── Q(6.5, 5.5)
+  
+  Fórmula del Punto Medio:
+  Xm = (Xp + Xq) / 2       |       Ym = (Yp + Yq) / 2`,
+            inputs: [
+              { label: "Abscisa Xm", unit: "X", expected: 4, tolerance: 0.01 },
+              { label: "Ordenada Ym", unit: "Y", expected: 4, tolerance: 0.01 }
+            ],
+            solution: "1) Xm = (1.5 + 6.5) ÷ 2 = 8.0 ÷ 2 = 4.\n2) Ym = (2.5 + 5.5) ÷ 2 = 8.0 ÷ 2 = 4.\n3) El punto medio es M(4, 4)."
+          },
+          {
+            id: "M2-Q4",
+            type: "A",
+            typeLabel: "Tipo A · Transformación Compuesta (Doble Traslación)",
+            title: "4. El vértice de un dron está en R(2.5, 7). Primero aplica el vector de traslación T1(+4.5, -2.5) y luego T2(-3, +1.5). ¿En qué coordenada final (Xf, Yf) termina?",
+            instruction: "Suma algebraicamente los desplazamientos horizontales a X y los verticales a Y.",
+            diagramType: "ascii",
+            diagram:
+`  Inicio: R(2.5, 7)
+    ├──► 1.° Traslación T1: (X + 4.5 , Y - 2.5)
+    └──► 2.° Traslación T2: (X - 3.0 , Y + 1.5)
+  Final:  R''(Xf, Yf)`,
+            inputs: [
+              { label: "Coordenada final Xf", unit: "X", expected: 4, tolerance: 0.01 },
+              { label: "Coordenada final Yf", unit: "Y", expected: 6, tolerance: 0.01 }
+            ],
+            solution: "1) Tras T1: X' = 2.5 + 4.5 = 7; Y' = 7 - 2.5 = 4.5.\n2) Tras T2: Xf = 7 - 3 = 4; Yf = 4.5 + 1.5 = 6.\n3) Coordenada final: (4, 6)."
+          },
+          {
+            id: "M2-Q5",
+            type: "B",
+            typeLabel: "Tipo B · Rotación de 90° en Sentido Horario alrededor de un Pivote",
+            title: "5. Observa la bandera en forma de 'L' con pivote en O(2, 2) y punta superior en P(2, 6). Si toda la figura gira 90° en sentido HORARIO alrededor del pivote O(2, 2), ¿cuál será la nueva coordenada de la punta P'?",
+            instruction: "Observa cuánto mide el mástil vertical OP y hacia dónde apunta tras girar 90° como las agujas del reloj.",
+            diagramType: "ascii",
+            diagram:
+`  Y ▲
+  6 | .   P(2,6)══╗
+  5 | .   ║       ║
+  4 | .   ║   ───────► Giro 90° Horario (⟳)
+  3 | .   ║            alrededor de O(2,2)
+  2 | .   O(2,2)·······► ¿P'(Xp, Yp)?
+  1 | .   .   .   .   .   .
+  0 +────────────────────────► X
+    0   1   2   3   4   5   6`,
+            inputs: [
+              { label: "Nueva X de P'", unit: "X", expected: 6, tolerance: 0.01 },
+              { label: "Nueva Y de P'", unit: "Y", expected: 2, tolerance: 0.01 }
+            ],
+            solution: "1) El segmento OP es vertical hacia arriba y mide 6 - 2 = 4 unidades.\n2) Al girar 90° en sentido horario alrededor de O(2, 2), el segmento pasa a ser horizontal apuntando hacia la derecha.\n3) Por tanto, desde O(2, 2) sumamos 4 en X: P' = (2 + 4, 2) = (6, 2)."
+          },
+          {
+            id: "M2-Q6",
+            type: "A",
+            typeLabel: "Tipo A · Reflexión Axial + Traslación",
+            title: "6. Un punto M(2, 5) se refleja como en un espejo respecto a la recta vertical X = 6, obteniendo M'. Luego M' se traslada 2 unidades hacia abajo. ¿Cuáles son las coordenadas finales (Xf, Yf)?",
+            instruction: "Calcula primero a qué distancia está M(2, 5) del espejo X = 6 para hallar su reflejo al otro lado.",
+            diagramType: "ascii",
+            diagram:
+`                    Espejo (X = 6)
+                        |
+      M(2, 5) ──(4 u)──►|◄──(4 u)── M'(?, 5)
+                        |              │
+                        |              ▼ (Baja 2 u)
+                        |           Mf(Xf, Yf)`,
+            inputs: [
+              { label: "Coordenada Xf", unit: "X", expected: 10, tolerance: 0.01 },
+              { label: "Coordenada Yf", unit: "Y", expected: 3, tolerance: 0.01 }
+            ],
+            solution: "1) De X = 2 al espejo X = 6 hay 4 unidades de distancia.\n2) El punto reflejado M' está 4 unidades a la derecha del espejo: X' = 6 + 4 = 10, manteniendo Y' = 5 → M'(10, 5).\n3) Al bajar 2 unidades en Y: Yf = 5 - 2 = 3. Resultado final: (10, 3)."
+          },
+          {
+            id: "M2-Q7",
+            type: "C",
+            typeLabel: "Tipo C · Problema Inverso de Transformaciones",
+            title: "7. Después de trasladar un punto inicial A(Xo, Yo) 5 unidades a la derecha y 3 hacia abajo, y luego reflejarlo sobre el eje X (cambiando el signo de Y), se obtuvo el punto final (8, -4). ¿Cuál era el punto inicial A(Xo, Yo)?",
+            instruction: "Deshaz los pasos en orden inverso desde (8, -4) hasta regresar al inicio.",
+            diagramType: "ascii",
+            diagram:
+`  A(Xo, Yo) ──[+5 en X, -3 en Y]──► A'(?, ?) ──[Reflejo Eje X]──► Final (8, -4)`,
+            inputs: [
+              { label: "Abscisa inicial Xo", unit: "X", expected: 3, tolerance: 0.01 },
+              { label: "Ordenada inicial Yo", unit: "Y", expected: 7, tolerance: 0.01 }
+            ],
+            solution: "1) Antes del reflejo en el eje X, el punto A' tenía la misma X y el signo opuesto en Y: A' = (8, 4).\n2) Deshacemos la traslación (+5, -3) restando 5 en X y sumando 3 en Y:\n   • Xo = 8 - 5 = 3.\n   • Yo = 4 + 3 = 7.\n3) El punto original era A(3, 7)."
+          },
+          {
+            id: "M2-Q8",
+            type: "B",
+            typeLabel: "Tipo B · Deducción de Vértice en Rombo Simétrico",
+            title: "8. En el diagrama se muestran tres vértices de un rombo: A(4, 7) arriba, B(1, 4) a la izquierda y C(4, 1) abajo. Halla el vértice derecho D(Xd, Yd) y la suma de las dos diagonales del rombo.",
+            instruction: "Las diagonales de un rombo se cortan perpendicularmente en su punto medio.",
+            diagramType: "ascii",
+            diagram:
+`                A(4, 7)
+                  /│\\
+                 / │ \\
+        B(1, 4) ───┼─── D(Xd, Yd)
+                 \\ │ /
+                  \\│/
+                C(4, 1)`,
+            inputs: [
+              { label: "Abscisa Xd", unit: "X", expected: 7, tolerance: 0.01 },
+              { label: "Ordenada Yd", unit: "Y", expected: 4, tolerance: 0.01 },
+              { label: "Suma de las 2 diagonales", unit: "u", expected: 12, tolerance: 0.01 }
+            ],
+            solution: "1) El centro del rombo está en (4, 4). Como B(1, 4) está 3 unidades a la izquierda del centro, D está 3 unidades a la derecha: D = (4 + 3, 4) = (7, 4).\n2) Diagonal vertical AC = 7 - 1 = 6 u. Diagonal horizontal BD = 7 - 1 = 6 u.\n3) Suma de diagonales = 6 + 6 = 12 u."
+          },
+          {
+            id: "M2-Q9",
+            type: "D",
+            typeLabel: "Tipo D · Selección Múltiple Compleja (Marca TODAS las verdaderas)",
+            title: "9. Dado el triángulo con vértices A(1, 1), B(4, 1) y C(1, 5), selecciona TODAS las proposiciones que sean VERDADERAS.",
+            instruction: "Analiza las longitudes de los catetos y el efecto de trasladar o rotar el triángulo.",
+            diagramType: "ascii",
+            diagram:
+`  Y ▲
+  5 | C(1,5)
+  4 | │ \\
+  3 | │  \\
+  2 | │   \\
+  1 | A(1,1)───B(4,1)
+  0 +───────────────► X`,
+            options: [
+              { id: "A", text: "El cateto horizontal AB mide 3 u y el cateto vertical AC mide 4 u.", correct: true },
+              { id: "B", text: "Si el triángulo se traslada con T(2, 3), el nuevo vértice C' queda en (3, 8).", correct: true },
+              { id: "C", text: "Al rotar una figura 180°, su área se duplica.", correct: false },
+              { id: "D", text: "El área del triángulo ABC es (3 × 4) ÷ 2 = 6 u².", correct: true }
+            ],
+            solution: "• 1.ª Verdadera: AB = 4 - 1 = 3 u; AC = 5 - 1 = 4 u.\n• 2.ª Verdadera: C'(1 + 2, 5 + 3) = (3, 8).\n• 3.ª Falsa: Las rotaciones y traslaciones son movimientos rígidos (isometrías); conservan intactos el tamaño y el área.\n• 4.ª Verdadera: Área = (base × altura) / 2 = (3 × 4) / 2 = 6 u²."
+          },
+          {
+            id: "M2-Q10",
+            type: "D",
+            typeLabel: "Tipo D · Rotación Antihoraria de 90° alrededor del Origen",
+            title: "10. Cuando un punto (X, Y) gira 90° en sentido ANTIHORARIO alrededor del origen (0, 0), su nueva posición es (-Y, X). Si aplicamos este giro al punto Q(5, 3) y luego le sumamos (+6, +1), ¿qué punto final obtenemos?",
+            instruction: "Aplica primero la regla (-Y, X) a Q(5, 3) y luego suma el vector de traslación.",
+            diagramType: "ascii",
+            diagram:
+`  Regla de giro 90° Antihorario (⟲) desde (0,0):
+  (X, Y)  ───►  (-Y, X)
+  
+  Q(5, 3) ──[Giro 90° ⟲]──► Q'(?, ?) ──[+6 en X, +1 en Y]──► Final (Xf, Yf)`,
+            inputs: [
+              { label: "Coordenada final Xf", unit: "X", expected: 3, tolerance: 0.01 },
+              { label: "Coordenada final Yf", unit: "Y", expected: 6, tolerance: 0.01 }
+            ],
+            solution: "1) Al rotar Q(5, 3) 90° antihorario obtenemos Q'(-3, 5).\n2) Aplicamos la traslación (+6, +1): Xf = -3 + 6 = 3; Yf = 5 + 1 = 6.\n3) Punto final: (3, 6)."
+          }
+        ]
+      },
+
+      // ========================================================================
+      // MÓDULO 3: ÁREAS, PERÍMETROS Y FIGURAS COMPUESTAS (10 PREGUNTAS)
+      // ========================================================================
+      3: {
+        title: "Módulo 3: Áreas y Perímetros de Polígonos, Círculos y Figuras Compuestas",
+        questions: [
+          {
+            id: "M3-Q1",
+            type: "B",
+            typeLabel: "Tipo B · Deducción de Lados Ocultos en Polígono Escalonado",
+            title: "1. Analiza el plano del polígono en forma de 'L' e ingresa las medidas de los lados ocultos X e Y, así como el PERÍMETRO total y el ÁREA total.",
+            instruction: "Ningún dato está en el texto: debes extraer todas las medidas directamente del diagrama ASCII.",
+            diagramType: "ascii",
+            diagram:
+`                  18 cm
+      +───────────────────────────+
+      |                           |
+      |                           | 6 cm
+      |              Y            |
+  14  |            +──────────────+
+  cm  |            |
+      |            | 8 cm
+      |            |
+      +────────────+
+           X`,
+            inputs: [
+              { label: "Lado horizontal X", unit: "cm", expected: 18, tolerance: 999, hiddenCheck: true },
+              { label: "Perímetro Total", unit: "cm", expected: 64, tolerance: 0.01 },
+              { label: "Área Total", unit: "cm²", expected: 168, tolerance: 0.01 }
+            ],
+            // Nota: ajustamos inputs para pedir X, Y, Perímetro y Área claramente:
+            inputs: [
+              { label: "Lado inferior X (si Y=11 cm)", unit: "cm", expected: 7, tolerance: 0.01 },
+              { label: "Perímetro Total", unit: "cm", expected: 64, tolerance: 0.01 },
+              { label: "Área Total", unit: "cm²", expected: 164, tolerance: 0.01 }
+            ],
+            diagram:
+`                  18 cm
+      +───────────────────────────+
+      |                           |
+      |                           | 6 cm
+      |            11 cm          |
+  14  |            +──────────────+
+  cm  |            |
+      |            | 8 cm
+      |            |
+      +────────────+
+          X = ¿?`,
+            solution: "1) Lado oculto X: como el ancho superior es 18 cm y el escalón interior mide 11 cm, X = 18 - 11 = 7 cm.\n2) Perímetro Total = 18 + 6 + 11 + 8 + 7 + 14 = 64 cm.\n3) Área Total (dividiendo en dos rectángulos): Rectángulo superior (18 × 6 = 108 cm²) + Rectángulo inferior izquierdo (7 × 8 = 56 cm²) = 164 cm²."
+          },
+          {
+            id: "M3-Q2",
+            type: "A",
+            typeLabel: "Tipo A · Área Sombreada (Círculo Inscrito en Cuadrado)",
+            title: "2. Un círculo está perfectamente inscrito dentro de un cuadrado de lado 10 cm (el diámetro del círculo es 10 cm). Usando π = 3.14, calcula el ÁREA SOMBREADA de las 4 esquinas exteriores al círculo.",
+            instruction: "Resta el área del círculo al área del cuadrado: Área Sombreada = L² - π · r².",
+            diagramType: "svg",
+            svgContent: `
+              <svg viewBox="0 0 240 190" width="100%" style="max-width:280px;">
+                <rect x="45" y="20" width="150" height="150" fill="#F59E0B" stroke="#1E293B" stroke-width="3" />
+                <circle cx="120" cy="95" r="75" fill="#FFFFFF" stroke="#1E293B" stroke-width="3" />
+                <line x1="120" y1="95" x2="195" y2="95" stroke="#E11D48" stroke-width="3" />
+                <circle cx="120" cy="95" r="4" fill="#1E293B" />
+                <text x="135" y="88" font-family="Fredoka" font-size="13" fill="#BE123C" font-weight="bold">r = 5 cm</text>
+                <text x="95" y="15" font-family="Fredoka" font-size="14" fill="#1E293B" font-weight="bold">Lado = 10 cm</text>
+              </svg>
+            `,
+            inputs: [
+              { label: "Área del Cuadrado", unit: "cm²", expected: 100, tolerance: 0.01 },
+              { label: "Área Sombreada (π=3.14)", unit: "cm²", expected: 21.5, tolerance: 0.05 }
+            ],
+            solution: "1) Área del cuadrado = 10 cm × 10 cm = 100 cm².\n2) Como el diámetro es 10 cm, el radio del círculo es r = 5 cm.\n3) Área del círculo = 3.14 × 5² = 3.14 × 25 = 78.5 cm².\n4) Área sombreada = 100 - 78.5 = 21.5 cm²."
+          },
+          {
+            id: "M3-Q3",
+            type: "A",
+            typeLabel: "Tipo A · Figura Compuesta (Rectángulo + Semicírculo)",
+            title: "3. Una cancha tiene forma de un rectángulo de 20 m de largo por 8 m de ancho, unido en uno de sus lados de 8 m a un SEMICÍRCULO. Usando π = 3.14, halla el ÁREA TOTAL de la cancha.",
+            instruction: "Observa que el lado de 8 m es el diámetro del semicírculo, por lo que su radio es r = 4 m. ¡No olvides dividir entre 2 el área del círculo!",
+            diagramType: "svg",
+            svgContent: `
+              <svg viewBox="0 0 280 180" width="100%" style="max-width:310px;">
+                <rect x="40" y="40" width="150" height="100" fill="#BAE6FD" stroke="#0284C7" stroke-width="3" />
+                <path d="M 190 40 A 50 50 0 0 1 190 140 Z" fill="#6EE7B7" stroke="#059669" stroke-width="3" />
+                <line x1="190" y1="40" x2="190" y2="140" stroke="#047857" stroke-width="2" stroke-dasharray="5,4" />
+                <text x="95" y="32" font-family="Fredoka" font-size="14" fill="#0369A1" font-weight="bold">20 m</text>
+                <text x="8" y="95" font-family="Fredoka" font-size="14" fill="#0369A1" font-weight="bold">8 m</text>
+                <text x="196" y="95" font-family="Fredoka" font-size="13" fill="#065F46" font-weight="bold">r = 4 m</text>
+              </svg>
+            `,
+            inputs: [
+              { label: "Área del Rectángulo", unit: "m²", expected: 160, tolerance: 0.01 },
+              { label: "Área Total (con semicírculo)", unit: "m²", expected: 185.12, tolerance: 0.05 }
+            ],
+            solution: "1) Área del rectángulo = 20 × 8 = 160 m².\n2) El diámetro del semicírculo es 8 m → radio r = 4 m.\n3) Área del semicírculo = (3.14 × 4²) ÷ 2 = (3.14 × 16) ÷ 2 = 25.12 m².\n4) Área Total = 160 + 25.12 = 185.12 m²."
+          },
+          {
+            id: "M3-Q4",
+            type: "C",
+            typeLabel: "Tipo C · Igualación Algebraica de Perímetros",
+            title: "4. El perímetro de un rectángulo de base (2x + 3) cm y altura (x + 1) cm es exactamente igual al perímetro de un hexágono regular cuyos 6 lados miden 7 cm cada uno. Despeja el valor de x y calcula el ÁREA del rectángulo.",
+            instruction: "Plantea: 2·(2x + 3) + 2·(x + 1) = 6 × 7. Halla x, luego sustituye para conocer la base y altura reales.",
+            diagramType: "ascii",
+            diagram:
+`        Base = (2x + 3) cm                   Lado = 7 cm
+      +────────────────────+                  /──────\\
+      |                    | (x + 1) cm      /        \\
+      +────────────────────+                 \\        /
+       Perímetro Rectángulo        =          \\──────/
+        = 6x + 8                             Perímetro Hexágono = 42 cm`,
+            inputs: [
+              { label: "Valor de la incógnita x (si P=44)", unit: "cm", expected: 6, tolerance: 0.01 },
+              { label: "Área del Rectángulo", unit: "cm²", expected: 105, tolerance: 0.01 }
+            ],
+            title: "4. El perímetro de un rectángulo de base (2x + 3) cm y altura (x + 1) cm es igual al de un cuadrado cuyo lado mide 11 cm (Perímetro = 44 cm). Despeja x y calcula el ÁREA del rectángulo.",
+            diagram:
+`        Base = (2x + 3) cm                  Lado = 11 cm
+      +────────────────────+               +────────────+
+      |                    | (x + 1) cm    |  Cuadrado  |
+      +────────────────────+               |  P = 44 cm |
+       P = 2(2x+3) + 2(x+1)       =        +────────────+`,
+            solution: "1) Perímetro del cuadrado = 4 × 11 = 44 cm.\n2) Perímetro del rectángulo: 2(2x + 3) + 2(x + 1) = 4x + 6 + 2x + 2 = 6x + 8.\n3) Igualamos: 6x + 8 = 44  ⇒  6x = 36  ⇒  x = 6.\n4) Dimensiones del rectángulo: Base = 2(6) + 3 = 15 cm; Altura = 6 + 1 = 7 cm.\n5) Área del rectángulo = 15 × 7 = 105 cm²."
+          },
+          {
+            id: "M3-Q5",
+            type: "B",
+            typeLabel: "Tipo B · Círculo en el Plano Cartesiano",
+            title: "5. En el plano cartesiano, los extremos de un diámetro de un círculo son los puntos A(2, 5) y B(10, 5). Deduce el radio r del círculo y el coeficiente que acompaña a π en su área (A = ___ π u²).",
+            instruction: "El diámetro es la distancia entre A(2, 5) y B(10, 5), y el radio es la mitad del diámetro.",
+            diagramType: "ascii",
+            diagram:
+`  Y ▲
+  8 | .   .   .   .   ╭───────╮
+  5 | .   A(2,5)──────┼───●───┼──────B(10,5)
+  2 | .   .   .   .   ╰───────╯
+  0 +──────────────────────────────────────► X
+    0     2           6              10`,
+            inputs: [
+              { label: "Radio r del círculo", unit: "u", expected: 4, tolerance: 0.01 },
+              { label: "Área = ___ π", unit: "π u²", expected: 16, tolerance: 0.01 }
+            ],
+            solution: "1) Diámetro AB = 10 - 2 = 8 unidades.\n2) Radio r = 8 ÷ 2 = 4 unidades.\n3) Área = π · r² = π · 4² = 16π u²."
+          },
+          {
+            id: "M3-Q6",
+            type: "A",
+            typeLabel: "Tipo A · Área de Trapecio con Hueco Rectangular",
+            title: "6. Un jardín tiene forma de trapecio con base mayor B = 16 m, base menor b = 10 m y altura h = 8 m. En su interior hay una piscina rectangular de 5 m × 4 m. ¿Cuál es el área de césped (región sombreada)?",
+            instruction: "Fórmula del área del trapecio: A = ((B + b) × h) ÷ 2. Luego resta el área de la piscina.",
+            diagramType: "svg",
+            svgContent: `
+              <svg viewBox="0 0 280 180" width="100%" style="max-width:300px;">
+                <polygon points="65,35 215,35 250,150 30,150" fill="#86EFAC" stroke="#15803D" stroke-width="3" />
+                <rect x="105" y="75" width="70" height="50" fill="#BAE6FD" stroke="#0284C7" stroke-width="2.5" />
+                <line x1="65" y1="35" x2="65" y2="150" stroke="#1E293B" stroke-width="2" stroke-dasharray="4,4" />
+                <text x="115" y="27" font-family="Fredoka" font-size="13" fill="#14532D" font-weight="bold">b = 10 m</text>
+                <text x="112" y="170" font-family="Fredoka" font-size="13" fill="#14532D" font-weight="bold">B = 16 m</text>
+                <text x="36" y="98" font-family="Fredoka" font-size="12" fill="#1E293B" font-weight="bold">h=8m</text>
+                <text x="115" y="105" font-family="Fredoka" font-size="12" fill="#0369A1" font-weight="bold">5×4 m</text>
+              </svg>
+            `,
+            inputs: [
+              { label: "Área del Trapecio", unit: "m²", expected: 104, tolerance: 0.01 },
+              { label: "Área de Césped", unit: "m²", expected: 84, tolerance: 0.01 }
+            ],
+            solution: "1) Área del trapecio = ((16 + 10) × 8) ÷ 2 = (26 × 8) ÷ 2 = 104 m².\n2) Área de la piscina = 5 × 4 = 20 m².\n3) Área de césped = 104 - 20 = 84 m²."
+          },
+          {
+            id: "M3-Q7",
+            type: "C",
+            typeLabel: "Tipo C · Problema Inverso de Corona Circular",
+            title: "7. El área de un círculo es 36π cm². Si aumentamos su radio en 2 cm para formar un círculo más grande, ¿cuántos π cm² mide el área del nuevo círculo grande?",
+            instruction: "Despeja primero el radio original a partir de r² = 36, súmale 2 cm y vuelve a elevar al cuadrado.",
+            diagramType: "ascii",
+            diagram:
+`  Círculo Inicial: Área = 36π cm²  ──►  Radio inicial r = ¿?
+  Nuevo Círculo:   Radio R = r + 2 cm  ──►  Nueva Área = R² · π cm²`,
+            inputs: [
+              { label: "Radio original r", unit: "cm", expected: 6, tolerance: 0.01 },
+              { label: "Nueva Área (___ π)", unit: "π cm²", expected: 64, tolerance: 0.01 }
+            ],
+            solution: "1) Como π · r² = 36π, entonces r² = 36 → r = 6 cm.\n2) Nuevo radio R = 6 + 2 = 8 cm.\n3) Nueva área = π · 8² = 64π cm²."
+          },
+          {
+            id: "M3-Q8",
+            type: "B",
+            typeLabel: "Tipo B · Perímetro de Escalera de 3 Peldaños (Truco Olímpico)",
+            title: "8. Observa este polígono escalonado de 3 peldaños. Aunque no conoces la medida individual de cada peldaño, sabes que el ancho total de la base es 15 cm y la altura total izquierda es 11 cm. ¿Cuál es el PERÍMETRO total?",
+            instruction: "En toda figura escalonada sin hundimientos, la suma de todos los tramos horizontales de los peldaños equivale a la base, y la suma de los tramos verticales equivale a la altura.",
+            diagramType: "ascii",
+            diagram:
+`      +──────+
+      |      |
+      |      +───────+
+  11  |              |
+  cm  |              +───────+
+      |                      |
+      +──────────────────────+
+               15 cm`,
+            inputs: [{ label: "Perímetro Total", unit: "cm", expected: 52, tolerance: 0.01 }],
+            solution: "1) La suma de los 3 tramos horizontales superiores es exactamente igual a la base: 15 cm.\n2) La suma de los 3 tramos verticales derechos es exactamente igual a la altura izquierda: 11 cm.\n3) Por tanto, el perímetro equivale al de un rectángulo de 15 × 11: P = 2 × (15 + 11) = 52 cm."
+          },
+          {
+            id: "M3-Q9",
+            type: "D",
+            typeLabel: "Tipo D · Selección Múltiple Compleja (Marca TODAS las verdaderas)",
+            title: "9. Compara un Cuadrado de lado 6 cm y un Círculo de diámetro 6 cm. Selecciona TODAS las afirmaciones que sean VERDADERAS.",
+            instruction: "Analiza cuidadosamente el radio del círculo antes de evaluar cada opción.",
+            diagramType: "ascii",
+            diagram:
+`  Figura 1: Cuadrado de lado L = 6 cm
+  Figura 2: Círculo de diámetro D = 6 cm (por tanto, radio r = 3 cm)`,
+            options: [
+              { id: "1", text: "El perímetro del cuadrado es 24 cm.", correct: true },
+              { id: "2", text: "El área del círculo en función de π es 36π cm².", correct: false },
+              { id: "3", text: "El área exacta del círculo es 9π cm².", correct: true },
+              { id: "4", text: "El área del cuadrado (36 cm²) es mayor que el área del círculo (9 × 3.14 = 28.26 cm²).", correct: true }
+            ],
+            solution: "• 1.ª Verdadera: 4 × 6 = 24 cm.\n• 2.ª Falsa: Como el diámetro es 6 cm, el radio es r = 3 cm (no 6 cm).\n• 3.ª Verdadera: A = π · 3² = 9π cm².\n• 4.ª Verdadera: 36 cm² > 28.26 cm²."
+          },
+          {
+            id: "M3-Q10",
+            type: "D",
+            typeLabel: "Tipo D · Verdadero/Falso Demostrado (Triángulo Inscrito)",
+            title: "10. En un rectángulo de base 12 cm y altura 8 cm se dibuja un triángulo cuya base coincide con la base de 12 cm y su vértice superior toca el lado opuesto del rectángulo. Calcula el área del triángulo y el área que queda fuera de él.",
+            instruction: "Demuestra que el triángulo inscrito ocupa exactamente la mitad del área del rectángulo.",
+            diagramType: "svg",
+            svgContent: `
+              <svg viewBox="0 0 260 165" width="100%" style="max-width:290px;">
+                <rect x="30" y="25" width="200" height="115" fill="#FDE68A" stroke="#B45309" stroke-width="3" />
+                <polygon points="30,140 230,140 110,25" fill="#38BDF8" stroke="#0369A1" stroke-width="3" />
+                <text x="105" y="158" font-family="Fredoka" font-size="13" fill="#1E293B" font-weight="bold">Base = 12 cm</text>
+                <text x="235" y="88" font-family="Fredoka" font-size="13" fill="#1E293B" font-weight="bold">8 cm</text>
+              </svg>
+            `,
+            inputs: [
+              { label: "Área del Triángulo Azul", unit: "cm²", expected: 48, tolerance: 0.01 },
+              { label: "Área Amarilla Exterior", unit: "cm²", expected: 48, tolerance: 0.01 }
+            ],
+            solution: "1) Área del rectángulo = 12 × 8 = 96 cm².\n2) Área del triángulo = (base × altura) ÷ 2 = (12 × 8) ÷ 2 = 48 cm².\n3) Área exterior amarilla = 96 - 48 = 48 cm²."
+          }
+        ]
+      },
+
+      // ========================================================================
+      // MÓDULO 4: EVALUACIÓN INTEGRAL DE OLIMPIADA (10 PREGUNTAS COMBINADAS)
+      // ========================================================================
+      4: {
+        title: "Módulo 4: Evaluación Integral de Olimpiada (Máxima Dificultad)",
+        questions: [
+          {
+            id: "M4-Q1",
+            type: "A",
+            typeLabel: "Tipo A · Plano Cartesiano + Conversión de Unidades + Área",
+            title: "1. En un plano cartesiano donde cada unidad (1 u) representa 2 decámetros (2 dam) en la vida real, se traza el rectángulo con vértices A(1, 1), B(6, 1), C(6, 4) y D(1, 4). ¿Cuántos METROS CUADRADOS (m²) mide el terreno real?",
+            instruction: "1.° Halla la base y la altura en unidades del plano. 2.° Convierte esas medidas a metros reales (1 u = 2 dam = 20 m). 3.° Multiplica base × altura en metros.",
+            diagramType: "ascii",
+            diagram:
+`  Y ▲
+  4 | .  D(1,4)───────────────C(6,4)
+  3 | .  │                        │
+  2 | .  │   Escala: 1 u = 2 dam  │
+  1 | .  A(1,1)───────────────B(6,1)
+  0 +─────────────────────────────────► X`,
+            inputs: [
+              { label: "Perímetro real en metros", unit: "m", expected: 320, tolerance: 0.01 },
+              { label: "Área real en metros cuadrados", unit: "m²", expected: 6000, tolerance: 0.1 }
+            ],
+            solution: "1) En el plano: Base = 6 - 1 = 5 u; Altura = 4 - 1 = 3 u.\n2) Como 1 u = 2 dam = 20 m:\n   • Base real = 5 × 20 m = 100 m.\n   • Altura real = 3 × 20 m = 60 m.\n3) Perímetro real = 2 × (100 + 60) = 320 m.\n4) Área real = 100 m × 60 m = 6000 m²."
+          },
+          {
+            id: "M4-Q2",
+            type: "B",
+            typeLabel: "Tipo B · Diagrama de Pista Atlética + Conversión a Kilómetros",
+            title: "2. Una pista atlética está formada por un rectángulo central y dos semicírculos en los extremos. Extrae las medidas del diagrama (usando π = 3.14) y calcula cuántos METROS recorre un ciclista al dar 1 vuelta completa por el borde exterior.",
+            instruction: "Al dar la vuelta por el borde exterior, recorre los 2 tramos rectos de 1.2 hm más la circunferencia completa (2·π·r) que forman los dos semicírculos.",
+            diagramType: "ascii",
+            diagram:
+`               1.2 hm (Tramo recto superior)
+          ╭─────────────────────────────────╮
+         ╱│                                 │╲
+        │ │ Diámetro = 500 dm               │ │
+         ╲│                                 │╱
+          ╰─────────────────────────────────╯
+               1.2 hm (Tramo recto inferior)`,
+            inputs: [
+              { label: "Diámetro en metros", unit: "m", expected: 50, tolerance: 0.01 },
+              { label: "Longitud de 1 vuelta (π=3.14)", unit: "m", expected: 397, tolerance: 0.5 }
+            ],
+            solution: "1) Convertimos a metros: cada recta mide 1.2 hm = 120 m. El diámetro mide 500 dm = 50 m.\n2) Los dos semicírculos juntos forman 1 circunferencia completa de diámetro D = 50 m: Longitud curva = π × D = 3.14 × 50 = 157 m.\n3) Vuelta completa = 120 m + 120 m + 157 m = 397 m."
+          },
+          {
+            id: "M4-Q3",
+            type: "C",
+            typeLabel: "Tipo C · Transformación Compuesta e Inversa en el Plano",
+            title: "3. El centro de un círculo está en C(2, 3). El círculo se traslada con el vector T(4, 2) y luego gira 90° en sentido HORARIO alrededor del punto P(6, 1). ¿En qué coordenada final (Xf, Yf) queda el centro del círculo?",
+            instruction: "Halla primero C' tras la traslación y observa su posición respecto al pivote P(6, 1).",
+            diagramType: "ascii",
+            diagram:
+`  1.° Traslación: C(2, 3) + (4, 2) ──► C'(6, 5)
+  2.° Giro de 90° Horario (⟳) de C'(6, 5) alrededor del pivote P(6, 1):
+  
+      C'(6, 5)
+         │  (Distancia vertical = 4 u)
+         └─── Pivote P(6, 1) ───► ¿Cf(Xf, Yf)?`,
+            inputs: [
+              { label: "Coordenada final Xf", unit: "X", expected: 10, tolerance: 0.01 },
+              { label: "Coordenada final Yf", unit: "Y", expected: 1, tolerance: 0.01 }
+            ],
+            solution: "1) Tras trasladar C(2, 3) con T(4, 2) obtenemos C'(6, 5).\n2) C'(6, 5) está exactamente 4 unidades arriba del pivote P(6, 1).\n3) Al rotar 90° en sentido horario alrededor de P(6, 1), queda 4 unidades a la derecha de P: Cf = (6 + 4, 1) = (10, 1)."
+          },
+          {
+            id: "M4-Q4",
+            type: "A",
+            typeLabel: "Tipo A · Área Sombreada entre Dos Círculos Concéntricos",
+            title: "4. En el plano cartesiano, dos círculos tienen el mismo centro O(5, 5). El círculo interior pasa por A(5, 8) y el círculo exterior pasa por B(10, 5). Calcula el área de la corona circular (región entre ambos círculos) en múltiplos de π.",
+            instruction: "Halla el radio menor r (de O a A) y el radio mayor R (de O a B), y calcula (R² - r²)·π.",
+            diagramType: "svg",
+            svgContent: `
+              <svg viewBox="0 0 240 190" width="100%" style="max-width:270px;">
+                <circle cx="120" cy="95" r="75" fill="#DDD6FE" stroke="#6D28D9" stroke-width="3" />
+                <circle cx="120" cy="95" r="45" fill="#FFFFFF" stroke="#2563EB" stroke-width="3" />
+                <circle cx="120" cy="95" r="4" fill="#0F172A" />
+                <line x1="120" y1="95" x2="120" y2="50" stroke="#2563EB" stroke-width="2.5" />
+                <line x1="120" y1="95" x2="195" y2="95" stroke="#6D28D9" stroke-width="2.5" />
+                <text x="72" y="75" font-family="Fredoka" font-size="11" fill="#1D4ED8" font-weight="bold">A(5,8)</text>
+                <text x="140" y="112" font-family="Fredoka" font-size="11" fill="#5B21B6" font-weight="bold">O(5,5)→B(10,5)</text>
+              </svg>
+            `,
+            inputs: [
+              { label: "Radio menor r", unit: "u", expected: 3, tolerance: 0.01 },
+              { label: "Radio mayor R", unit: "u", expected: 5, tolerance: 0.01 },
+              { label: "Área Sombreada = ___ π", unit: "π u²", expected: 16, tolerance: 0.01 }
+            ],
+            solution: "1) Radio menor r: de (5, 5) a (5, 8) hay 8 - 5 = 3 u.\n2) Radio mayor R: de (5, 5) a (10, 5) hay 10 - 5 = 5 u.\n3) Área de la corona = π·R² - π·r² = (25 - 9)π = 16π u²."
+          },
+          {
+            id: "M4-Q5",
+            type: "B",
+            typeLabel: "Tipo B · Diagrama de Marco Simétrico con Unidades Mixtas",
+            title: "5. Un cuadro rectangular externo mide 8 dm de ancho por 60 cm de alto. Tiene un marco de madera de 50 mm de grosor uniforme en los 4 lados. ¿Cuántos CENTÍMETROS CUADRADOS (cm²) mide el lienzo interior?",
+            instruction: "¡Atención! El grosor de 50 mm se resta DOS veces al ancho (izquierda y derecha) y DOS veces al alto (arriba y abajo).",
+            diagramType: "ascii",
+            diagram:
+`                Ancho externo = 8 dm
+      +──────────────────────────────────────+
+      |             ↕ 50 mm                  |
+      |    +────────────────────────────+    |
+      |◄──►|                            |◄──►| Alto externo
+      |50mm|      LIENZO INTERIOR       |50mm| = 60 cm
+      |    |        ¿Área en cm²?       |    |
+      |    +────────────────────────────+    |
+      |             ↕ 50 mm                  |
+      +──────────────────────────────────────+`,
+            inputs: [
+              { label: "Ancho interior del lienzo", unit: "cm", expected: 70, tolerance: 0.01 },
+              { label: "Alto interior del lienzo", unit: "cm", expected: 50, tolerance: 0.01 },
+              { label: "Área del lienzo interior", unit: "cm²", expected: 3500, tolerance: 0.1 }
+            ],
+            solution: "1) Convertimos todo a cm: Ancho externo = 8 dm = 80 cm; Alto externo = 60 cm; Grosor = 50 mm = 5 cm.\n2) Ancho interior = 80 - 2(5) = 70 cm.\n3) Alto interior = 60 - 2(5) = 50 cm.\n4) Área del lienzo = 70 cm × 50 cm = 3500 cm²."
+          },
+          {
+            id: "M4-Q6",
+            type: "C",
+            typeLabel: "Tipo C · Despeje Algebraico de Poliedro (Aristas de un Cubo)",
+            title: "6. Para construir el esqueleto completo de las 12 aristas de un cubo se usaron exactamente 3.6 metros de alambre sin que sobrara nada. ¿Cuántos CENTÍMETROS CUADRADOS (cm²) de cartulina se necesitan para forrar sus 6 caras?",
+            instruction: "1.° Convierte 3.6 m a cm y divide entre 12 aristas para hallar la arista L. 2.° Calcula el área total de las 6 caras cuadradas (6 × L²).",
+            diagramType: "ascii",
+            diagram:
+`        +───────────+
+       /           /|
+      +───────────+ |  • Total de aristas de un cubo = 12
+      |           | |  • Suma de las 12 aristas = 3.6 m = 360 cm
+      |           | +  • Área superficial total = 6 × L²
+      |           |/
+      +───────────+`,
+            inputs: [
+              { label: "Longitud de 1 arista L", unit: "cm", expected: 30, tolerance: 0.01 },
+              { label: "Área total de las 6 caras", unit: "cm²", expected: 5400, tolerance: 0.1 }
+            ],
+            solution: "1) 3.6 m = 360 cm de alambre.\n2) Como el cubo tiene 12 aristas iguales: L = 360 ÷ 12 = 30 cm.\n3) Área de 1 cara = 30 × 30 = 900 cm².\n4) Área de las 6 caras = 6 × 900 = 5400 cm²."
+          },
+          {
+            id: "M4-Q7",
+            type: "A",
+            typeLabel: "Tipo A · Área de Polígono en el Plano Cartesiano",
+            title: "7. Calcula el área exacta del cuadrilátero formado por los vértices A(1, 1), B(7, 1), C(5, 6) y D(2, 6) en el plano cartesiano.",
+            instruction: "Observa que los lados AB y DC son horizontales (paralelos), por lo que la figura es un TRAPECIO.",
+            diagramType: "ascii",
+            diagram:
+`  Y ▲
+  6 | .   .  D(2,6)─────C(5,6)
+  5 | .   .  /              \\
+  3 | .   . /   h = ¿?       \\
+  1 | .  A(1,1)──────────────B(7,1)
+  0 +──────────────────────────────► X`,
+            inputs: [
+              { label: "Altura h del trapecio", unit: "u", expected: 5, tolerance: 0.01 },
+              { label: "Área del trapecio", unit: "u²", expected: 22.5, tolerance: 0.05 }
+            ],
+            solution: "1) Base mayor inferior AB = 7 - 1 = 6 u.\n2) Base menor superior DC = 5 - 2 = 3 u.\n3) Altura vertical h = 6 - 1 = 5 u.\n4) Área = ((6 + 3) × 5) ÷ 2 = 45 ÷ 2 = 22.5 u²."
+          },
+          {
+            id: "M4-Q8",
+            type: "C",
+            typeLabel: "Tipo C · Sistema Inglés + Área y Perímetro",
+            title: "8. Una mesa rectangular tiene un área de 12 pies cuadrados (ft²). Si su ancho mide 36 pulgadas (in), ¿cuántas PULGADAS (in) mide el PERÍMETRO total de la mesa?",
+            instruction: "Convierte primero las 36 pulgadas a pies (1 pie = 12 in) para hallar el largo en pies, y luego convierte el perímetro a pulgadas.",
+            diagramType: "ascii",
+            diagram:
+`  Equivalencia: 1 ft = 12 in  ⇒  36 in = 3 ft
+  
+              Largo = ¿ ? ft
+        +────────────────────────+
+        |   Área = 12 ft²        | Ancho = 36 in (3 ft)
+        +────────────────────────+`,
+            inputs: [
+              { label: "Largo de la mesa en pies", unit: "ft", expected: 4, tolerance: 0.01 },
+              { label: "Perímetro total en pulgadas", unit: "in", expected: 168, tolerance: 0.1 }
+            ],
+            solution: "1) Ancho = 36 in ÷ 12 = 3 ft.\n2) Como Área = Largo × Ancho = 12 ft², entonces Largo = 12 ÷ 3 = 4 ft (48 in).\n3) Perímetro en pies = 2 × (4 + 3) = 14 ft.\n4) Perímetro en pulgadas = 14 ft × 12 in/ft = 168 in."
+          },
+          {
+            id: "M4-Q9",
+            type: "D",
+            typeLabel: "Tipo D · Selección Múltiple Compleja de Olimpiada",
+            title: "9. Evalúa las siguientes 4 afirmaciones de geometría y medición y selecciona TODAS las que sean VERDADERAS.",
+            instruction: "Revisa cada cálculo con extremo cuidado antes de enviar.",
+            diagramType: "ascii",
+            diagram:
+`  (I)   Si el radio de un círculo se duplica, su área se cuadruplica (se multiplica por 4).
+  (II)  1.5 km - 85 dam = 650 m.
+  (III) Al rotar el punto (4, 2) 90° horario alrededor de (0,0) en el I cuadrante, la distancia al origen cambia.
+  (IV)  Una pirámide pentagonal tiene 6 caras, 6 vértices y 10 aristas.`,
+            options: [
+              { id: "I", text: "(I) Si el radio de un círculo se duplica, su área se multiplica por 4.", correct: true },
+              { id: "II", text: "(II) 1.5 km - 85 dam = 650 m.", correct: true },
+              { id: "III", text: "(III) Al rotar un punto alrededor del origen, su distancia al origen cambia.", correct: false },
+              { id: "IV", text: "(IV) Una pirámide de base pentagonal tiene 6 caras, 6 vértices y 10 aristas.", correct: true }
+            ],
+            solution: "• (I) Verdadera: π(2r)² = 4πr².\n• (II) Verdadera: 1500 m - 850 m = 650 m.\n• (III) Falsa: La rotación conserva la distancia al centro de giro.\n• (IV) Verdadera: 1 base + 5 triángulos = 6 caras; 5 + 1 = 6 vértices; 5 + 5 = 10 aristas."
+          },
+          {
+            id: "M4-Q10",
+            type: "D",
+            typeLabel: "Tipo D · Demostración Numérica Final (Figura Compuesta en 'U')",
+            title: "10. Una pieza metálica cuadrada de 20 cm × 20 cm tiene un recorte rectangular en la parte superior central de 8 cm de ancho por 12 cm de profundidad (formando una 'U'). Calcula su PERÍMETRO exterior total y su ÁREA neta.",
+            instruction: "¡Cuidado con el perímetro! Al hacer el recorte de 12 cm hacia adentro, se agregan dos paredes verticales internas de 12 cm.",
+            diagramType: "ascii",
+            diagram:
+`        6 cm      8 cm     6 cm
+      +──────+          +──────+
+      |      | 12 cm    |      |
+      |      +──────────+      |
+  20  |                        | 20 cm
+  cm  |                        |
+      +────────────────────────+
+                20 cm`,
+            inputs: [
+              { label: "Perímetro Total de la 'U'", unit: "cm", expected: 104, tolerance: 0.01 },
+              { label: "Área Neta de la 'U'", unit: "cm²", expected: 304, tolerance: 0.01 }
+            ],
+            solution: "1) Perímetro: Sumamos todos los bordes: 20 (abajo) + 20 (izquierda) + 20 (derecha) + 6 + 6 (arriba) + 8 (fondo del recorte) + 12 + 12 (paredes verticales del recorte) = 104 cm.\n2) Área Neta: Área del cuadrado (20 × 20 = 400 cm²) menos el recorte (8 × 12 = 96 cm²) = 304 cm²."
+          }
+        ]
       }
-
-      let polyHTML = '';
-      polygons.forEach(poly => {
-        const ptsAttr = poly.coords.map(([cx, cy]) => `${55 + cx * 40},${225 - cy * 30}`).join(' ');
-        polyHTML += `<polygon points="${ptsAttr}" fill="${poly.fill || 'rgba(76, 201, 240, 0.28)'}" stroke="${poly.stroke || '#0284C7'}" stroke-width="3" />`;
-      });
-
-      let ptsHTML = '';
-      points.forEach(p => {
-        const px = 55 + p.x * 40;
-        const py = 225 - p.y * 30;
-        const color = p.color || '#E11D48';
-        ptsHTML += `
-          <g>
-            <circle cx="${px}" cy="${py}" r="6.5" fill="${color}" stroke="#FFFFFF" stroke-width="2" />
-            <text x="${px + (p.dx || 8)}" y="${py + (p.dy || -6)}" font-family="Fredoka" font-size="14" fill="#1E293B" font-weight="bold">${p.label}</text>
-          </g>
-        `;
-      });
-
-      return `
-        <svg viewBox="0 0 355 258" width="100%" style="max-width: 400px; background:#fff; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
-          ${lines}
-          <line x1="55" y1="225" x2="322" y2="225" stroke="#1E293B" stroke-width="3" />
-          <polygon points="326,225 316,220 316,230" fill="#1E293B" />
-          <text x="331" y="230" font-family="Fredoka" font-size="15" fill="#E11D48" font-weight="bold">X</text>
-
-          <line x1="55" y1="225" x2="55" y2="16" stroke="#1E293B" stroke-width="3" />
-          <polygon points="55,12 50,22 60,22" fill="#1E293B" />
-          <text x="50" y="11" font-family="Fredoka" font-size="15" fill="#2563EB" font-weight="bold">Y</text>
-          <text x="38" y="242" font-family="Fredoka" font-size="13" fill="#64748B" font-weight="bold">0</text>
-
-          ${polyHTML}
-          ${extraSVG}
-          ${ptsHTML}
-        </svg>
-      `;
-    }
-
-    /* ==========================================================================
-       6 MEDALLAS TEMÁTICAS Y BANCO DE 20 PREGUNTAS
-       ========================================================================== */
-    const topicMedals = [
-      { id: 0, name: "1. Plano X-Y", icon: "fa-border-all", upToQuestion: 3 },
-      { id: 1, name: "2. Coordenadas", icon: "fa-location-crosshairs", upToQuestion: 7 },
-      { id: 2, name: "3. Giros y Trasl.", icon: "fa-arrows-spin", upToQuestion: 11 },
-      { id: 3, name: "4. Área Círculo", icon: "fa-circle-dot", upToQuestion: 14 },
-      { id: 4, name: "5. Poliedros 3D", icon: "fa-cube", upToQuestion: 17 },
-      { id: 5, name: "6. Perímetros", icon: "fa-ruler-combined", upToQuestion: 20 }
-    ];
-
-    const questions = [
-      // BLOQUE 1: PLANO CARTESIANO (1 - 3)
-      {
-        topicIndex: 0,
-        topicName: "Tema 1: El Plano Cartesiano y Cuadrantes",
-        type: "multiple-choice",
-        title: "1. Observa los 4 cuadrantes del plano cartesiano. ¿En qué cuadrante se ubica el punto (-4, 3)?",
-        instruction: "Recuerda: desde el origen (0, 0), ir a la izquierda en X es negativo (-) y subir en Y es positivo (+).",
-        options: [
-          { text: "En el II Cuadrante (X negativo a la izquierda, Y positivo arriba)", correct: true },
-          { text: "En el I Cuadrante (Ambos positivos)", correct: false },
-          { text: "En el III Cuadrante (Ambos negativos)", correct: false },
-          { text: "En el IV Cuadrante (X positivo, Y negativo)", correct: false }
-        ],
-        explanation: "¡Muy bien! Al avanzar 4 unidades a la izquierda (-4 en X) y subir 3 (+3 en Y), nos ubicamos en el II Cuadrante.",
-        renderGraphic: (stage) => {
-          stage.innerHTML = `
-            <svg viewBox="0 0 340 230" width="100%" style="max-width: 380px; background:#fff; border-radius:16px;">
-              <rect x="25" y="15" width="145" height="95" fill="#EDE9FE" />
-              <rect x="170" y="15" width="145" height="95" fill="#DCFCE7" />
-              <rect x="25" y="110" width="145" height="95" fill="#FEF3C7" />
-              <rect x="170" y="110" width="145" height="95" fill="#FFE4E6" />
-              <text x="40" y="42" font-family="Fredoka" font-size="16" fill="#6D28D9" font-weight="bold">II (-X, +Y)</text>
-              <text x="215" y="42" font-family="Fredoka" font-size="16" fill="#047857" font-weight="bold">I (+X, +Y)</text>
-              <text x="40" y="190" font-family="Fredoka" font-size="16" fill="#B45309" font-weight="bold">III (-X, -Y)</text>
-              <text x="210" y="190" font-family="Fredoka" font-size="16" fill="#BE123C" font-weight="bold">IV (+X, -Y)</text>
-              <line x1="20" y1="110" x2="320" y2="110" stroke="#1E293B" stroke-width="3" />
-              <line x1="170" y1="210" x2="170" y2="10" stroke="#1E293B" stroke-width="3" />
-              <line x1="95" y1="110" x2="95" y2="55" stroke="#6D28D9" stroke-width="2" stroke-dasharray="4,4" />
-              <line x1="170" y1="55" x2="95" y2="55" stroke="#6D28D9" stroke-width="2" stroke-dasharray="4,4" />
-              <circle cx="95" cy="55" r="7" fill="#7C3AED" stroke="#fff" stroke-width="2" />
-              <text x="88" y="126" font-family="Fredoka" font-size="13" fill="#1E293B" font-weight="bold">-4</text>
-              <text x="176" y="60" font-family="Fredoka" font-size="13" fill="#1E293B" font-weight="bold">3</text>
-              <text x="55" y="48" font-family="Fredoka" font-size="13" fill="#4C1D95" font-weight="bold">(-4, 3)</text>
-            </svg>
-          `;
-        }
-      },
-      {
-        topicIndex: 0,
-        topicName: "Tema 1: El Plano Cartesiano",
-        type: "coord-multi",
-        title: "2. ¡Reto de la Hoja! Usa el teclado táctil para ingresar las coordenadas (x, y) de las 4 figuras.",
-        instruction: "Toca cada casilla o usa los números de la derecha. Primero siempre va el eje horizontal X y luego el vertical Y.",
-        fields: [
-          { label: "⭐ A", color: "#F59E0B", x: 1, y: 5 },
-          { label: "🔺 B", color: "#10B981", x: 5, y: 4 },
-          { label: "🟣 C", color: "#8B5CF6", x: 2, y: 3 },
-          { label: "🟦 D", color: "#3B82F6", x: 3, y: 1 }
-        ],
-        explanation: "¡Perfecto! A = (1, 5), B = (5, 4), C = (2, 3) y D = (3, 1).",
-        renderGraphic: (stage) => {
-          stage.innerHTML = buildCartesianGridSVG([
-            { label: "⭐ A", x: 1, y: 5, color: "#F59E0B", dx: 8, dy: 4 },
-            { label: "🔺 B", x: 5, y: 4, color: "#10B981", dx: 8, dy: 4 },
-            { label: "🟣 C", x: 2, y: 3, color: "#8B5CF6", dx: 8, dy: 4 },
-            { label: "🟦 D", x: 3, y: 1, color: "#3B82F6", dx: 8, dy: 4 }
-          ]);
-        }
-      },
-      {
-        topicIndex: 0,
-        topicName: "Tema 1: El Plano Cartesiano",
-        type: "coord-multi",
-        title: "3. Observa la Estrella de 4 Puntas en el plano e ingresa la coordenada exacta de cada punta (A, B, C y D).",
-        instruction: "Fíjate muy bien en qué línea vertical (X) y en qué línea horizontal (Y) cae cada extremo.",
-        fields: [
-          { label: "Punta A", color: "#EF4444", x: 4, y: 6 },
-          { label: "Punta B", color: "#3B82F6", x: 2, y: 4 },
-          { label: "Punta C", color: "#10B981", x: 6, y: 4 },
-          { label: "Punta D", color: "#F59E0B", x: 4, y: 2 }
-        ],
-        explanation: "¡Excelente precisión! Las cuatro puntas están en A = (4, 6), B = (2, 4), C = (6, 4) y D = (4, 2).",
-        renderGraphic: (stage) => {
-          const starPoly = [{
-            coords: [[4,6], [4.5,4.5], [6,4], [4.5,3.5], [4,2], [3.5,3.5], [2,4], [3.5,4.5]],
-            fill: "rgba(167, 139, 250, 0.35)",
-            stroke: "#6D28D9"
-          }];
-          stage.innerHTML = buildCartesianGridSVG([
-            { label: "A", x: 4, y: 6, color: "#EF4444", dx: -5, dy: -10 },
-            { label: "B", x: 2, y: 4, color: "#3B82F6", dx: -18, dy: 5 },
-            { label: "C", x: 6, y: 4, color: "#10B981", dx: 10, dy: 5 },
-            { label: "D", x: 4, y: 2, color: "#F59E0B", dx: -5, dy: 18 }
-          ], starPoly);
-        }
-      },
-
-      // BLOQUE 2: PAREJAS ORDENADAS Y FIGURAS (4 - 7)
-      {
-        topicIndex: 1,
-        topicName: "Tema 2: Ubicación de Parejas Ordenadas",
-        type: "multiple-choice",
-        title: "4. Al unir los puntos A(2, 5), B(5, 3) y C(1, 1) en el plano, ¿qué figura se forma y qué punto está más a la derecha?",
-        instruction: "Recuerda que estar 'más a la derecha' significa tener el valor más grande en el eje X.",
-        options: [
-          { text: "Se forma un Triángulo y el punto más a la derecha es B(5, 3)", correct: true },
-          { text: "Se forma un Triángulo y el punto más a la derecha es A(2, 5)", correct: false },
-          { text: "Se forma un Rombo y el punto más a la derecha es C(1, 1)", correct: false },
-          { text: "Se forma un Rectángulo y el punto más a la derecha es B(5, 3)", correct: false }
-        ],
-        explanation: "¡Así se hace! Tres puntos no alineados forman un triángulo, y B(5, 3) tiene X = 5, por lo que está más a la derecha.",
-        renderGraphic: (stage) => {
-          stage.innerHTML = buildCartesianGridSVG(
-            [
-              { label: "A(2,5)", x: 2, y: 5, color: "#EF4444", dx: -10, dy: -10 },
-              { label: "B(5,3)", x: 5, y: 3, color: "#10B981", dx: 8, dy: 4 },
-              { label: "C(1,1)", x: 1, y: 1, color: "#3B82F6", dx: 8, dy: -6 }
-            ],
-            [{ coords: [[2,5], [5,3], [1,1]], fill: "rgba(16, 185, 129, 0.25)", stroke: "#059669" }]
-          );
-        }
-      },
-      {
-        topicIndex: 1,
-        topicName: "Tema 2: Ubicación de Parejas Ordenadas",
-        type: "coord-multi",
-        title: "5. Observa el Barquito Velero en el plano e ingresa las parejas ordenadas de los 3 vértices de su vela (A, B y C).",
-        instruction: "Mira con cuidado dónde empieza y termina la vela triangular del barco.",
-        fields: [
-          { label: "Punta A", color: "#EF4444", x: 3, y: 6 },
-          { label: "Esquina B", color: "#3B82F6", x: 1, y: 3 },
-          { label: "Esquina C", color: "#10B981", x: 5, y: 3 }
-        ],
-        explanation: "¡Genial! La cima de la vela está en A = (3, 6), la esquina izquierda en B = (1, 3) y la derecha en C = (5, 3).",
-        renderGraphic: (stage) => {
-          const boatPolys = [
-            { coords: [[3,6], [1,3], [5,3]], fill: "rgba(56, 189, 248, 0.35)", stroke: "#0284C7" },
-            { coords: [[1,2.6], [5,2.6], [4.2,1.5], [1.8,1.5]], fill: "#78350F", stroke: "#451A03" }
-          ];
-          stage.innerHTML = buildCartesianGridSVG([
-            { label: "A", x: 3, y: 6, color: "#EF4444", dx: -5, dy: -10 },
-            { label: "B", x: 1, y: 3, color: "#3B82F6", dx: -18, dy: 4 },
-            { label: "C", x: 5, y: 3, color: "#10B981", dx: 10, dy: 4 }
-          ], boatPolys);
-        }
-      },
-      {
-        topicIndex: 1,
-        topicName: "Tema 2: Ubicación de Parejas Ordenadas",
-        type: "coord-MultiSingle",
-        title: "6. ¡Reto de Detective! Queremos cerrar el rectángulo ABCD. Ya tenemos A(2, 5), B(6, 5) y D(2, 2). ¿Cuál es la coordenada del vértice C?",
-        instruction: "Observa con qué columna vertical X se alinea el punto B y con qué fila horizontal Y se alinea el punto D.",
-        fields: [
-          { label: "Vértice C", color: "#EC4899", x: 6, y: 2 }
-        ],
-        explanation: "¡Descubierto! Como el lado derecho baja desde B(6, 5) y el piso viene desde D(2, 2), se cruzan en C = (6, 2).",
-        renderGraphic: (stage) => {
-          const extra = `
-            <polyline points="${55+2*40},${225-2*30} ${55+2*40},${225-5*30} ${55+6*40},${225-5*30}" fill="none" stroke="#2563EB" stroke-width="3.5" />
-            <polyline points="${55+6*40},${225-5*30} ${55+6*40},${225-2*30} ${55+2*40},${225-2*30}" fill="none" stroke="#EC4899" stroke-width="2.5" stroke-dasharray="6,5" />
-          `;
-          stage.innerHTML = buildCartesianGridSVG([
-            { label: "A(2,5)", x: 2, y: 5, color: "#2563EB", dx: -15, dy: -10 },
-            { label: "B(6,5)", x: 6, y: 5, color: "#2563EB", dx: -20, dy: -10 },
-            { label: "D(2,2)", x: 2, y: 2, color: "#2563EB", dx: -15, dy: 18 },
-            { label: "¿C?", x: 6, y: 2, color: "#EC4899", dx: 8, dy: 5 }
-          ], [], extra);
-        }
-      },
-      {
-        topicIndex: 1,
-        topicName: "Tema 2: Figuras en el Plano Cartesiano",
-        type: "multi-number",
-        title: "7. En este mismo rectángulo ABCD del plano, ¿cuántas unidades mide su BASE, su ALTURA y su ÁREA (Base × Altura)?",
-        instruction: "Cuenta cuántos cuadritos hay desde X = 2 hasta X = 6 (base) y desde Y = 2 hasta Y = 5 (altura).",
-        inputs: [
-          { label: "Base (u)", answer: 4 },
-          { label: "Altura (u)", answer: 3 },
-          { label: "Área (u²)", answer: 12 }
-        ],
-        explanation: "¡Brillante! La base mide 6 - 2 = 4 unidades, la altura mide 5 - 2 = 3 unidades, y el área es 4 × 3 = 12 u².",
-        renderGraphic: (stage) => {
-          stage.innerHTML = buildCartesianGridSVG(
-            [
-              { label: "A(2,5)", x: 2, y: 5, color: "#2563EB", dx: -12, dy: -10 },
-              { label: "B(6,5)", x: 6, y: 5, color: "#2563EB", dx: -18, dy: -10 },
-              { label: "C(6,2)", x: 6, y: 2, color: "#2563EB", dx: -18, dy: 18 },
-              { label: "D(2,2)", x: 2, y: 2, color: "#2563EB", dx: -12, dy: 18 }
-            ],
-            [{ coords: [[2,5], [6,5], [6,2], [2,2]], fill: "rgba(59, 130, 246, 0.25)", stroke: "#2563EB" }]
-          );
-        }
-      },
-
-      // BLOQUE 3: ROTACIÓN Y TRASLACIÓN (8 - 11)
-      {
-        topicIndex: 2,
-        topicName: "Tema 3: Movimientos de Rotación y Traslación",
-        type: "coord-MultiSingle",
-        title: "8. Si un punto empieza en (6, 2) y se traslada 3 unidades a la IZQUIERDA y 3 hacia ARRIBA, ¿en qué coordenada queda?",
-        instruction: "Ir a la izquierda resta en X (6 - 3), e ir hacia arriba suma en Y (2 + 3). Ingresa la pareja ordenada final.",
-        fields: [
-          { label: "Punto Final", color: "#10B981", x: 3, y: 5 }
-        ],
-        explanation: "¡Exacto! En X: 6 - 3 = 3. En Y: 2 + 3 = 5. El punto termina en la coordenada (3, 5).",
-        renderGraphic: (stage) => {
-          const extra = `
-            <path d="M ${55+6*40} ${225-2*30} L ${55+3*40} ${225-2*30} L ${55+3*40} ${225-5*30}" fill="none" stroke="#F59E0B" stroke-width="3" stroke-dasharray="5,4" />
-          `;
-          stage.innerHTML = buildCartesianGridSVG([
-            { label: "Inicio (6, 2)", x: 6, y: 2, color: "#EF4444", dx: -68, dy: 18 },
-            { label: "¿Final?", x: 3, y: 5, color: "#10B981", dx: 8, dy: -6 }
-          ], [], extra);
-        }
-      },
-      {
-        topicIndex: 2,
-        topicName: "Tema 3: Movimientos de Rotación y Traslación",
-        type: "multiple-choice",
-        title: "9. (Reto 15 de tu Hoja) La figura en 'L' realiza una ROTACIÓN de 90° en sentido HORARIO (reloj). ¿Cuál será su nueva posición?",
-        instruction: "Toca el botón debajo del dibujo para girar la figura 90° en vivo y observar hacia dónde apunta.",
-        options: [
-          { text: "Posición A: El brazo largo queda horizontal arriba y la patita corta apunta hacia abajo a la derecha (⌝)", correct: true },
-          { text: "Posición B: Queda exactamente igual (L)", correct: false },
-          { text: "Posición C: La patita corta apunta hacia arriba a la izquierda (⌞)", correct: false },
-          { text: "Posición D: El brazo largo queda vertical a la derecha apuntando arriba (⌟)", correct: false }
-        ],
-        explanation: "¡Lo lograste! Al girar una 'L' 90° en sentido horario, su espalda vertical pasa a estar acostada arriba y su base apunta hacia abajo.",
-        renderGraphic: (stage) => {
-          stage.innerHTML = `
-            <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:20px;">
-              <div style="text-align:center;">
-                <svg id="lShapeSvg" viewBox="0 0 120 120" width="110" height="110" style="background:#fff; border:2px solid #CBD5E1; border-radius:14px; transition: transform 0.6s ease;">
-                  <polygon points="30,20 52,20 52,75 90,75 90,97 30,97" fill="#6366F1" stroke="#312E81" stroke-width="3" />
-                  <circle cx="41" cy="30" r="4" fill="#FDE047" />
-                </svg>
-                <div style="font-family:'Fredoka'; font-size:0.85rem; margin-top:4px; color:#4361EE;">Figura Original</div>
-              </div>
-              <div style="font-family:'Fredoka'; font-size:1.15rem; color:#D97706; font-weight:bold;">⟳ 90°</div>
-              <div style="text-align:center;">
-                <svg viewBox="0 0 120 120" width="110" height="110" style="background:#ECFDF5; border:2px dashed #10B981; border-radius:14px;">
-                  <g transform="rotate(90 60 60)">
-                    <polygon points="30,20 52,20 52,75 90,75 90,97 30,97" fill="#10B981" stroke="#065F46" stroke-width="3" />
-                    <circle cx="41" cy="30" r="4" fill="#FDE047" />
-                  </g>
-                </svg>
-                <div style="font-family:'Fredoka'; font-size:0.85rem; margin-top:4px; color:#047857;">Posición A</div>
-              </div>
-            </div>
-            <div class="stage-controls">
-              <button class="mini-btn" onclick="document.getElementById('lShapeSvg').style.transform = 'rotate(90deg)'; playSound('click');">
-                <i class="fa-solid fa-rotate-right"></i> Girar 90°
-              </button>
-              <button class="mini-btn" onclick="document.getElementById('lShapeSvg').style.transform = 'rotate(0deg)'; playSound('click');">
-                <i class="fa-solid fa-rotate-left"></i> Original
-              </button>
-            </div>
-          `;
-        }
-      },
-      {
-        topicIndex: 2,
-        topicName: "Tema 3: Movimientos de Rotación y Traslación",
-        type: "coord-MultiSingle",
-        title: "10. Un triángulo tiene su vértice superior en A(1, 2). Si se traslada 4 unidades a la DERECHA y 3 hacia ARRIBA, ¿cuál es la coordenada A'?",
-        instruction: "Suma el desplazamiento horizontal a X (1 + 4) y el vertical a Y (2 + 3).",
-        fields: [
-          { label: "Vértice A'", color: "#8B5CF6", x: 5, y: 5 }
-        ],
-        explanation: "¡Muy bien calculado! A'(1 + 4, 2 + 3) nos da exactamente la coordenada A' = (5, 5).",
-        renderGraphic: (stage) => {
-          stage.innerHTML = buildCartesianGridSVG(
-            [
-              { label: "A(1,2)", x: 1, y: 2, color: "#3B82F6", dx: -10, dy: -10 },
-              { label: "¿A'?", x: 5, y: 5, color: "#8B5CF6", dx: -10, dy: -10 }
-            ],
-            [
-              { coords: [[1,2], [0.5,0.8], [1.8,0.8]], fill: "rgba(59, 130, 246, 0.3)", stroke: "#2563EB" },
-              { coords: [[5,5], [4.5,3.8], [5.8,3.8]], fill: "rgba(139, 92, 246, 0.3)", stroke: "#7C3AED" }
-            ]
-          );
-        }
-      },
-      {
-        topicIndex: 2,
-        topicName: "Tema 3: Movimientos en el Plano",
-        type: "multiple-choice",
-        title: "11. Analiza estos 3 movimientos: (1) Un carrito avanzando recto, (2) Un remolino girando, (3) Una figura frente a un espejo.",
-        instruction: "Identifica qué transformación geométrica corresponde a cada uno en orden (1), (2) y (3).",
-        options: [
-          { text: "(1) Traslación, (2) Rotación y (3) Reflexión (Simetría)", correct: true },
-          { text: "(1) Rotación, (2) Traslación y (3) Reflexión", correct: false },
-          { text: "(1) Traslación, (2) Reflexión y (3) Rotación", correct: false },
-          { text: "(1) Simetría, (2) Rotación y (3) Traslación", correct: false }
-        ],
-        explanation: "¡Exacto! Avanzar sin girar es Traslación (1), girar sobre un eje es Rotación (2) y verse reflejado es Reflexión (3).",
-        renderGraphic: (stage) => {
-          stage.innerHTML = `
-            <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; width:100%;">
-              <div style="background:#fff; padding:12px 14px; border-radius:14px; border:2px solid #BAE6FD; text-align:center; min-width:110px;">
-                <div style="font-size:2rem;">🚗 ➡️ 🚗</div>
-                <strong style="font-family:'Fredoka'; color:#0369A1;">Caso (1)</strong>
-              </div>
-              <div style="background:#fff; padding:12px 14px; border-radius:14px; border:2px solid #FDE68A; text-align:center; min-width:110px;">
-                <div style="font-size:2rem;">🎡 🔄</div>
-                <strong style="font-family:'Fredoka'; color:#B45309;">Caso (2)</strong>
-              </div>
-              <div style="background:#fff; padding:12px 14px; border-radius:14px; border:2px solid #DDD6FE; text-align:center; min-width:110px;">
-                <div style="font-size:2rem;">📐 | 📏</div>
-                <strong style="font-family:'Fredoka'; color:#6D28D9;">Caso (3)</strong>
-              </div>
-            </div>
-          `;
-        }
-      },
-
-      // BLOQUE 4: ÁREA DEL CÍRCULO (12 - 14)
-      {
-        topicIndex: 3,
-        topicName: "Tema 4: Área del Círculo",
-        type: "multi-number",
-        title: "12. Observa el círculo cuyo radio mide r = 4 cm. Usando A = π · r², ingresa qué número acompaña a π en el área.",
-        instruction: "¡Recuerda! r² significa multiplicar el radio por sí mismo (r × r), ¡no multiplicar por 2 ni por 3!",
-        inputs: [
-          { label: "Área = ___ π cm²", answer: 16 }
-        ],
-        explanation: "¡Excelente! Como r = 4 cm, calculamos r² = 4 × 4 = 16. El área es 16π cm².",
-        renderGraphic: (stage) => {
-          stage.innerHTML = `
-            <svg viewBox="0 0 320 200" width="100%" style="max-width: 350px; background:#fff; border-radius:16px;">
-              <circle cx="120" cy="100" r="72" fill="#BAE6FD" stroke="#0284C7" stroke-width="4" />
-              <line x1="120" y1="100" x2="192" y2="100" stroke="#E11D48" stroke-width="4" />
-              <circle cx="120" cy="100" r="5" fill="#1E293B" />
-              <text x="135" y="90" font-family="Fredoka" font-size="15" fill="#BE123C" font-weight="bold">r = 4 cm</text>
-              <rect x="210" y="55" width="95" height="90" rx="12" fill="#1E293B" />
-              <text x="222" y="88" font-family="Fredoka" font-size="16" fill="#38BDF8" font-weight="bold">A = π · r²</text>
-              <text x="222" y="118" font-family="Fredoka" font-size="14" fill="#FDE047">r² = 4 × 4</text>
-            </svg>
-          `;
-        }
-      },
-      {
-        topicIndex: 3,
-        topicName: "Tema 4: Área del Círculo (Diámetro vs Radio)",
-        type: "multi-number",
-        title: "13. ¡Atención! Este círculo tiene un DIÁMETRO completo de 10 cm. Ingresa cuánto mide su RADIO (r) y su ÁREA (___ π cm²).",
-        instruction: "El radio es la mitad del diámetro. Primero calcula el radio y luego elévalo al cuadrado (r × r).",
-        inputs: [
-          { label: "Radio r (cm)", answer: 5 },
-          { label: "Área (___ π cm²)", answer: 25 }
-        ],
-        explanation: "¡Súper atento! Si el diámetro mide 10 cm, su radio es la mitad: r = 5 cm. Y el área es 5² = 5 × 5 = 25π cm².",
-        renderGraphic: (stage) => {
-          stage.innerHTML = `
-            <svg viewBox="0 0 320 200" width="100%" style="max-width: 350px; background:#fff; border-radius:16px;">
-              <circle cx="160" cy="105" r="74" fill="#FEF3C7" stroke="#D97706" stroke-width="4" />
-              <line x1="86" y1="105" x2="234" y2="105" stroke="#B45309" stroke-width="4" stroke-dasharray="6,4" />
-              <circle cx="160" cy="105" r="5.5" fill="#1E293B" />
-              <circle cx="86" cy="105" r="4.5" fill="#B45309" />
-              <circle cx="234" cy="105" r="4.5" fill="#B45309" />
-              <rect x="108" y="68" width="105" height="26" rx="8" fill="#FFF" stroke="#D97706" stroke-width="2" />
-              <text x="116" y="86" font-family="Fredoka" font-size="14" fill="#B45309" font-weight="bold">Diámetro = 10 cm</text>
-            </svg>
-          `;
-        }
-      },
-      {
-        topicIndex: 3,
-        topicName: "Tema 4: Círculo en el Plano Cartesiano",
-        type: "multiple-choice",
-        title: "14. (Reto 12 de tu Hoja) En el plano cartesiano, el centro del círculo está en (3, 3) y su borde derecho llega a (6, 3). ¿Cuál es su área?",
-        instruction: "Resta las coordenadas en X (6 - 3) para descubrir el radio r, y luego aplica A = π · r².",
-        options: [
-          { text: "El radio mide 3 cm y el área es 9π cm²", correct: true },
-          { text: "El radio mide 3 cm y el área es 27π cm²", correct: false },
-          { text: "El radio mide 6 cm y el área es 36π cm²", correct: false },
-          { text: "El radio mide 3 cm y el área es 6π cm²", correct: false }
-        ],
-        explanation: "¡Exacto! Del centro X = 3 hasta el borde X = 6 hay 3 cm de radio. Aplicando A = π · r², tenemos 3² = 3 × 3 = 9π cm².",
-        renderGraphic: (stage) => {
-          const circleInGrid = `
-            <circle cx="${55+3*40}" cy="${225-3*30}" r="${3*35}" fill="rgba(16, 185, 129, 0.22)" stroke="#059669" stroke-width="3" />
-            <line x1="${55+3*40}" y1="${225-3*30}" x2="${55+6*40}" y2="${225-3*30}" stroke="#E11D48" stroke-width="3.5" />
-            <text x="${55+3.8*40}" y="${225-3.3*30}" font-family="Fredoka" font-size="14" fill="#BE123C" font-weight="bold">r = 3 cm</text>
-          `;
-          stage.innerHTML = buildCartesianGridSVG(
-            [
-              { label: "Centro(3,3)", x: 3, y: 3, color: "#1E293B", dx: -35, dy: 20 },
-              { label: "(6,3)", x: 6, y: 3, color: "#E11D48", dx: 6, dy: 5 }
-            ],
-            [],
-            circleInGrid
-          );
-        }
-      },
-
-      // BLOQUE 5: POLIEDROS EN 3D (15 - 17)
-      {
-        topicIndex: 4,
-        topicName: "Tema 5: Poliedros (Cuerpos Geométricos)",
-        type: "multi-number",
-        title: "15. Gira el Cubo 3D e ingresa el número exacto de CARAS, VÉRTICES (esquinas) y ARISTAS (bordes) que tiene.",
-        instruction: "Cuenta las 4 esquinas de arriba + 4 de abajo para los vértices, y los 12 bordes para las aristas.",
-        inputs: [
-          { label: "Caras", answer: 6 },
-          { label: "Vértices", answer: 8 },
-          { label: "Aristas", answer: 12 }
-        ],
-        explanation: "¡Dominas el espacio 3D! El cubo tiene 6 caras cuadradas, 8 vértices y 12 aristas.",
-        renderGraphic: (stage) => {
-          stage.innerHTML = `
-            <div class="scene-3d">
-              <div class="cube-3d" id="interactiveCube">
-                <div class="cube-face front">Cara 1</div>
-                <div class="cube-face back">Cara 2</div>
-                <div class="cube-face right">Cara 3</div>
-                <div class="cube-face left">Cara 4</div>
-                <div class="cube-face top">Cara 5</div>
-                <div class="cube-face bottom">Cara 6</div>
-              </div>
-            </div>
-            <div class="stage-controls">
-              <button class="mini-btn" onclick="rotateCube(-25, -40)"><i class="fa-solid fa-cube"></i> Frontal</button>
-              <button class="mini-btn" onclick="rotateCube(-35, 135)"><i class="fa-solid fa-arrows-rotate"></i> Atrás</button>
-              <button class="mini-btn" onclick="rotateCube(-70, -20)"><i class="fa-solid fa-arrow-up"></i> Arriba</button>
-              <button class="mini-btn" onclick="rotateCube(65, 25)"><i class="fa-solid fa-arrow-down"></i> Abajo</button>
-            </div>
-          `;
-        }
-      },
-      {
-        topicIndex: 4,
-        topicName: "Tema 5: Poliedros (Pirámide)",
-        type: "multi-number",
-        title: "16. Observa la Pirámide de Base Cuadrada. ¿Cuántas CARAS en total (incluyendo la base), cuántos VÉRTICES y cuántas ARISTAS tiene?",
-        instruction: "Mira la base cuadrada abajo (1 cara y 4 esquinas) y la cúspide superior donde se unen los 4 triángulos.",
-        inputs: [
-          { label: "Caras", answer: 5 },
-          { label: "Vértices", answer: 5 },
-          { label: "Aristas", answer: 8 }
-        ],
-        explanation: "¡Genial! Tiene 1 base + 4 caras laterales = 5 caras; 4 esquinas abajo + 1 arriba = 5 vértices; y 8 aristas.",
-        renderGraphic: (stage) => {
-          stage.innerHTML = `
-            <svg viewBox="0 0 320 215" width="100%" style="max-width: 350px; background:#fff; border-radius:16px;">
-              <polygon points="65,165 195,180 260,135 130,120" fill="rgba(251, 191, 36, 0.3)" stroke="#D97706" stroke-width="2.5" stroke-dasharray="5,3" />
-              <polygon points="160,30 65,165 195,180" fill="rgba(76, 201, 240, 0.45)" stroke="#0284C7" stroke-width="3" />
-              <polygon points="160,30 195,180 260,135" fill="rgba(6, 214, 160, 0.45)" stroke="#059669" stroke-width="3" />
-              <line x1="160" y1="30" x2="130" y2="120" stroke="#64748B" stroke-width="2.5" stroke-dasharray="5,4" />
-              <circle cx="160" cy="30" r="6.5" fill="#E11D48" />
-              <circle cx="65" cy="165" r="6" fill="#E11D48" />
-              <circle cx="195" cy="180" r="6" fill="#E11D48" />
-              <circle cx="260" cy="135" r="6" fill="#E11D48" />
-              <circle cx="130" cy="120" r="5.5" fill="#F59E0B" />
-              <text x="172" y="34" font-family="Fredoka" font-size="13" fill="#BE123C" font-weight="bold">Cúspide (1)</text>
-              <text x="90" y="203" font-family="Fredoka" font-size="13" fill="#B45309" font-weight="bold">Base cuadrada (4 esquinas)</text>
-            </svg>
-          `;
-        }
-      },
-      {
-        topicIndex: 4,
-        topicName: "Tema 5: Poliedros (Prisma Triangular)",
-        type: "multiple-choice",
-        title: "17. Observa este Prisma Triangular (carpa). Tiene 2 bases triangulares y 3 caras rectangulares. ¿Cuántas CARAS, VÉRTICES y ARISTAS tiene?",
-        instruction: "Cuenta las esquinas de los dos triángulos (3 adelante + 3 atrás) y todas las líneas que los unen.",
-        options: [
-          { text: "5 Caras, 6 Vértices y 9 Aristas", correct: true },
-          { text: "5 Caras, 5 Vértices y 8 Aristas", correct: false },
-          { text: "6 Caras, 6 Vértices y 12 Aristas", correct: false },
-          { text: "4 Caras, 6 Vértices y 9 Aristas", correct: false }
-        ],
-        explanation: "¡Correcto! El prisma triangular tiene 5 caras, 6 vértices (3 + 3) y 9 aristas (3 adelante + 3 atrás + 3 conectores).",
-        renderGraphic: (stage) => {
-          stage.innerHTML = `
-            <svg viewBox="0 0 330 205" width="100%" style="max-width: 360px; background:#fff; border-radius:16px;">
-              <polygon points="145,35 95,135 205,135" fill="rgba(167, 139, 250, 0.2)" stroke="#7C3AED" stroke-width="2.5" stroke-dasharray="5,4" />
-              <line x1="115" y1="65" x2="145" y2="35" stroke="#4361EE" stroke-width="3" />
-              <line x1="65" y1="165" x2="95" y2="135" stroke="#4361EE" stroke-width="3" />
-              <line x1="175" y1="165" x2="205" y2="135" stroke="#4361EE" stroke-width="3" />
-              <polygon points="115,65 145,35 205,135 175,165" fill="rgba(76, 201, 240, 0.4)" stroke="#0284C7" stroke-width="3" />
-              <polygon points="115,65 65,165 175,165" fill="rgba(255, 209, 102, 0.55)" stroke="#D97706" stroke-width="3" />
-              <circle cx="115" cy="65" r="5.5" fill="#E11D48" />
-              <circle cx="65" cy="165" r="5.5" fill="#E11D48" />
-              <circle cx="175" cy="165" r="5.5" fill="#E11D48" />
-              <circle cx="145" cy="35" r="5.5" fill="#7C3AED" />
-              <circle cx="95" cy="135" r="5.5" fill="#7C3AED" />
-              <circle cx="205" cy="135" r="5.5" fill="#7C3AED" />
-            </svg>
-          `;
-        }
-      },
-
-      // BLOQUE 6: PERÍMETRO (18 - 20)
-      {
-        topicIndex: 5,
-        topicName: "Tema 6: Perímetro de Polígonos",
-        type: "multi-number",
-        title: "18. Calcula e ingresa el PERÍMETRO total de esta piscina irregular sumando las longitudes de sus 6 lados.",
-        instruction: "¡No olvides ningún lado! Suma: 9 m + 7 m + 4 m + 3 m + 5 m + 4 m.",
-        inputs: [
-          { label: "Perímetro Total (m)", answer: 32 }
-        ],
-        explanation: "¡Muy bien sumado! 9 + 7 + 4 + 3 + 5 + 4 = 32 metros de perímetro total.",
-        renderGraphic: (stage) => {
-          stage.innerHTML = `
-            <svg viewBox="0 0 350 210" width="100%" style="max-width: 380px; background:#fff; border-radius:16px;">
-              <polygon points="65,40 265,40 265,180 185,180 185,130 65,130" fill="#BAE6FD" stroke="#0284C7" stroke-width="4.5" />
-              <text x="150" y="30" font-family="Fredoka" font-size="15" fill="#0369A1" font-weight="bold">9 m</text>
-              <text x="275" y="115" font-family="Fredoka" font-size="15" fill="#0369A1" font-weight="bold">7 m</text>
-              <text x="212" y="200" font-family="Fredoka" font-size="15" fill="#0369A1" font-weight="bold">4 m</text>
-              <text x="148" y="162" font-family="Fredoka" font-size="15" fill="#B45309" font-weight="bold">3 m</text>
-              <text x="110" y="150" font-family="Fredoka" font-size="15" fill="#0369A1" font-weight="bold">5 m</text>
-              <text x="25" y="90" font-family="Fredoka" font-size="15" fill="#0369A1" font-weight="bold">4 m</text>
-            </svg>
-          `;
-        }
-      },
-      {
-        topicIndex: 5,
-        topicName: "Tema 6: Perímetro con Lado Desconocido",
-        type: "multi-number",
-        title: "19. ¡Reto de Ingeniero! El ancho total superior mide 12 m y el escalón inferior derecho mide 5 m. Halla el lado X y el PERÍMETRO total.",
-        instruction: "Los dos tramos horizontales de abajo (X y 5 m) suman lo mismo que el techo completo de arriba (12 m).",
-        inputs: [
-          { label: "Lado X (m)", answer: 7 },
-          { label: "Perímetro (m)", answer: 40 }
-        ],
-        explanation: "¡Razonamiento de campeón! Como 12 - 5 = 7, el lado X mide 7 m. Sumando los 6 lados: 12 + 8 + 5 + 3 + 7 + 5 = 40 m.",
-        renderGraphic: (stage) => {
-          stage.innerHTML = `
-            <svg viewBox="0 0 350 215" width="100%" style="max-width: 380px; background:#fff; border-radius:16px;">
-              <polygon points="65,40 265,40 265,180 185,180 185,130 65,130" fill="#FEF3C7" stroke="#D97706" stroke-width="4.5" />
-              <line x1="65" y1="130" x2="185" y2="130" stroke="#E11D48" stroke-width="5" />
-              <text x="145" y="28" font-family="Fredoka" font-size="15" fill="#92400E" font-weight="bold">12 m</text>
-              <text x="275" y="115" font-family="Fredoka" font-size="15" fill="#92400E" font-weight="bold">8 m</text>
-              <text x="212" y="200" font-family="Fredoka" font-size="15" fill="#92400E" font-weight="bold">5 m</text>
-              <text x="148" y="162" font-family="Fredoka" font-size="15" fill="#92400E" font-weight="bold">3 m</text>
-              <text x="102" y="152" font-family="Fredoka" font-size="16" fill="#E11D48" font-weight="bold">X = ¿? m</text>
-              <text x="24" y="90" font-family="Fredoka" font-size="15" fill="#92400E" font-weight="bold">5 m</text>
-            </svg>
-          `;
-        }
-      },
-      {
-        topicIndex: 5,
-        topicName: "Tema 6: Problema Maestro de Perímetro",
-        type: "multi-number",
-        title: "20. ¡Gran Reto Final! Un rectángulo de 14 cm × 6 cm tiene el MISMO perímetro que un Pentágono Regular (5 lados iguales). Halla el perímetro y cada lado.",
-        instruction: "1.° Calcula el perímetro del rectángulo (14 + 6 + 14 + 6). 2.° Divide ese total entre los 5 lados iguales del pentágono.",
-        inputs: [
-          { label: "Perímetro (cm)", answer: 40 },
-          { label: "Lado Pentágono (cm)", answer: 8 }
-        ],
-        explanation: "¡Victoria magistral! El perímetro del rectángulo es 40 cm. Y como el pentágono tiene 5 lados iguales: 40 ÷ 5 = 8 cm cada lado.",
-        renderGraphic: (stage) => {
-          stage.innerHTML = `
-            <svg viewBox="0 0 360 190" width="100%" style="max-width: 390px; background:#fff; border-radius:16px;">
-              <rect x="25" y="55" width="135" height="75" fill="rgba(76, 201, 240, 0.3)" stroke="#0284C7" stroke-width="3.5" rx="4" />
-              <text x="72" y="46" font-family="Fredoka" font-size="14" fill="#0369A1" font-weight="bold">14 cm</text>
-              <text x="166" y="98" font-family="Fredoka" font-size="14" fill="#0369A1" font-weight="bold">6 cm</text>
-              <text x="58" y="155" font-family="Fredoka" font-size="13" fill="#475569" font-weight="bold">Rectángulo</text>
-              <text x="198" y="98" font-family="Fredoka" font-size="22" fill="#1E293B" font-weight="bold">=</text>
-              <polygon points="285,38 338,76 318,136 252,136 232,76" fill="rgba(6, 214, 160, 0.3)" stroke="#059669" stroke-width="3.5" />
-              <text x="268" y="98" font-family="Fredoka" font-size="14" fill="#065F46" font-weight="bold">L = ¿?</text>
-              <text x="235" y="160" font-family="Fredoka" font-size="13" fill="#475569" font-weight="bold">Pentágono (5 lados =)</text>
-            </svg>
-          `;
-        }
-      }
-    ];
-
-    window.rotateCube = function(rx, ry) {
-      playSound('click');
-      const cube = document.getElementById('interactiveCube');
-      if (cube) cube.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
     };
 
     /* ==========================================================================
-       CONTROL DE ESTADO Y GESTOR DE TECLADO TÁCTIL INTEGRADO (TABLET NUMPAD)
+       MOTOR DE ESTADO DE LA EVALUACIÓN (GUARDADO DE RESPUESTAS Y CALIFICACIÓN)
        ========================================================================== */
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let streak = 0;
-    let firstTryCount = 0;
-    let hadWrongAttemptOnCurrent = false;
-    let questionSolved = false;
+    let activeModuleId = null;
+    let currentQIndex = 0;
+    // userAnswers almacena por índice de pregunta (0..9):
+    // Para preguntas numéricas: array de strings ["2620", ...]
+    // Para preguntas Tipo D de selección múltiple compleja: Set de IDs seleccionados
+    let userAnswers = {};
+    let activeTouchFields = [];
+    let selectedFieldIdx = 0;
 
-    // Lista de casillas táctiles de la pregunta actual y cuál está activa
-    let currentTouchBoxes = [];
-    let activeBoxIndex = 0;
-    let currentVerifyCallback = null;
+    const menuScreen = document.getElementById('menuScreen');
+    const examScreen = document.getElementById('examScreen');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const backToMenuBtn = document.getElementById('backToMenuBtn');
+    const activeModuleName = document.getElementById('activeModuleName');
+    const qPillsContainer = document.getElementById('qPillsContainer');
+    const qTypeBadge = document.getElementById('qTypeBadge');
+    const qNumberLabel = document.getElementById('qNumberLabel');
+    const qTitle = document.getElementById('qTitle');
+    const qInstruction = document.getElementById('qInstruction');
+    const diagramStage = document.getElementById('diagramStage');
+    const answerStage = document.getElementById('answerStage');
+    const savedStatusText = document.getElementById('savedStatusText');
 
-    const scoreDisplay = document.getElementById('scoreDisplay');
-    const streakDisplay = document.getElementById('streakDisplay');
-    const questionCounterText = document.getElementById('questionCounterText');
-    const progressPercentText = document.getElementById('progressPercentText');
-    const progressFill = document.getElementById('progressFill');
-    const medalsRow = document.getElementById('medalsRow');
-    const topicTag = document.getElementById('topicTag');
-    const modeTag = document.getElementById('modeTag');
-    const questionTitle = document.getElementById('questionTitle');
-    const questionInstruction = document.getElementById('questionInstruction');
-    const visualStage = document.getElementById('visualStage');
-    const interactionContainer = document.getElementById('interactionContainer');
-    const feedbackBox = document.getElementById('feedbackBox');
-    const feedbackIcon = document.getElementById('feedbackIcon');
-    const feedbackTitle = document.getElementById('feedbackTitle');
-    const feedbackMessage = document.getElementById('feedbackMessage');
-    const nextBtn = document.getElementById('nextBtn');
-    const questionCard = document.getElementById('questionCard');
-    const resultsCard = document.getElementById('resultsCard');
-    const progressSection = document.getElementById('progressSection');
+    backToMenuBtn.addEventListener('click', returnToMenu);
 
-    function renderMedals() {
-      medalsRow.innerHTML = '';
-      const q = questions[currentQuestionIndex];
-      topicMedals.forEach(m => {
-        const div = document.createElement('div');
-        let cls = 'medal-badge';
-        if (currentQuestionIndex >= m.upToQuestion) cls += ' earned';
-        else if (q && q.topicIndex === m.id) cls += ' active';
-        div.className = cls;
-        div.innerHTML = `
-          <i class="fa-solid ${currentQuestionIndex >= m.upToQuestion ? 'fa-medal' : m.icon}"></i>
-          <span>${m.name}</span>
-        `;
-        medalsRow.appendChild(div);
+    window.returnToMenu = function() {
+      examScreen.classList.remove('active');
+      resultsScreen.classList.remove('active');
+      menuScreen.style.display = 'flex';
+      backToMenuBtn.style.display = 'none';
+    };
+
+    window.retryCurrentModule = function() {
+      if (activeModuleId) startModule(activeModuleId);
+    };
+
+    window.startModule = function(modId) {
+      activeModuleId = modId;
+      currentQIndex = 0;
+      userAnswers = {};
+
+      const mod = MODULES_DB[modId];
+      mod.questions.forEach((q, idx) => {
+        if (q.options) {
+          userAnswers[idx] = new Set();
+        } else {
+          userAnswers[idx] = q.inputs.map(() => '');
+        }
+      });
+
+      menuScreen.style.display = 'none';
+      resultsScreen.classList.remove('active');
+      examScreen.classList.add('active');
+      backToMenuBtn.style.display = 'inline-flex';
+      activeModuleName.textContent = mod.title;
+
+      renderQuestion();
+    };
+
+    function isQuestionAnswered(idx) {
+      const ans = userAnswers[idx];
+      if (!ans) return false;
+      if (ans instanceof Set) return ans.size > 0;
+      if (Array.isArray(ans)) return ans.every(val => val.toString().trim() !== '');
+      return false;
+    }
+
+    function renderNavPills() {
+      qPillsContainer.innerHTML = '';
+      const mod = MODULES_DB[activeModuleId];
+      mod.questions.forEach((_, idx) => {
+        const btn = document.createElement('button');
+        let cls = 'q-nav-pill';
+        if (idx === currentQIndex) cls += ' current';
+        else if (isQuestionAnswered(idx)) cls += ' answered';
+        btn.className = cls;
+        btn.textContent = idx + 1;
+        btn.addEventListener('click', () => {
+          currentQIndex = idx;
+          renderQuestion();
+        });
+        qPillsContainer.appendChild(btn);
       });
     }
 
-    function loadQuestion() {
-      questionSolved = false;
-      hadWrongAttemptOnCurrent = false;
-      currentTouchBoxes = [];
-      activeBoxIndex = 0;
-      currentVerifyCallback = null;
+    function renderQuestion() {
+      const mod = MODULES_DB[activeModuleId];
+      const q = mod.questions[currentQIndex];
 
-      const q = questions[currentQuestionIndex];
-      const stepNum = currentQuestionIndex + 1;
-      const percent = Math.round((stepNum / questions.length) * 100);
+      renderNavPills();
 
-      questionCounterText.textContent = `Pregunta ${stepNum} de ${questions.length}`;
-      progressPercentText.textContent = `${percent}%`;
-      progressFill.style.width = `${percent}%`;
+      qTypeBadge.className = `q-type-badge type-${q.type}`;
+      qTypeBadge.textContent = q.typeLabel;
+      qNumberLabel.textContent = `Pregunta ${currentQIndex + 1} de 10`;
+      qTitle.textContent = q.title;
+      qInstruction.textContent = q.instruction;
 
-      renderMedals();
-
-      const currentMedal = topicMedals[q.topicIndex];
-      topicTag.innerHTML = `<i class="fa-solid ${currentMedal.icon}"></i> <span>${q.topicName}</span>`;
-
-      if (q.type === 'multiple-choice') {
-        modeTag.className = 'mode-tag choice-mode';
-        modeTag.innerHTML = `<i class="fa-solid fa-hand-pointer"></i> Toca la Opción Correcta`;
+      // Renderizar diagrama izquierdo (ASCII o SVG)
+      if (q.diagramType === 'svg') {
+        diagramStage.className = 'diagram-stage light-stage';
+        diagramStage.innerHTML = q.svgContent;
       } else {
-        modeTag.className = 'mode-tag input-mode';
-        modeTag.innerHTML = `<i class="fa-solid fa-calculator"></i> Teclado Táctil en Pantalla`;
+        diagramStage.className = 'diagram-stage';
+        diagramStage.innerHTML = `<pre class="ascii-blueprint">${q.diagram}</pre>`;
       }
 
-      questionTitle.textContent = q.title;
-      questionInstruction.textContent = q.instruction;
+      // Renderizar panel derecho de respuesta
+      answerStage.innerHTML = '';
+      activeTouchFields = [];
+      selectedFieldIdx = 0;
 
-      q.renderGraphic(visualStage);
+      if (q.options) {
+        renderComplexOptions(q, currentQIndex);
+      } else {
+        renderNumericNumpadWorkspace(q, currentQIndex);
+      }
 
-      feedbackBox.className = 'feedback-box';
-      nextBtn.style.display = 'none';
-      interactionContainer.innerHTML = '';
+      updateSavedIndicator();
 
-      if (q.type === 'multiple-choice') {
-        renderMultipleChoice(q);
-      } else if (q.type === 'coord-multi' || q.type === 'coord-MultiSingle') {
-        renderCoordTouchInputs(q);
-      } else if (q.type === 'multi-number') {
-        renderNumberTouchInputs(q);
+      document.getElementById('prevQBtn').disabled = currentQIndex === 0;
+      const nextBtn = document.getElementById('nextQBtn');
+      if (currentQIndex === mod.questions.length - 1) {
+        nextBtn.innerHTML = `Finalizar y Calificar <i class="fa-solid fa-check-double"></i>`;
+      } else {
+        nextBtn.innerHTML = `Siguiente <i class="fa-solid fa-arrow-right"></i>`;
       }
     }
 
-    // 1. Renderizar Selección Múltiple
-    function renderMultipleChoice(q) {
-      const grid = document.createElement('div');
-      grid.className = 'options-grid';
-      const shuffled = [...q.options].sort(() => Math.random() - 0.5);
-      const letters = ['A', 'B', 'C', 'D'];
+    function updateSavedIndicator() {
+      if (isQuestionAnswered(currentQIndex)) {
+        savedStatusText.innerHTML = `<i class="fa-solid fa-circle-check"></i> Respuesta registrada`;
+      } else {
+        savedStatusText.textContent = '';
+      }
+      renderNavPills();
+    }
 
-      shuffled.forEach((opt, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.innerHTML = `
-          <span class="option-letter">${letters[idx]}</span>
+    // Panel de Selección Múltiple Compleja (Tipo D)
+    function renderComplexOptions(q, qIdx) {
+      const list = document.createElement('div');
+      list.className = 'complex-options-list';
+
+      const selectedSet = userAnswers[qIdx];
+
+      q.options.forEach(opt => {
+        const row = document.createElement('div');
+        row.className = 'check-option-row' + (selectedSet.has(opt.id) ? ' selected' : '');
+        row.innerHTML = `
+          <div class="check-box-indicator"><i class="fa-solid fa-check"></i></div>
           <span>${opt.text}</span>
         `;
-        btn.addEventListener('click', () => {
-          if (questionSolved) return;
-          if (opt.correct) {
-            btn.classList.add('correct');
-            Array.from(grid.children).forEach(b => b.disabled = true);
-            completeQuestionSuccess(q.explanation);
-          } else {
-            btn.classList.add('wrong');
-            btn.disabled = true;
-            registerWrongAttempt('Observa con cuidado el gráfico de la izquierda y prueba otra opción.');
-          }
+        row.addEventListener('click', () => {
+          if (selectedSet.has(opt.id)) selectedSet.delete(opt.id);
+          else selectedSet.add(opt.id);
+          row.classList.toggle('selected', selectedSet.has(opt.id));
+          updateSavedIndicator();
         });
-        grid.appendChild(btn);
+        list.appendChild(row);
       });
-      interactionContainer.appendChild(grid);
+
+      const note = document.createElement('p');
+      note.style.fontSize = '0.84rem';
+      note.style.color = 'var(--text-muted)';
+      note.style.textAlign = 'center';
+      note.textContent = 'Toca cada afirmación que consideres verdadera (puedes marcar varias).';
+
+      answerStage.append(list, note);
     }
 
-    // Activar una casilla táctil específica
-    function setActiveTouchBox(index) {
-      if (currentTouchBoxes.length === 0) return;
-      // Buscar una casilla no bloqueada si la solicitada ya está bloqueada
-      if (currentTouchBoxes[index] && currentTouchBoxes[index].locked) {
-        const nextUnlocked = currentTouchBoxes.findIndex(b => !b.locked);
-        if (nextUnlocked === -1) return;
-        index = nextUnlocked;
-      }
-      activeBoxIndex = index;
-      currentTouchBoxes.forEach((b, idx) => {
-        b.el.classList.toggle('active-box', idx === activeBoxIndex && !b.locked);
+    // Panel de Entrada Numérica con Teclado Táctil Olímpico (Incluye '.' y '-')
+    function renderNumericNumpadWorkspace(q, qIdx) {
+      const fieldsRow = document.createElement('div');
+      fieldsRow.className = 'fields-row';
+
+      const storedValues = userAnswers[qIdx];
+
+      q.inputs.forEach((inp, fIdx) => {
+        const group = document.createElement('div');
+        group.className = 'input-group-box';
+
+        const lbl = document.createElement('span');
+        lbl.textContent = `${inp.label}:`;
+
+        const display = document.createElement('div');
+        display.className = 'touch-input-display';
+        display.textContent = storedValues[fIdx] !== '' ? storedValues[fIdx] : '?';
+
+        const unit = document.createElement('span');
+        unit.className = 'unit-tag';
+        unit.textContent = inp.unit;
+
+        activeTouchFields.push({
+          el: display,
+          qIdx,
+          fIdx
+        });
+
+        display.addEventListener('click', () => selectTouchField(fIdx));
+
+        group.append(lbl, display, unit);
+        fieldsRow.appendChild(group);
       });
-    }
 
-    // Actualizar visualización de una casilla táctil
-    function updateBoxDisplay(boxObj) {
-      if (boxObj.value === '') {
-        boxObj.el.textContent = boxObj.placeholder;
-        boxObj.el.classList.add('empty-placeholder');
-      } else {
-        boxObj.el.textContent = boxObj.value;
-        boxObj.el.classList.remove('empty-placeholder');
-      }
-    }
-
-    // Manejar pulsación del teclado numérico táctil (o físico)
-    function handleNumpadInput(key) {
-      if (questionSolved || currentTouchBoxes.length === 0) return;
-      const currentBox = currentTouchBoxes[activeBoxIndex];
-      if (!currentBox || currentBox.locked) return;
-
-      playSound('click');
-
-      if (key === 'DEL') {
-        currentBox.value = currentBox.value.slice(0, -1);
-        updateBoxDisplay(currentBox);
-      } else if (key === 'NEXT') {
-        // Pasar a la siguiente casilla desbloqueada
-        for (let i = 1; i <= currentTouchBoxes.length; i++) {
-          const candidate = (activeBoxIndex + i) % currentTouchBoxes.length;
-          if (!currentTouchBoxes[candidate].locked) {
-            setActiveTouchBox(candidate);
-            break;
-          }
-        }
-      } else if (key === 'SUBMIT') {
-        if (typeof currentVerifyCallback === 'function') currentVerifyCallback();
-      } else {
-        // Dígito 0-9
-        if (currentBox.value.length < 3) {
-          currentBox.value += key;
-          updateBoxDisplay(currentBox);
-          // Si es una casilla de coordenada de 1 dígito (0 a 6), avanzar automáticamente a la siguiente casilla
-          if (currentBox.singleDigitAutoAdvance && currentBox.value.length === 1) {
-            for (let i = 1; i <= currentTouchBoxes.length; i++) {
-              const candidate = (activeBoxIndex + i) % currentTouchBoxes.length;
-              if (!currentTouchBoxes[candidate].locked) {
-                setActiveTouchBox(candidate);
-                break;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    // Crear el bloque de Teclado Numérico Táctil en pantalla
-    function createTouchNumpadElement() {
+      // Construir teclado numérico táctil
       const pad = document.createElement('div');
-      pad.className = 'tablet-numpad';
+      pad.className = 'olymp-numpad';
 
-      const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-      digits.forEach(d => {
+      const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', '-'];
+      keys.forEach(k => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'numpad-key';
-        btn.textContent = d;
-        btn.addEventListener('click', () => handleNumpadInput(d));
+        btn.className = 'num-key' + (k === '.' || k === '-' ? ' k-special' : '');
+        btn.textContent = k;
+        btn.addEventListener('click', () => handleOlympKey(k));
         pad.appendChild(btn);
       });
 
       // Botón Borrar
       const delBtn = document.createElement('button');
       delBtn.type = 'button';
-      delBtn.className = 'numpad-key key-del';
+      delBtn.className = 'num-key k-del';
       delBtn.innerHTML = `<i class="fa-solid fa-delete-left"></i>`;
-      delBtn.title = 'Borrar';
-      delBtn.addEventListener('click', () => handleNumpadInput('DEL'));
+      delBtn.addEventListener('click', () => handleOlympKey('DEL'));
       pad.appendChild(delBtn);
 
+      // Botón Limpiar todo el campo
+      const clrBtn = document.createElement('button');
+      clrBtn.type = 'button';
+      clrBtn.className = 'num-key k-del';
+      clrBtn.textContent = 'C';
+      clrBtn.addEventListener('click', () => handleOlympKey('CLR'));
+      pad.appendChild(clrBtn);
+
       // Botón Siguiente Casilla
-      const nextBoxBtn = document.createElement('button');
-      nextBoxBtn.type = 'button';
-      nextBoxBtn.className = 'numpad-key key-next';
-      nextBoxBtn.innerHTML = `<i class="fa-solid fa-arrows-left-right"></i> Casilla`;
-      nextBoxBtn.addEventListener('click', () => handleNumpadInput('NEXT'));
-      pad.appendChild(nextBoxBtn);
+      const nextFieldBtn = document.createElement('button');
+      nextFieldBtn.type = 'button';
+      nextFieldBtn.className = 'num-key k-next';
+      nextFieldBtn.innerHTML = `<i class="fa-solid fa-arrows-left-right"></i> Casilla`;
+      nextFieldBtn.addEventListener('click', () => handleOlympKey('NEXT_FIELD'));
+      pad.appendChild(nextFieldBtn);
 
-      // Botón Comprobar Respuesta
-      const submitBtn = document.createElement('button');
-      submitBtn.type = 'button';
-      submitBtn.className = 'numpad-key key-submit';
-      submitBtn.id = 'numpadSubmitBtn';
-      submitBtn.innerHTML = `<i class="fa-solid fa-check-double"></i> <span>Comprobar Respuesta</span>`;
-      submitBtn.addEventListener('click', () => handleNumpadInput('SUBMIT'));
-      pad.appendChild(submitBtn);
-
-      return pad;
-    }
-
-    // 2. Renderizar casillas táctiles de Coordenadas (x, y)
-    function renderCoordTouchInputs(q) {
-      const zone = document.createElement('div');
-      zone.className = 'written-answer-zone';
-
-      const wrapper = document.createElement('div');
-      wrapper.className = 'inputs-wrapper';
-
-      q.fields.forEach((f, idx) => {
-        const card = document.createElement('div');
-        card.className = 'coord-input-card';
-        card.id = `coord-card-${idx}`;
-
-        const badge = document.createElement('span');
-        badge.className = 'point-badge';
-        badge.style.background = f.color;
-        badge.textContent = f.label;
-
-        const openP = document.createElement('span');
-        openP.textContent = '= (';
-
-        const boxX = document.createElement('div');
-        boxX.className = 'touch-num-box empty-placeholder';
-        boxX.textContent = 'x';
-
-        const comma = document.createElement('span');
-        comma.textContent = ',';
-
-        const boxY = document.createElement('div');
-        boxY.className = 'touch-num-box empty-placeholder';
-        boxY.textContent = 'y';
-
-        const closeP = document.createElement('span');
-        closeP.textContent = ')';
-
-        const xIndex = currentTouchBoxes.length;
-        currentTouchBoxes.push({
-          el: boxX,
-          value: '',
-          placeholder: 'x',
-          expected: f.x,
-          cardIndex: idx,
-          locked: false,
-          singleDigitAutoAdvance: true
-        });
-
-        const yIndex = currentTouchBoxes.length;
-        currentTouchBoxes.push({
-          el: boxY,
-          value: '',
-          placeholder: 'y',
-          expected: f.y,
-          cardIndex: idx,
-          locked: false,
-          singleDigitAutoAdvance: true
-        });
-
-        boxX.addEventListener('click', () => { playSound('click'); setActiveTouchBox(xIndex); });
-        boxY.addEventListener('click', () => { playSound('click'); setActiveTouchBox(yIndex); });
-
-        card.append(badge, openP, boxX, comma, boxY, closeP);
-        wrapper.appendChild(card);
-      });
-
-      currentVerifyCallback = () => {
-        if (questionSolved) return;
-        let allCorrect = true;
-        let anyEmpty = false;
-
-        q.fields.forEach((f, idx) => {
-          const bX = currentTouchBoxes[idx * 2];
-          const bY = currentTouchBoxes[idx * 2 + 1];
-          const card = document.getElementById(`coord-card-${idx}`);
-
-          if (bX.value === '' || bY.value === '') {
-            anyEmpty = true;
-            card.className = 'coord-input-card field-err';
-            return;
-          }
-
-          if (parseInt(bX.value, 10) === f.x && parseInt(bY.value, 10) === f.y) {
-            card.className = 'coord-input-card field-ok';
-            bX.locked = true;
-            bY.locked = true;
-            bX.el.classList.remove('active-box');
-            bY.el.classList.remove('active-box');
-            bX.el.classList.add('locked-box');
-            bY.el.classList.add('locked-box');
-          } else {
-            allCorrect = false;
-            card.className = 'coord-input-card field-err';
-            // Limpiar casilla errónea para que pueda teclear de inmediato
-            bX.value = '';
-            bY.value = '';
-            updateBoxDisplay(bX);
-            updateBoxDisplay(bY);
-          }
-        });
-
-        if (anyEmpty) {
-          playSound('retry');
-          feedbackBox.className = 'feedback-box show retry';
-          feedbackIcon.innerHTML = '✍️';
-          feedbackTitle.textContent = '¡Completa todas las coordenadas!';
-          feedbackMessage.textContent = 'Toca los números del teclado táctil para llenar X e Y.';
-          setActiveTouchBox(currentTouchBoxes.findIndex(b => b.value === '' && !b.locked));
-          return;
-        }
-
-        if (allCorrect) {
-          completeQuestionSuccess(q.explanation);
+      // Botón Siguiente Pregunta
+      const saveNextBtn = document.createElement('button');
+      saveNextBtn.type = 'button';
+      saveNextBtn.className = 'num-key k-save';
+      saveNextBtn.innerHTML = `<i class="fa-solid fa-check"></i> Listo`;
+      saveNextBtn.addEventListener('click', () => {
+        if (currentQIndex < 9) {
+          currentQIndex++;
+          renderQuestion();
         } else {
-          setActiveTouchBox(currentTouchBoxes.findIndex(b => !b.locked));
-          registerWrongAttempt('Las coordenadas en verde ✅ ya quedaron listas. Vuelve a ingresar las marcadas en rosado ❌.');
+          gradeCurrentModule();
         }
-      };
-
-      zone.appendChild(wrapper);
-      zone.appendChild(createTouchNumpadElement());
-      interactionContainer.appendChild(zone);
-      setActiveTouchBox(0);
-    }
-
-    // 3. Renderizar casillas táctiles Numéricas (Áreas, Poliedros, Perímetros)
-    function renderNumberTouchInputs(q) {
-      const zone = document.createElement('div');
-      zone.className = 'written-answer-zone';
-
-      const wrapper = document.createElement('div');
-      wrapper.className = 'inputs-wrapper';
-
-      q.inputs.forEach((inp, idx) => {
-        const card = document.createElement('div');
-        card.className = 'coord-input-card';
-        card.id = `num-card-${idx}`;
-
-        const lbl = document.createElement('span');
-        lbl.textContent = `${inp.label}:`;
-
-        const box = document.createElement('div');
-        box.className = 'touch-num-box wide-box empty-placeholder';
-        box.textContent = '?';
-
-        const boxIdx = currentTouchBoxes.length;
-        currentTouchBoxes.push({
-          el: box,
-          value: '',
-          placeholder: '?',
-          expected: inp.answer,
-          cardIndex: idx,
-          locked: false,
-          singleDigitAutoAdvance: false
-        });
-
-        box.addEventListener('click', () => { playSound('click'); setActiveTouchBox(boxIdx); });
-
-        card.append(lbl, box);
-        wrapper.appendChild(card);
       });
+      pad.appendChild(saveNextBtn);
 
-      currentVerifyCallback = () => {
-        if (questionSolved) return;
-        let allCorrect = true;
-        let anyEmpty = false;
-
-        q.inputs.forEach((inp, idx) => {
-          const b = currentTouchBoxes[idx];
-          const card = document.getElementById(`num-card-${idx}`);
-
-          if (b.value === '') {
-            anyEmpty = true;
-            card.className = 'coord-input-card field-err';
-            return;
-          }
-
-          if (parseFloat(b.value) === inp.answer) {
-            card.className = 'coord-input-card field-ok';
-            b.locked = true;
-            b.el.classList.remove('active-box');
-            b.el.classList.add('locked-box');
-          } else {
-            allCorrect = false;
-            card.className = 'coord-input-card field-err';
-            b.value = '';
-            updateBoxDisplay(b);
-          }
-        });
-
-        if (anyEmpty) {
-          playSound('retry');
-          feedbackBox.className = 'feedback-box show retry';
-          feedbackIcon.innerHTML = '✍️';
-          feedbackTitle.textContent = '¡Falta ingresar un número!';
-          feedbackMessage.textContent = 'Usa el teclado numérico táctil para llenar todas las casillas.';
-          setActiveTouchBox(currentTouchBoxes.findIndex(b => b.value === '' && !b.locked));
-          return;
-        }
-
-        if (allCorrect) {
-          completeQuestionSuccess(q.explanation);
-        } else {
-          setActiveTouchBox(currentTouchBoxes.findIndex(b => !b.locked));
-          registerWrongAttempt('Revisa el cálculo de la casilla en rosado ❌ ¡Tú puedes!');
-        }
-      };
-
-      zone.appendChild(wrapper);
-      zone.appendChild(createTouchNumpadElement());
-      interactionContainer.appendChild(zone);
-      setActiveTouchBox(0);
+      answerStage.append(fieldsRow, pad);
+      selectTouchField(0);
     }
 
-    // Soporte adicional por si conectan teclado físico a la tablet
+    function selectTouchField(idx) {
+      if (activeTouchFields.length === 0) return;
+      selectedFieldIdx = idx;
+      activeTouchFields.forEach((f, i) => {
+        f.el.classList.toggle('active-field', i === selectedFieldIdx);
+      });
+    }
+
+    function handleOlympKey(key) {
+      if (activeTouchFields.length === 0) return;
+      const field = activeTouchFields[selectedFieldIdx];
+      let currentVal = userAnswers[field.qIdx][field.fIdx].toString();
+
+      if (key === 'DEL') {
+        currentVal = currentVal.slice(0, -1);
+      } else if (key === 'CLR') {
+        currentVal = '';
+      } else if (key === 'NEXT_FIELD') {
+        selectTouchField((selectedFieldIdx + 1) % activeTouchFields.length);
+        return;
+      } else if (key === '-') {
+        if (currentVal.startsWith('-')) currentVal = currentVal.slice(1);
+        else currentVal = '-' + currentVal;
+      } else if (key === '.') {
+        if (!currentVal.includes('.')) {
+          currentVal = currentVal === '' ? '0.' : currentVal + '.';
+        }
+      } else {
+        if (currentVal.length < 7) currentVal += key;
+      }
+
+      userAnswers[field.qIdx][field.fIdx] = currentVal;
+      field.el.textContent = currentVal !== '' ? currentVal : '?';
+      updateSavedIndicator();
+    }
+
+    // Soporte para teclado físico conectado
     window.addEventListener('keydown', (e) => {
-      if (questionSolved || currentTouchBoxes.length === 0) return;
-      if (e.key >= '0' && e.key <= '9') {
-        handleNumpadInput(e.key);
+      if (!examScreen.classList.contains('active')) return;
+      if ((e.key >= '0' && e.key <= '9') || e.key === '.' || e.key === '-') {
+        handleOlympKey(e.key);
       } else if (e.key === 'Backspace') {
-        handleNumpadInput('DEL');
+        handleOlympKey('DEL');
       } else if (e.key === 'Tab') {
         e.preventDefault();
-        handleNumpadInput('NEXT');
-      } else if (e.key === 'Enter') {
-        handleNumpadInput('SUBMIT');
+        handleOlympKey('NEXT_FIELD');
       }
     });
 
-    function completeQuestionSuccess(explanationText) {
-      questionSolved = true;
-      playSound('success');
-
-      const pointsEarned = hadWrongAttemptOnCurrent ? 70 : 100;
-      if (!hadWrongAttemptOnCurrent) {
-        firstTryCount++;
-        streak++;
+    // Botones Anterior / Siguiente
+    document.getElementById('prevQBtn').addEventListener('click', () => {
+      if (currentQIndex > 0) {
+        currentQIndex--;
+        renderQuestion();
       }
-      score += pointsEarned;
+    });
 
-      scoreDisplay.textContent = score;
-      streakDisplay.textContent = streak;
-
-      if (typeof confetti === 'function') {
-        confetti({ particleCount: 65, spread: 68, origin: { y: 0.68 } });
-      }
-
-      feedbackBox.className = 'feedback-box show success';
-      feedbackIcon.innerHTML = '🎉';
-      feedbackTitle.textContent = `¡Excelente! +${pointsEarned} puntos`;
-      feedbackMessage.textContent = explanationText;
-
-      nextBtn.style.display = 'inline-flex';
-      nextBtn.querySelector('span').textContent =
-        currentQuestionIndex === questions.length - 1 ? 'Ver Nota Final' : 'Siguiente';
-    }
-
-    function registerWrongAttempt(helpMessage) {
-      hadWrongAttemptOnCurrent = true;
-      streak = 0;
-      streakDisplay.textContent = '0';
-      playSound('retry');
-
-      feedbackBox.className = 'feedback-box show retry';
-      feedbackIcon.innerHTML = '💪';
-      feedbackTitle.textContent = '¡Inténtalo de nuevo, tú puedes!';
-      feedbackMessage.textContent = helpMessage;
-    }
-
-    nextBtn.addEventListener('click', () => {
-      playSound('click');
-      if (currentQuestionIndex < questions.length - 1) {
-        currentQuestionIndex++;
-        loadQuestion();
+    document.getElementById('nextQBtn').addEventListener('click', () => {
+      const mod = MODULES_DB[activeModuleId];
+      if (currentQIndex < mod.questions.length - 1) {
+        currentQIndex++;
+        renderQuestion();
       } else {
-        showFinalResults();
+        gradeCurrentModule();
       }
     });
 
-    function showFinalResults() {
-      questionCard.style.display = 'none';
-      progressSection.style.display = 'none';
-      resultsCard.className = 'results-card show';
+    document.getElementById('gradeModuleBtn').addEventListener('click', gradeCurrentModule);
 
-      document.getElementById('finalScoreNum').textContent = score;
-      document.getElementById('finalFirstTryNum').textContent = `${firstTryCount} / 20`;
+    /* ==========================================================================
+       CALIFICACIÓN SOBRE 10 Y GENERACIÓN DEL SOLUCIONARIO PASO A PASO
+       ========================================================================== */
+    function gradeCurrentModule() {
+      const mod = MODULES_DB[activeModuleId];
+      let correctCount = 0;
+      const reviewList = document.getElementById('reviewList');
+      reviewList.innerHTML = '';
 
-      const grade20 = Math.max(12, Math.round((score / 2000) * 20));
-      document.getElementById('finalGradeNum').textContent = `${grade20} / 20`;
+      mod.questions.forEach((q, idx) => {
+        let isCorrect = false;
+        let userText = '';
+        let expectedText = '';
 
-      const finalTitle = document.getElementById('finalTitle');
-      const finalMessage = document.getElementById('finalMessage');
+        if (q.options) {
+          const userSet = userAnswers[idx];
+          const correctIds = q.options.filter(o => o.correct).map(o => o.id);
+          isCorrect =
+            userSet.size === correctIds.length &&
+            correctIds.every(id => userSet.has(id));
 
-      if (firstTryCount >= 18) {
-        finalTitle.textContent = '¡Gran Maestro de la Geometría! 🏆';
-        finalMessage.textContent = '¡Impresionante! Resolviste los 20 retos casi sin ningún error.';
-      } else if (firstTryCount >= 13) {
-        finalTitle.textContent = '¡Súper Explorador Matemático! 🌟';
-        finalMessage.textContent = '¡Excelente trabajo! Completaste los 20 ejercicios y corregiste cada reto hasta dominarlo.';
+          userText = userSet.size > 0 ? Array.from(userSet).join(', ') : 'Sin responder';
+          expectedText = correctIds.join(', ');
+        } else {
+          const userArr = userAnswers[idx];
+          isCorrect = q.inputs.every((inp, fIdx) => {
+            const raw = userArr[fIdx];
+            if (raw === '') return false;
+            const num = parseFloat(raw);
+            return !isNaN(num) && Math.abs(num - inp.expected) <= (inp.tolerance || 0.02);
+          });
+
+          userText = q.inputs
+            .map((inp, fIdx) => `${inp.label}: ${userArr[fIdx] !== '' ? userArr[fIdx] : '—'} ${inp.unit}`)
+            .join('  |  ');
+          expectedText = q.inputs
+            .map(inp => `${inp.label}: ${inp.expected} ${inp.unit}`)
+            .join('  |  ');
+        }
+
+        if (isCorrect) correctCount++;
+
+        const item = document.createElement('div');
+        item.className = `review-item-card ${isCorrect ? 'review-ok' : 'review-fail'}`;
+        item.innerHTML = `
+          <div class="review-header">
+            <strong style="font-family:'Fredoka'; font-size:1.05rem;">${q.title}</strong>
+            <span class="review-status-pill">
+              ${isCorrect ? '<i class="fa-solid fa-check"></i> Correcto (+1.0 pt)' : '<i class="fa-solid fa-xmark"></i> Incorrecto (0 pts)'}
+            </span>
+          </div>
+          <div class="comparison-boxes">
+            <span class="ans-pill ans-user">Tu respuesta: ${userText}</span>
+            <span class="ans-pill ans-expected">Respuesta correcta: ${expectedText}</span>
+          </div>
+          <div class="step-by-step-box">
+            <strong>Procedimiento Matemático Paso a Paso:</strong><br/>
+            ${q.solution.replace(/\n/g, '<br/>')}
+          </div>
+        `;
+        reviewList.appendChild(item);
+      });
+
+      examScreen.classList.remove('active');
+      resultsScreen.classList.add('active');
+
+      document.getElementById('finalGradeNumber').textContent = `${correctCount} / 10`;
+      const titleEl = document.getElementById('finalResultTitle');
+      const subEl = document.getElementById('finalResultSubtitle');
+
+      if (correctCount >= 9) {
+        titleEl.textContent = '¡Medalla de Oro Olímpica! 🏆';
+        subEl.textContent = 'Dominio sobresaliente en razonamiento espacial, despeje algebraico y conversión de unidades.';
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 130, spread: 90, origin: { y: 0.55 } });
+        }
+      } else if (correctCount >= 7) {
+        titleEl.textContent = '¡Nivel Destacado! 🌟';
+        subEl.textContent = 'Buen manejo de los conceptos. Revisa abajo el procedimiento paso a paso de los ejercicios donde tuviste dudas.';
       } else {
-        finalTitle.textContent = '¡Misión Cumplida, Campeón! 🚀';
-        finalMessage.textContent = '¡Terminaste las 20 preguntas sin rendirte! Recuerda: ¡Tu esfuerzo también es parte del resultado!';
+        titleEl.textContent = '¡Sigue Entrenando! 📐';
+        subEl.textContent = 'Analiza con calma cada demostración paso a paso del solucionario e intenta resolver el módulo nuevamente.';
       }
 
-      if (typeof confetti === 'function') {
-        confetti({ particleCount: 140, spread: 100, origin: { y: 0.55 } });
-      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    document.getElementById('restartBtn').addEventListener('click', () => {
-      playSound('click');
-      currentQuestionIndex = 0;
-      score = 0;
-      streak = 0;
-      firstTryCount = 0;
-      scoreDisplay.textContent = '0';
-      streakDisplay.textContent = '0';
-
-      resultsCard.className = 'results-card';
-      progressSection.style.display = 'flex';
-      questionCard.style.display = 'flex';
-
-      loadQuestion();
-    });
-
-    loadQuestion();
   </script>
 </body>
 </html>
