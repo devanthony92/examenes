@@ -1405,32 +1405,9 @@
             id: "M3-Q1",
             type: "B",
             typeLabel: "Tipo B · Deducción de Lados Ocultos en Polígono Escalonado",
-            title: "1. Analiza el plano del polígono en forma de 'L' e ingresa las medidas de los lados ocultos X e Y, así como el PERÍMETRO total y el ÁREA total.",
+            title: "1. Analiza el plano del polígono en forma de 'L' e ingresa la medida del lado oculto X, el PERÍMETRO total y el ÁREA total.",
             instruction: "Ningún dato está en el texto: debes extraer todas las medidas directamente del diagrama ASCII.",
             diagramType: "ascii",
-            diagram:
-`                  18 cm
-      +───────────────────────────+
-      |                           |
-      |                           | 6 cm
-      |              Y            |
-  14  |            +──────────────+
-  cm  |            |
-      |            | 8 cm
-      |            |
-      +────────────+
-           X`,
-            inputs: [
-              { label: "Lado horizontal X", unit: "cm", expected: 18, tolerance: 999, hiddenCheck: true },
-              { label: "Perímetro Total", unit: "cm", expected: 64, tolerance: 0.01 },
-              { label: "Área Total", unit: "cm²", expected: 168, tolerance: 0.01 }
-            ],
-            // Nota: ajustamos inputs para pedir X, Y, Perímetro y Área claramente:
-            inputs: [
-              { label: "Lado inferior X (si Y=11 cm)", unit: "cm", expected: 7, tolerance: 0.01 },
-              { label: "Perímetro Total", unit: "cm", expected: 64, tolerance: 0.01 },
-              { label: "Área Total", unit: "cm²", expected: 164, tolerance: 0.01 }
-            ],
             diagram:
 `                  18 cm
       +───────────────────────────+
@@ -1443,6 +1420,11 @@
       |            |
       +────────────+
           X = ¿?`,
+            inputs: [
+              { label: "Lado inferior X", unit: "cm", expected: 7, tolerance: 0.01 },
+              { label: "Perímetro Total", unit: "cm", expected: 64, tolerance: 0.01 },
+              { label: "Área Total", unit: "cm²", expected: 164, tolerance: 0.01 }
+            ],
             solution: "1) Lado oculto X: como el ancho superior es 18 cm y el escalón interior mide 11 cm, X = 18 - 11 = 7 cm.\n2) Perímetro Total = 18 + 6 + 11 + 8 + 7 + 14 = 64 cm.\n3) Área Total (dividiendo en dos rectángulos): Rectángulo superior (18 × 6 = 108 cm²) + Rectángulo inferior izquierdo (7 × 8 = 56 cm²) = 164 cm²."
           },
           {
@@ -1495,27 +1477,19 @@
             id: "M3-Q4",
             type: "C",
             typeLabel: "Tipo C · Igualación Algebraica de Perímetros",
-            title: "4. El perímetro de un rectángulo de base (2x + 3) cm y altura (x + 1) cm es exactamente igual al perímetro de un hexágono regular cuyos 6 lados miden 7 cm cada uno. Despeja el valor de x y calcula el ÁREA del rectángulo.",
-            instruction: "Plantea: 2·(2x + 3) + 2·(x + 1) = 6 × 7. Halla x, luego sustituye para conocer la base y altura reales.",
-            diagramType: "ascii",
-            diagram:
-`        Base = (2x + 3) cm                   Lado = 7 cm
-      +────────────────────+                  /──────\\
-      |                    | (x + 1) cm      /        \\
-      +────────────────────+                 \\        /
-       Perímetro Rectángulo        =          \\──────/
-        = 6x + 8                             Perímetro Hexágono = 42 cm`,
-            inputs: [
-              { label: "Valor de la incógnita x (si P=44)", unit: "cm", expected: 6, tolerance: 0.01 },
-              { label: "Área del Rectángulo", unit: "cm²", expected: 105, tolerance: 0.01 }
-            ],
             title: "4. El perímetro de un rectángulo de base (2x + 3) cm y altura (x + 1) cm es igual al de un cuadrado cuyo lado mide 11 cm (Perímetro = 44 cm). Despeja x y calcula el ÁREA del rectángulo.",
+            instruction: "Plantea: 2·(2x + 3) + 2·(x + 1) = 44. Halla x, luego sustituye para conocer la base y altura reales.",
+            diagramType: "ascii",
             diagram:
 `        Base = (2x + 3) cm                  Lado = 11 cm
       +────────────────────+               +────────────+
       |                    | (x + 1) cm    |  Cuadrado  |
       +────────────────────+               |  P = 44 cm |
        P = 2(2x+3) + 2(x+1)       =        +────────────+`,
+            inputs: [
+              { label: "Valor de la incógnita x", unit: "cm", expected: 6, tolerance: 0.01 },
+              { label: "Área del Rectángulo", unit: "cm²", expected: 105, tolerance: 0.01 }
+            ],
             solution: "1) Perímetro del cuadrado = 4 × 11 = 44 cm.\n2) Perímetro del rectángulo: 2(2x + 3) + 2(x + 1) = 4x + 6 + 2x + 2 = 6x + 8.\n3) Igualamos: 6x + 8 = 44  ⇒  6x = 36  ⇒  x = 6.\n4) Dimensiones del rectángulo: Base = 2(6) + 3 = 15 cm; Altura = 6 + 1 = 7 cm.\n5) Área del rectángulo = 15 × 7 = 105 cm²."
           },
           {
@@ -1889,20 +1863,20 @@
     const answerStage = document.getElementById('answerStage');
     const savedStatusText = document.getElementById('savedStatusText');
 
-    backToMenuBtn.addEventListener('click', returnToMenu);
-
-    window.returnToMenu = function() {
+    function returnToMenu() {
       examScreen.classList.remove('active');
       resultsScreen.classList.remove('active');
       menuScreen.style.display = 'flex';
       backToMenuBtn.style.display = 'none';
-    };
+    }
+    window.returnToMenu = returnToMenu;
 
-    window.retryCurrentModule = function() {
+    function retryCurrentModule() {
       if (activeModuleId) startModule(activeModuleId);
-    };
+    }
+    window.retryCurrentModule = retryCurrentModule;
 
-    window.startModule = function(modId) {
+    function startModule(modId) {
       activeModuleId = modId;
       currentQIndex = 0;
       userAnswers = {};
@@ -1923,7 +1897,10 @@
       activeModuleName.textContent = mod.title;
 
       renderQuestion();
-    };
+    }
+    window.startModule = startModule;
+
+    backToMenuBtn.addEventListener('click', returnToMenu);
 
     function isQuestionAnswered(idx) {
       const ans = userAnswers[idx];
