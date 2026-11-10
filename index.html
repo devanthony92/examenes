@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Simulador Olímpico de Geometría y Medición - Edición Tablet</title>
+  <title>Simulador Olímpico de Geometría y Medición - Gráficos Vectoriales SVG HD</title>
 
-  <!-- Tipografías claras y técnicas (Google Fonts: Fredoka, Quicksand y JetBrains Mono para diagramas ASCII) -->
+  <!-- Tipografías modernas (Fredoka, Quicksand y JetBrains Mono) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@500;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
   <style>
     /* ==========================================================================
        OPTIMIZACIÓN PARA SAMSUNG GALAXY TAB A9+ (11" 16:10 - 1920x1200 / ~1280x800 CSS)
-       DISEÑO DE ALTO RIGOR COGNITIVO Y OLIMPIADA MATEMÁTICA
+       ESTILO VISUAL INSPIRADO EN BRILLIANT.ORG / GEOGEBRA / DESMOS
        ========================================================================== */
     :root {
       --primary-blue: #2563EB;
@@ -35,7 +35,7 @@
       --text-muted: #475569;
       --radius-lg: 22px;
       --radius-md: 14px;
-      --shadow-card: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --shadow-card: 0 12px 32px rgba(15, 23, 42, 0.08);
     }
 
     * {
@@ -73,7 +73,7 @@
     }
 
     /* ==========================================================================
-       BARRA SUPERIOR DEL SIMULADOR OLÍMPICO
+       BARRA SUPERIOR DEL SIMULADOR
        ========================================================================== */
     .top-bar {
       background: var(--card-bg);
@@ -140,10 +140,6 @@
       gap: 6px;
     }
 
-    .btn-menu-return:active {
-      background: #E2E8F0;
-    }
-
     .icon-btn {
       width: 42px;
       height: 42px;
@@ -159,7 +155,7 @@
     }
 
     /* ==========================================================================
-       1. MENÚ INTERACTIVO DE SELECCIÓN DE MÓDULOS (PANTALLA INICIAL)
+       1. MENÚ INTERACTIVO DE SELECCIÓN DE MÓDULOS
        ========================================================================== */
     .menu-screen {
       background: var(--card-bg);
@@ -280,7 +276,7 @@
     }
 
     /* ==========================================================================
-       2. PANTALLA DE EVALUACIÓN ACTIVA (OPTIMIZADA PARA GALAXY TAB A9+)
+       2. PANTALLA DE EVALUACIÓN ACTIVA
        ========================================================================== */
     .exam-screen {
       display: none;
@@ -288,11 +284,8 @@
       gap: 12px;
     }
 
-    .exam-screen.active {
-      display: flex;
-    }
+    .exam-screen.active { display: flex; }
 
-    /* Navegador rápido de las 10 preguntas del módulo */
     .question-nav-strip {
       background: var(--card-bg);
       border-radius: 16px;
@@ -355,7 +348,6 @@
       gap: 8px;
     }
 
-    /* Tarjeta de la pregunta actual */
     .question-workspace-card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
@@ -406,10 +398,9 @@
       font-weight: 700;
     }
 
-    /* División en 2 Columnas para Tablet Horizontal (1280x800) */
     .tablet-split {
       display: grid;
-      grid-template-columns: 1.08fr 1fr;
+      grid-template-columns: 1.1fr 1fr;
       gap: 18px;
       align-items: stretch;
     }
@@ -418,38 +409,32 @@
       .tablet-split { grid-template-columns: 1fr; }
     }
 
-    /* Escenario Izquierdo: Diagrama ASCII / Matriz de Puntos / SVG Técnico */
+    /* ==========================================================================
+       LIENZO VECTORIAL SVG ESTILIZADO (ESTILO GEOGEBRA / BRILLIANT)
+       ========================================================================== */
     .diagram-stage {
-      background: #0F172A;
-      color: #F8FAFC;
-      border: 3px solid #334155;
+      background: radial-gradient(circle at center, #FFFFFF 0%, #F1F5F9 100%);
+      border: 2.5px solid #CBD5E1;
       border-radius: 18px;
       padding: 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 270px;
-      overflow-x: auto;
+      min-height: 295px;
+      position: relative;
+      box-shadow: inset 0 2px 10px rgba(15, 23, 42, 0.03);
     }
 
-    .diagram-stage.light-stage {
-      background: #F8FAFC;
-      color: var(--text-main);
-      border-color: #CBD5E1;
+    .diagram-stage svg {
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+      max-height: 280px;
+      filter: drop-shadow(0 6px 14px rgba(15, 23, 42, 0.06));
     }
 
-    .ascii-blueprint {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.86rem;
-      line-height: 1.35;
-      white-space: pre;
-      color: #38BDF8;
-      text-align: left;
-      padding: 6px;
-    }
-
-    /* Escenario Derecho: Controles de Respuesta y Teclado Numérico Táctil */
+    /* Escenario Derecho: Controles y Teclado Táctil */
     .answer-stage {
       background: #F8FAFC;
       border: 2.5px solid #CBD5E1;
@@ -477,7 +462,7 @@
       align-items: center;
       gap: 8px;
       font-family: 'Fredoka', sans-serif;
-      font-size: 1rem;
+      font-size: 0.98rem;
       font-weight: 700;
     }
 
@@ -509,10 +494,9 @@
       color: #334155;
       padding: 4px 8px;
       border-radius: 6px;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
     }
 
-    /* Teclado Numérico Táctil Olímpico (Incluye Punto Decimal '.' y Signo '-') */
     .olymp-numpad {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -544,16 +528,8 @@
       background: #DBEAFE;
     }
 
-    .num-key.k-special {
-      background: #FEF3C7;
-      color: #B45309;
-    }
-
-    .num-key.k-del {
-      background: #FFE4E6;
-      color: #BE123C;
-    }
-
+    .num-key.k-special { background: #FEF3C7; color: #B45309; }
+    .num-key.k-del { background: #FFE4E6; color: #BE123C; }
     .num-key.k-next {
       grid-column: span 2;
       background: #DBEAFE;
@@ -561,7 +537,6 @@
       font-size: 0.92rem;
       gap: 5px;
     }
-
     .num-key.k-save {
       grid-column: span 2;
       background: var(--primary-blue);
@@ -571,7 +546,6 @@
       gap: 6px;
     }
 
-    /* Opciones para preguntas Tipo D (Multi-selección o V/F justificado) */
     .complex-options-list {
       display: flex;
       flex-direction: column;
@@ -616,7 +590,6 @@
       border-color: var(--primary-blue);
     }
 
-    /* Barra inferior de navegación entre preguntas 1 a 10 */
     .question-footer-nav {
       display: flex;
       align-items: center;
@@ -648,7 +621,7 @@
     }
 
     /* ==========================================================================
-       3. PANTALLA DE CALIFICACIÓN SOBRE 10 Y SOLUCIONARIO PASO A PASO
+       3. PANTALLA DE RESULTADOS Y SOLUCIONARIO
        ========================================================================== */
     .results-screen {
       display: none;
@@ -656,9 +629,7 @@
       gap: 16px;
     }
 
-    .results-screen.active {
-      display: flex;
-    }
+    .results-screen.active { display: flex; }
 
     .score-summary-banner {
       background: var(--card-bg);
@@ -683,16 +654,8 @@
       font-family: 'Fredoka', sans-serif;
     }
 
-    .grade-circle strong {
-      font-size: 2.1rem;
-      color: #B45309;
-      line-height: 1;
-    }
-
-    .grade-circle span {
-      font-size: 0.8rem;
-      color: #92400E;
-    }
+    .grade-circle strong { font-size: 2.1rem; color: #B45309; line-height: 1; }
+    .grade-circle span { font-size: 0.8rem; color: #92400E; }
 
     .review-list {
       display: flex;
@@ -711,13 +674,8 @@
       gap: 8px;
     }
 
-    .review-item-card.review-ok {
-      border-left-color: var(--emerald-ok);
-    }
-
-    .review-item-card.review-fail {
-      border-left-color: var(--rose-err);
-    }
+    .review-item-card.review-ok { border-left-color: var(--emerald-ok); }
+    .review-item-card.review-fail { border-left-color: var(--rose-err); }
 
     .review-header {
       display: flex;
@@ -735,15 +693,8 @@
       font-weight: 700;
     }
 
-    .review-ok .review-status-pill {
-      background: #D1FAE5;
-      color: #065F46;
-    }
-
-    .review-fail .review-status-pill {
-      background: #FFE4E6;
-      color: #9F1239;
-    }
+    .review-ok .review-status-pill { background: #D1FAE5; color: #065F46; }
+    .review-fail .review-status-pill { background: #FFE4E6; color: #9F1239; }
 
     .comparison-boxes {
       display: flex;
@@ -759,17 +710,8 @@
       font-weight: 700;
     }
 
-    .ans-user {
-      background: #F1F5F9;
-      color: #334155;
-      border: 1.5px solid #CBD5E1;
-    }
-
-    .ans-expected {
-      background: #ECFDF5;
-      color: #047857;
-      border: 1.5px solid #6EE7B7;
-    }
+    .ans-user { background: #F1F5F9; color: #334155; border: 1.5px solid #CBD5E1; }
+    .ans-expected { background: #ECFDF5; color: #047857; border: 1.5px solid #6EE7B7; }
 
     .step-by-step-box {
       background: #F8FAFC;
@@ -798,7 +740,7 @@
         </div>
         <div class="brand-title">
           <h1>Simulador Olímpico de Geometría y Medición</h1>
-          <span>Alto Rigor Cognitivo · Optimizado para Samsung Galaxy Tab A9+</span>
+          <span>Gráficos Vectoriales SVG HD · Optimizado para Samsung Galaxy Tab A9+</span>
         </div>
       </div>
 
@@ -814,24 +756,23 @@
     </header>
 
     <!-- ======================================================================
-         1. MENÚ INTERACTIVO DE SELECCIÓN DE MÓDULO (INICIO)
+         1. MENÚ INTERACTIVO DE SELECCIÓN DE MÓDULO
          ====================================================================== -->
     <section class="menu-screen" id="menuScreen">
       <div class="menu-hero">
         <div class="olymp-pill">
-          <i class="fa-solid fa-medal"></i>
-          <span>Entrenamiento de Olimpiadas Matemáticas · Sin Adivinación al Azar</span>
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>Motor Gráfico Vectorial SVG · Alto Rigor Cognitivo</span>
         </div>
         <h2>Selecciona el Módulo de Evaluación (10 Retos por Módulo)</h2>
         <p>
-          Cada módulo combina 4 formatos de alto rigor: <b>Tipo A</b> (Cálculo Abierto Multipaso),
-          <b>Tipo B</b> (Análisis de Diagramas ASCII y Matrices), <b>Tipo C</b> (Problemas Inversos y Despeje Algebraico) y
-          <b>Tipo D</b> (Verdadero/Falso Demostrado y Selección Múltiple Compleja). Al finalizar recibirás tu nota sobre 10 y la solución paso a paso.
+          Cada módulo integra diagramas vectoriales de precisión con los 4 formatos exigidos:
+          <b>Tipo A</b> (Cálculo Abierto Multipaso), <b>Tipo B</b> (Extracción Visual de Medidas en Gráficos),
+          <b>Tipo C</b> (Problemas Inversos y Despeje Algebraico) y <b>Tipo D</b> (Selección Múltiple Compleja y Demostración).
         </p>
       </div>
 
       <div class="modules-grid">
-        <!-- Módulo 1 -->
         <button class="module-card" onclick="startModule(1)">
           <div>
             <div class="module-card-header">
@@ -843,16 +784,15 @@
               </div>
             </div>
             <p style="margin-top:10px;">
-              Conversiones encadenadas en el Sistema Métrico (km, hm, dam, m, dm, cm, mm) y Sistema Inglés (pulgadas, pies, yardas). Suma y resta de tramos heterogéneos y problemas inversos de escalas.
+              Conversiones encadenadas en el Sistema Métrico (km, hm, dam, m, dm, cm, mm) y Sistema Inglés (pulgadas, pies, yardas) con esquemas de cotas de ingeniería.
             </p>
           </div>
           <div class="module-footer">
-            <span>10 Preguntas (Tipos A, B, C, D)</span>
+            <span>10 Preguntas con Gráficos SVG</span>
             <span>Iniciar Módulo 1 <i class="fa-solid fa-arrow-right"></i></span>
           </div>
         </button>
 
-        <!-- Módulo 2 -->
         <button class="module-card" onclick="startModule(2)">
           <div>
             <div class="module-card-header">
@@ -864,16 +804,15 @@
               </div>
             </div>
             <p style="margin-top:10px;">
-              Coordenadas con decimales, deducción de vértices faltantes en paralelogramos y rombos inclinados, y transformaciones compuestas (traslación + rotación de 90° horario/antihorario + reflexión axial).
+              Planos milimetrados estilo GeoGebra con coordenadas decimales, paralelogramos y rombos inclinados, rotaciones de 90° horario/antihorario y reflexiones axiales.
             </p>
           </div>
           <div class="module-footer">
-            <span>10 Preguntas (Tipos A, B, C, D)</span>
+            <span>10 Preguntas con Gráficos SVG</span>
             <span>Iniciar Módulo 2 <i class="fa-solid fa-arrow-right"></i></span>
           </div>
         </button>
 
-        <!-- Módulo 3 -->
         <button class="module-card" onclick="startModule(3)">
           <div>
             <div class="module-card-header">
@@ -885,16 +824,15 @@
               </div>
             </div>
             <p style="margin-top:10px;">
-              Regiones sombreadas (círculo inscrito en cuadrado, rectángulo + semicírculo), cálculo de área desde el diámetro o plano cartesiano, lados escalonados ocultos (X) e igualación algebraica de perímetros.
+              Regiones sombreadas vectoriales (círculo inscrito, rectángulo + semicírculo, trapecio), lados escalonados ocultos (X) e igualación algebraica de perímetros.
             </p>
           </div>
           <div class="module-footer">
-            <span>10 Preguntas (Tipos A, B, C, D)</span>
+            <span>10 Preguntas con Gráficos SVG</span>
             <span>Iniciar Módulo 3 <i class="fa-solid fa-arrow-right"></i></span>
           </div>
         </button>
 
-        <!-- Módulo 4 -->
         <button class="module-card" onclick="startModule(4)">
           <div>
             <div class="module-card-header">
@@ -906,7 +844,7 @@
               </div>
             </div>
             <p style="margin-top:10px;">
-              10 retos de máxima dificultad que integran simultáneamente conversión de unidades, geometría analítica en el plano cartesiano, transformaciones rígidas y áreas sombreadas compuestas.
+              10 retos de máxima dificultad que integran escalas en el plano cartesiano, pistas atléticas, coronas circulares, poliedros 3D y recortes geométricos.
             </p>
           </div>
           <div class="module-footer">
@@ -918,10 +856,9 @@
     </section>
 
     <!-- ======================================================================
-         2. PANTALLA DE EXAMEN ACTIVO (10 PREGUNTAS DEL MÓDULO)
+         2. PANTALLA DE EXAMEN ACTIVO
          ====================================================================== -->
     <section class="exam-screen" id="examScreen">
-      <!-- Tira de navegación 1 al 10 -->
       <div class="question-nav-strip">
         <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
           <strong id="activeModuleName" style="font-family:'Fredoka'; color:var(--deep-indigo); font-size:0.98rem;">Módulo</strong>
@@ -933,7 +870,6 @@
         </button>
       </div>
 
-      <!-- Tarjeta dividida en 2 columnas para Tablet -->
       <div class="question-workspace-card">
         <div class="q-meta-row">
           <span class="q-type-badge" id="qTypeBadge">Tipo A</span>
@@ -944,10 +880,7 @@
         <p class="q-instruction" id="qInstruction"></p>
 
         <div class="tablet-split">
-          <!-- Columna Izquierda: Representación Gráfica / ASCII / Coordenadas -->
           <div class="diagram-stage" id="diagramStage"></div>
-
-          <!-- Columna Derecha: Entrada Analítica/Numérica o Selección Compleja -->
           <div class="answer-stage" id="answerStage"></div>
         </div>
 
@@ -964,7 +897,7 @@
     </section>
 
     <!-- ======================================================================
-         3. PANTALLA DE RESULTADOS SOBRE 10 Y SOLUCIONARIO PASO A PASO
+         3. PANTALLA DE RESULTADOS SOBRE 10 Y SOLUCIONARIO
          ====================================================================== -->
     <section class="results-screen" id="resultsScreen">
       <div class="score-summary-banner">
@@ -1007,8 +940,159 @@
     });
 
     /* ==========================================================================
-       BASE DE DATOS RIGUROSA: 4 MÓDULOS × 10 PREGUNTAS = 40 RETOS OLÍMPICOS
-       Cada módulo incluye obligatoriamente preguntas Tipo A, Tipo B, Tipo C y Tipo D.
+       MOTOR GRÁFICO VECTORIAL SVG ESTILIZADO (ESTILO GEOGEBRA / BRILLIANT)
+       Genera diagramas técnicos con gradientes, cotas de ingeniería y cuadrículas HD
+       ========================================================================== */
+    const SVG_DEFS = `
+      <defs>
+        <linearGradient id="gradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#2563EB" stop-opacity="0.6"/>
+        </linearGradient>
+        <linearGradient id="gradPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#C084FC" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#7C3AED" stop-opacity="0.6"/>
+        </linearGradient>
+        <linearGradient id="gradEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#34D399" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#059669" stop-opacity="0.6"/>
+        </linearGradient>
+        <linearGradient id="gradAmber" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FDE047" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.7"/>
+        </linearGradient>
+        <linearGradient id="gradRose" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FDA4AF" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#E11D48" stop-opacity="0.65"/>
+        </linearGradient>
+        <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563EB"/>
+        </marker>
+        <marker id="arrowRose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#E11D48"/>
+        </marker>
+        <marker id="arrowDark" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#334155"/>
+        </marker>
+      </defs>
+    `;
+
+    // 1. Generador de Barras de Tramos y Cotas de Ingeniería (Para Módulo 1)
+    function svgSegmentsBlueprint(segments, bottomLabel, noteText = '') {
+      const totalWidth = 340;
+      const startX = 30;
+      let currentX = startX;
+      const colors = ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B'];
+      let rectsHTML = '';
+
+      segments.forEach((seg, idx) => {
+        const w = seg.ratio * totalWidth;
+        const col = seg.color || colors[idx % colors.length];
+        rectsHTML += `
+          <rect x="${currentX}" y="68" width="${w}" height="42" rx="6" fill="${col}" fill-opacity="0.2" stroke="${col}" stroke-width="2.5"/>
+          <line x1="${currentX + 6}" y1="52" x2="${currentX + w - 6}" y2="52" stroke="${col}" stroke-width="2" marker-start="url(#arrowDark)" marker-end="url(#arrowDark)"/>
+          <rect x="${currentX + w/2 - 36}" y="26" width="72" height="22" rx="6" fill="#FFFFFF" stroke="${col}" stroke-width="1.8"/>
+          <text x="${currentX + w/2}" y="41" text-anchor="middle" font-family="Fredoka" font-size="12" fill="#0F172A" font-weight="bold">${seg.label}</text>
+          <text x="${currentX + w/2}" y="94" text-anchor="middle" font-family="Fredoka" font-size="12.5" fill="${col}" font-weight="bold">${seg.sub || ''}</text>
+        `;
+        currentX += w;
+      });
+
+      const bottomCota = bottomLabel ? `
+        <line x1="${startX}" y1="132" x2="${startX + totalWidth}" y2="132" stroke="#0F172A" stroke-width="2.2" marker-start="url(#arrowDark)" marker-end="url(#arrowDark)"/>
+        <rect x="${startX + totalWidth/2 - 75}" y="140" width="150" height="26" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+        <text x="${startX + totalWidth/2}" y="158" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#92400E" font-weight="bold">${bottomLabel}</text>
+      ` : '';
+
+      const footerNote = noteText ? `
+        <rect x="20" y="176" width="360" height="30" rx="8" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
+        <text x="200" y="196" text-anchor="middle" font-family="Quicksand" font-size="12" fill="#334155" font-weight="bold">${noteText}</text>
+      ` : '';
+
+      return `
+        <svg viewBox="0 0 400 215">
+          ${SVG_DEFS}
+          ${rectsHTML}
+          ${bottomCota}
+          ${footerNote}
+        </svg>
+      `;
+    }
+
+    // 2. Generador de Plano Cartesiano Estilo GeoGebra HD (Para Módulo 2 y 4)
+    function svgCartesianGeoGebra({ maxX = 10, maxY = 8, points = [], polygons = [], vectors = [], extraSVG = '' }) {
+      const originX = 48;
+      const originY = 210;
+      const width = 320;
+      const height = 185;
+      const stepX = width / maxX;
+      const stepY = height / maxY;
+
+      let gridHTML = '';
+      for (let i = 1; i <= maxX; i++) {
+        const x = originX + i * stepX;
+        gridHTML += `<line x1="${x}" y1="${originY - height}" x2="${x}" y2="${originY}" stroke="#E2E8F0" stroke-width="1.3"/>`;
+        gridHTML += `<text x="${x}" y="${originY + 16}" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#475569" font-weight="bold">${i}</text>`;
+      }
+      for (let j = 1; j <= maxY; j++) {
+        const y = originY - j * stepY;
+        gridHTML += `<line x1="${originX}" y1="${y}" x2="${originX + width}" y2="${y}" stroke="#E2E8F0" stroke-width="1.3"/>`;
+        gridHTML += `<text x="${originX - 10}" y="${y + 4}" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#475569" font-weight="bold">${j}</text>`;
+      }
+
+      let polyHTML = '';
+      polygons.forEach(p => {
+        const pts = p.coords.map(([cx, cy]) => `${originX + cx * stepX},${originY - cy * stepY}`).join(' ');
+        polyHTML += `<polygon points="${pts}" fill="${p.fill || 'url(#gradBlue)'}" stroke="${p.stroke || '#2563EB'}" stroke-width="2.8" stroke-linejoin="round" ${p.dashed ? 'stroke-dasharray="6,4"' : ''}/>`;
+      });
+
+      let vecHTML = '';
+      vectors.forEach(v => {
+        const x1 = originX + v.from[0] * stepX;
+        const y1 = originY - v.from[1] * stepY;
+        const x2 = originX + v.to[0] * stepX;
+        const y2 = originY - v.to[1] * stepY;
+        vecHTML += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${v.color || '#E11D48'}" stroke-width="2.5" stroke-dasharray="${v.dashed ? '5,4' : 'none'}" marker-end="url(#arrowRose)"/>`;
+      });
+
+      let ptsHTML = '';
+      points.forEach(pt => {
+        const px = originX + pt.x * stepX;
+        const py = originY - pt.y * stepY;
+        const col = pt.color || '#2563EB';
+        const proj = pt.showProj ? `
+          <line x1="${px}" y1="${originY}" x2="${px}" y2="${py}" stroke="${col}" stroke-width="1.4" stroke-dasharray="3,3" opacity="0.65"/>
+          <line x1="${originX}" y1="${py}" x2="${px}" y2="${py}" stroke="${col}" stroke-width="1.4" stroke-dasharray="3,3" opacity="0.65"/>
+        ` : '';
+        ptsHTML += `
+          ${proj}
+          <circle cx="${px}" cy="${py}" r="5.5" fill="${col}" stroke="#FFFFFF" stroke-width="2"/>
+          <rect x="${px + (pt.dx || 7) - 3}" y="${py + (pt.dy || -18)}" width="${pt.label.length * 7.2 + 8}" height="18" rx="5" fill="#FFFFFF" fill-opacity="0.9" stroke="${col}" stroke-width="1.2"/>
+          <text x="${px + (pt.dx || 7) + 1}" y="${py + (pt.dy || -18) + 13}" font-family="Fredoka" font-size="11.5" fill="#0F172A" font-weight="bold">${pt.label}</text>
+        `;
+      });
+
+      return `
+        <svg viewBox="0 0 400 240">
+          ${SVG_DEFS}
+          <rect x="${originX}" y="${originY - height}" width="${width}" height="${height}" fill="#FFFFFF" rx="4"/>
+          ${gridHTML}
+          <!-- Ejes X e Y -->
+          <line x1="${originX}" y1="${originY}" x2="${originX + width + 12}" y2="${originY}" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrowDark)"/>
+          <text x="${originX + width + 18}" y="${originY + 4}" font-family="Fredoka" font-size="14" fill="#E11D48" font-weight="bold">X</text>
+          <line x1="${originX}" y1="${originY}" x2="${originX}" y2="${originY - height - 10}" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrowDark)"/>
+          <text x="${originX - 4}" y="${originY - height - 15}" font-family="Fredoka" font-size="14" fill="#2563EB" font-weight="bold">Y</text>
+          <text x="${originX - 10}" y="${originY + 15}" font-family="JetBrains Mono" font-size="11" fill="#64748B" font-weight="bold">0</text>
+          ${polyHTML}
+          ${extraSVG}
+          ${vecHTML}
+          ${ptsHTML}
+        </svg>
+      `;
+    }
+
+    /* ==========================================================================
+       BASE DE DATOS CON 40 GRÁFICOS VECTORIALES SVG MODERNOS
        ========================================================================== */
     const MODULES_DB = {
       // ========================================================================
@@ -1022,29 +1106,34 @@
             type: "A",
             typeLabel: "Tipo A · Cálculo Abierto Multipaso",
             title: "1. Un dron de topografía recorre tres tramos rectos: el primero de 1.45 km, el segundo de 8.5 hm y el tercero de 3200 dm. ¿Cuántos METROS (m) recorrió en total?",
-            instruction: "Convierte cada tramo a metros (m) y escribe la suma total exacta.",
-            diagramType: "ascii",
-            diagram:
-`  [Inicio] ─── 1.45 km ───► (P1) ─── 8.5 hm ───► (P2) ─── 3200 dm ───► [Meta]
-  
-  Escala Métrica:
-  1 km = 1000 m   |   1 hm = 100 m   |   1 m = 10 dm`,
+            instruction: "Convierte cada tramo del esquema vectorial a metros (m) y escribe la suma total exacta.",
+            svgContent: svgSegmentsBlueprint(
+              [
+                { label: "1.45 km", sub: "Tramo 1", ratio: 0.44, color: "#2563EB" },
+                { label: "8.5 hm", sub: "Tramo 2", ratio: 0.32, color: "#7C3AED" },
+                { label: "3200 dm", sub: "Tramo 3", ratio: 0.24, color: "#059669" }
+              ],
+              "¿Distancia Total en metros (m)?",
+              "1 km = 1000 m   |   1 hm = 100 m   |   1 m = 10 dm"
+            ),
             inputs: [{ label: "Distancia Total", unit: "m", expected: 2620, tolerance: 0.01 }],
             solution: "1) 1.45 km × 1000 = 1450 m.\n2) 8.5 hm × 100 = 850 m.\n3) 3200 dm ÷ 10 = 320 m.\n4) Total = 1450 m + 850 m + 320 m = 2620 m."
           },
           {
             id: "M1-Q2",
             type: "B",
-            typeLabel: "Tipo B · Análisis de Diagrama ASCII",
-            title: "2. Analiza el plano en texto de una viga escalonada. Extrae las medidas del dibujo y calcula cuánto mide el tramo oculto X en CENTÍMETROS (cm).",
-            instruction: "Observa que el largo total inferior es 3.2 m y los dos escalones superiores están dados en dm y mm.",
-            diagramType: "ascii",
-            diagram:
-`       |◄──── 14 dm ────►|◄── 650 mm ──►|◄──── X (cm) ────►|
-       +-----------------+--------------+------------------+
-       |                 |              |                  |
-       +-----------------+--------------+------------------+
-       |◄───────────────────── 3.2 m ─────────────────────►|`,
+            typeLabel: "Tipo B · Extracción Visual de Cota Oculta",
+            title: "2. Analiza el plano de ingeniería de una viga metálica. Extrae las medidas de las cotas y calcula cuánto mide el tramo oculto X en CENTÍMETROS (cm).",
+            instruction: "El largo total inferior es 3.2 m y los dos primeros tramos están expresados en dm y mm.",
+            svgContent: svgSegmentsBlueprint(
+              [
+                { label: "14 dm", sub: "Sección A", ratio: 0.42, color: "#0284C7" },
+                { label: "650 mm", sub: "Sección B", ratio: 0.23, color: "#D97706" },
+                { label: "X = ¿? cm", sub: "Incógnita", ratio: 0.35, color: "#E11D48" }
+              ],
+              "Largo Total = 3.2 m",
+              "Convierte todo a centímetros (1 m = 100 cm, 1 dm = 10 cm, 1 cm = 10 mm)"
+            ),
             inputs: [{ label: "Tramo oculto X", unit: "cm", expected: 115, tolerance: 0.01 }],
             solution: "1) Convertimos todo a centímetros (cm):\n   • Total inferior: 3.2 m × 100 = 320 cm.\n   • Tramo 1: 14 dm × 10 = 140 cm.\n   • Tramo 2: 650 mm ÷ 10 = 65 cm.\n2) Despejamos X: 320 cm - (140 cm + 65 cm) = 320 - 205 = 115 cm."
           },
@@ -1054,11 +1143,16 @@
             typeLabel: "Tipo C · Problema Inverso y Despeje",
             title: "3. Se corta un cable de fibra óptica de 0.48 km en 3 rollos iguales de longitud L (en metros) y aún sobra un trozo de 6 dam. ¿Cuántos METROS (m) mide cada rollo L?",
             instruction: "Plantea la ecuación 3·L + 6 dam = 0.48 km en metros y despeja L.",
-            diagramType: "ascii",
-            diagram:
-`  |◄──── Rollo L ────►|◄──── Rollo L ────►|◄──── Rollo L ────►|◄─ 6 dam ─►|
-  |═══════════════════|═══════════════════|═══════════════════|═══════════|
-  |◄────────────────────────── Total: 0.48 km ───────────────────────────►|`,
+            svgContent: svgSegmentsBlueprint(
+              [
+                { label: "Rollo L", sub: "m", ratio: 0.28, color: "#2563EB" },
+                { label: "Rollo L", sub: "m", ratio: 0.28, color: "#2563EB" },
+                { label: "Rollo L", sub: "m", ratio: 0.28, color: "#2563EB" },
+                { label: "6 dam", sub: "Sobra", ratio: 0.16, color: "#F59E0B" }
+              ],
+              "Cable Total = 0.48 km",
+              "Ecuación: 3 · L + 6 dam = 0.48 km"
+            ),
             inputs: [{ label: "Longitud de cada rollo L", unit: "m", expected: 140, tolerance: 0.01 }],
             solution: "1) Convertimos a metros: 0.48 km = 480 m, y 6 dam = 60 m.\n2) Ecuación: 3·L + 60 = 480  ⇒  3·L = 420  ⇒  L = 420 ÷ 3 = 140 m."
           },
@@ -1066,34 +1160,44 @@
             id: "M1-Q4",
             type: "A",
             typeLabel: "Tipo A · Sistema Inglés de Unidades",
-            title: "4. Un tablón de madera importado mide 4 yardas (yd) y 2 pies (ft) de largo. Si se cortan 30 pulgadas (in), ¿cuántas PULGADAS (in) quedan?",
+            title: "4. Un tablón de madera importado mide 4 yardas (yd) y 2 pies (ft) de largo. Si la sierra corta un tramo de 30 pulgadas (in), ¿cuántas PULGADAS (in) quedan?",
             instruction: "Usa las equivalencias: 1 yarda = 3 pies, y 1 pie = 12 pulgadas.",
-            diagramType: "ascii",
-            diagram:
-`  Equivalencias Sistema Inglés:
-  • 1 yarda (yd) = 3 pies (ft) = 36 pulgadas (in)
-  • 1 pie (ft)   = 12 pulgadas (in)
-  
-  Tablón inicial: [ 4 yd + 2 ft ]  ──(Se cortan 30 in)──►  ¿Restante en in?`,
+            svgContent: svgSegmentsBlueprint(
+              [
+                { label: "¿Restante (in)?", sub: "Madera útil", ratio: 0.78, color: "#059669" },
+                { label: "- 30 in", sub: "Corte", ratio: 0.22, color: "#E11D48" }
+              ],
+              "Largo Inicial = 4 yd + 2 ft",
+              "1 yd = 3 ft = 36 in   |   1 ft = 12 in"
+            ),
             inputs: [{ label: "Longitud restante", unit: "in", expected: 138, tolerance: 0.01 }],
             solution: "1) 4 yd × 36 in/yd = 144 in.\n2) 2 ft × 12 in/ft = 24 in.\n3) Largo inicial = 144 + 24 = 168 in.\n4) Restamos el corte: 168 in - 30 in = 138 in."
           },
           {
             id: "M1-Q5",
             type: "B",
-            typeLabel: "Tipo B · Análisis de Diagrama Escalonado",
-            title: "5. Observa el perfil de una escalera industrial. Si todos los escalones tienen la misma altura h (en mm), extrae los datos del diagrama y calcula h.",
-            instruction: "Fíjate que la plataforma superior está a 1.35 m del suelo y la base de concreto mide 1.5 dm.",
-            diagramType: "ascii",
-            diagram:
-`                        +─────────── Plataforma Superior (a 1.35 m del suelo)
-                    +───|  ↕ h
-                +───|  ↕ h
-            +───|  ↕ h
-        +───|  ↕ h  (4 escalones idénticos de altura h)
-  +─────+───────────────────────────
-  | Base de concreto: 1.5 dm de alto
-  +───────────────────────────────── Suelo (0 m)`,
+            typeLabel: "Tipo B · Análisis de Perfil Escalonado Vectorial",
+            title: "5. Observa el perfil técnico de la escalera. Si los 4 escalones tienen la misma altura h (en mm), extrae los datos de las cotas y calcula h.",
+            instruction: "La plataforma superior está a 1.35 m del suelo y la base inferior de concreto mide 1.5 dm.",
+            svgContent: `
+              <svg viewBox="0 0 400 215">
+                ${SVG_DEFS}
+                <!-- Base de concreto -->
+                <rect x="40" y="155" width="260" height="30" rx="4" fill="#94A3B8" stroke="#334155" stroke-width="2"/>
+                <text x="170" y="175" text-anchor="middle" font-family="Fredoka" font-size="12" fill="#FFFFFF" font-weight="bold">Base de concreto = 1.5 dm</text>
+                <!-- 4 Escalones -->
+                <polygon points="70,155 70,125 115,125 115,95 160,95 160,65 205,65 205,35 280,35 280,155" fill="url(#gradBlue)" stroke="#1D4ED8" stroke-width="2.5"/>
+                <!-- Cota total derecha -->
+                <line x1="315" y1="35" x2="315" y2="185" stroke="#E11D48" stroke-width="2.5" marker-start="url(#arrowRose)" marker-end="url(#arrowRose)"/>
+                <rect x="322" y="95" width="70" height="28" rx="6" fill="#FFE4E6" stroke="#E11D48" stroke-width="1.5"/>
+                <text x="357" y="114" text-anchor="middle" font-family="Fredoka" font-size="12.5" fill="#9F1239" font-weight="bold">1.35 m</text>
+                <!-- Etiquetas h -->
+                <text x="52" y="144" font-family="Fredoka" font-size="12" fill="#1E40AF" font-weight="bold">↕ h</text>
+                <text x="97" y="114" font-family="Fredoka" font-size="12" fill="#1E40AF" font-weight="bold">↕ h</text>
+                <text x="142" y="84" font-family="Fredoka" font-size="12" fill="#1E40AF" font-weight="bold">↕ h</text>
+                <text x="187" y="54" font-family="Fredoka" font-size="12" fill="#1E40AF" font-weight="bold">↕ h</text>
+              </svg>
+            `,
             inputs: [{ label: "Altura h de cada escalón", unit: "mm", expected: 300, tolerance: 0.01 }],
             solution: "1) Convertimos a milímetros (mm):\n   • Altura total = 1.35 m × 1000 = 1350 mm.\n   • Base de concreto = 1.5 dm × 100 = 150 mm.\n2) Altura de los 4 escalones = 1350 - 150 = 1200 mm.\n3) Cada escalón mide h = 1200 ÷ 4 = 300 mm."
           },
@@ -1101,15 +1205,27 @@
             id: "M1-Q6",
             type: "D",
             typeLabel: "Tipo D · Selección Múltiple Compleja (Marca TODAS las verdaderas)",
-            title: "6. Analiza las siguientes 4 igualdades de conversión de unidades y selecciona ÚNICAMENTE todas las afirmaciones que sean VERDADERAS.",
-            instruction: "¡Atención! Para obtener el punto debes marcar todas las verdaderas y ninguna falsa.",
-            diagramType: "ascii",
-            diagram:
-`  Verifica cada cálculo antes de marcar:
-  (I)   2.5 km + 45 dam = 2950 m
-  (II)  5 yardas + 2 pies = 204 pulgadas (1 yd = 3 ft, 1 ft = 12 in)
-  (III) 0.08 hm - 35 dm = 45 m
-  (IV)  4200 mm + 180 cm = 6 m`,
+            title: "6. Analiza las 4 tarjetas de conversión de unidades en el esquema y selecciona ÚNICAMENTE todas las que sean VERDADERAS.",
+            instruction: "Para obtener el punto debes seleccionar todas las verdaderas y ninguna falsa.",
+            svgContent: `
+              <svg viewBox="0 0 400 200">
+                <rect x="15" y="15" width="180" height="75" rx="12" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+                <text x="105" y="45" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#1E3A8A" font-weight="bold">(I) Sistema Métrico</text>
+                <text x="105" y="68" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" fill="#1E40AF">2.5 km + 45 dam = 2950 m</text>
+
+                <rect x="205" y="15" width="180" height="75" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2"/>
+                <text x="295" y="45" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#5B21B6" font-weight="bold">(II) Sistema Inglés</text>
+                <text x="295" y="68" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" fill="#6D28D9">5 yd + 2 ft = 204 in</text>
+
+                <rect x="15" y="105" width="180" height="75" rx="12" fill="#FFFBEB" stroke="#F59E0B" stroke-width="2"/>
+                <text x="105" y="135" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#92400E" font-weight="bold">(III) Resta Métrica</text>
+                <text x="105" y="158" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" fill="#B45309">0.08 hm - 35 dm = 45 m</text>
+
+                <rect x="205" y="105" width="180" height="75" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+                <text x="295" y="135" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#065F46" font-weight="bold">(IV) Submúltiplos</text>
+                <text x="295" y="158" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" fill="#047857">4200 mm + 180 cm = 6 m</text>
+              </svg>
+            `,
             options: [
               { id: "I", text: "(I) 2.5 km + 45 dam = 2950 m", correct: true },
               { id: "II", text: "(II) 5 yardas + 2 pies = 204 pulgadas", correct: true },
@@ -1121,14 +1237,22 @@
           {
             id: "M1-Q7",
             type: "C",
-            typeLabel: "Tipo C · Despeje de Escala y Unidades",
+            typeLabel: "Tipo C · Despeje de Escala Cartográfica",
             title: "7. En un mapa a escala, cada 2.5 cm dibujados representan 0.5 km reales. Si dos ciudades están separadas por 18 km reales, ¿cuántos MILÍMETROS (mm) las separan en el mapa?",
-            instruction: "Halla primero cuántos centímetros representa 1 km y luego convierte el resultado final a milímetros (mm).",
-            diagramType: "ascii",
-            diagram:
-`  Escala del Mapa:
-  [ 2.5 cm en papel ]  ◄══════►  [ 0.5 km en la realidad ]
-  [   ¿ ? mm papel  ]  ◄══════►  [ 18 km en la realidad  ]`,
+            instruction: "Halla primero cuántos centímetros representa 1 km y luego convierte el resultado a milímetros (mm).",
+            svgContent: `
+              <svg viewBox="0 0 400 200">
+                ${SVG_DEFS}
+                <rect x="25" y="25" width="350" height="150" rx="16" fill="#F8FAFC" stroke="#94A3B8" stroke-width="2"/>
+                <circle cx="85" cy="95" r="14" fill="#2563EB"/>
+                <circle cx="315" cy="95" r="14" fill="#E11D48"/>
+                <line x1="99" y1="95" x2="301" y2="95" stroke="#0F172A" stroke-width="3" stroke-dasharray="8,5"/>
+                <rect x="135" y="50" width="130" height="30" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+                <text x="200" y="70" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#92400E" font-weight="bold">Realidad: 18 km</text>
+                <rect x="115" y="115" width="170" height="34" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+                <text x="200" y="137" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#1E3A8A" font-weight="bold">Escala: 2.5 cm = 0.5 km</text>
+              </svg>
+            `,
             inputs: [{ label: "Distancia en el mapa", unit: "mm", expected: 900, tolerance: 0.01 }],
             solution: "1) Si 2.5 cm equivalen a 0.5 km, entonces 5 cm equivalen a 1 km.\n2) Para 18 km: 18 × 5 cm = 90 cm.\n3) Convertimos a milímetros: 90 cm × 10 = 900 mm."
           },
@@ -1136,12 +1260,13 @@
             id: "M1-Q8",
             type: "A",
             typeLabel: "Tipo A · Conversión Mixta Métrico-Inglés",
-            title: "8. Una tubería mide exactamente 100 pulgadas (in). Si sabemos que 1 pulgada = 2.54 cm, ¿cuántos DECÍMETROS (dm) mide la tubería?",
-            instruction: "Escribe el resultado exacto usando punto decimal (por ejemplo: 12.3).",
-            diagramType: "ascii",
-            diagram:
-`  Dato oficial: 1 in = 2.54 cm
-  Tubería = 100 in  ──►  ¿ cm ?  ──►  ¿ dm ? (Recuerda: 1 dm = 10 cm)`,
+            title: "8. Una tubería industrial mide exactamente 100 pulgadas (in). Si sabemos que 1 pulgada = 2.54 cm, ¿cuántos DECÍMETROS (dm) mide la tubería?",
+            instruction: "Escribe el resultado exacto usando el punto decimal '.' del teclado táctil.",
+            svgContent: svgSegmentsBlueprint(
+              [{ label: "100 pulgadas (in)", sub: "1 in = 2.54 cm", ratio: 1, color: "#0284C7" }],
+              "¿Longitud equivalente en decímetros (dm)?",
+              "Recuerda: 1 dm = 10 cm"
+            ),
             inputs: [{ label: "Longitud de la tubería", unit: "dm", expected: 25.4, tolerance: 0.05 }],
             solution: "1) En centímetros: 100 in × 2.54 cm/in = 254 cm.\n2) Convertimos de cm a dm dividiendo entre 10: 254 ÷ 10 = 25.4 dm."
           },
@@ -1151,15 +1276,17 @@
             typeLabel: "Tipo C · Problema Inverso de Perímetro con Unidades",
             title: "9. El perímetro de un terreno rectangular es de 0.36 km. Si su largo mide 11 dam, ¿cuántos METROS (m) mide su ancho X?",
             instruction: "Recuerda que el perímetro de un rectángulo es 2·Largo + 2·Ancho.",
-            diagramType: "ascii",
-            diagram:
-`                11 dam
-        +--------------------+
-        |                    |
-      X |   Perímetro Total  | X
-        |     = 0.36 km      |
-        +--------------------+
-                11 dam`,
+            svgContent: `
+              <svg viewBox="0 0 400 205">
+                ${SVG_DEFS}
+                <rect x="85" y="40" width="210" height="125" rx="8" fill="url(#gradEmerald)" stroke="#059669" stroke-width="3"/>
+                <text x="190" y="30" text-anchor="middle" font-family="Fredoka" font-size="14" fill="#065F46" font-weight="bold">Largo = 11 dam</text>
+                <text x="190" y="185" text-anchor="middle" font-family="Fredoka" font-size="14" fill="#065F46" font-weight="bold">11 dam</text>
+                <text x="335" y="108" text-anchor="middle" font-family="Fredoka" font-size="15" fill="#E11D48" font-weight="bold">X = ¿? m</text>
+                <rect x="120" y="85" width="140" height="34" rx="8" fill="#FFFFFF" stroke="#059669" stroke-width="2"/>
+                <text x="190" y="107" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#0F172A" font-weight="bold">Perímetro = 0.36 km</text>
+              </svg>
+            `,
             inputs: [{ label: "Ancho X", unit: "m", expected: 70, tolerance: 0.01 }],
             solution: "1) Perímetro en metros: 0.36 km × 1000 = 360 m.\n2) Largo en metros: 11 dam × 10 = 110 m.\n3) Dos largos suman: 2 × 110 = 220 m.\n4) Dos anchos suman: 360 - 220 = 140 m  ⇒  Ancho X = 140 ÷ 2 = 70 m."
           },
@@ -1167,20 +1294,22 @@
             id: "M1-Q10",
             type: "D",
             typeLabel: "Tipo D · Verdadero/Falso con Demostración Numérica",
-            title: "10. Afirmación: 'Un atleta que corre 35 hm + 120 dam + 4000 dm logra superar la meta de los 5 kilómetros'. Calcula cuántos metros recorrió en total y cuántos metros le faltan o sobran respecto a 5 km (5000 m).",
-            instruction: "Ingresa la distancia total recorrida en metros y la diferencia positiva respecto a 5000 m.",
-            diagramType: "ascii",
-            diagram:
-`  Tramo 1: 35 hm
-  Tramo 2: 120 dam
-  Tramo 3: 4000 dm
-  ────────────────────────────
-  Meta exigida: 5 km = 5000 m`,
+            title: "10. Un atleta corre tres etapas: 35 hm, 120 dam y 4000 dm. Calcula cuántos metros recorrió en total y por cuántos metros supera la meta de los 5 km (5000 m).",
+            instruction: "Ingresa la distancia total en metros y el excedente sobre los 5000 m.",
+            svgContent: svgSegmentsBlueprint(
+              [
+                { label: "35 hm", sub: "Etapa 1", ratio: 0.55, color: "#2563EB" },
+                { label: "120 dam", sub: "Etapa 2", ratio: 0.28, color: "#7C3AED" },
+                { label: "4000 dm", sub: "Etapa 3", ratio: 0.17, color: "#10B981" }
+              ],
+              "Meta Oficial = 5 km (5000 m)",
+              "Halla la suma total en metros y réstale 5000 m"
+            ),
             inputs: [
               { label: "Total recorrido", unit: "m", expected: 5100, tolerance: 0.01 },
               { label: "Metros que superan la meta", unit: "m", expected: 100, tolerance: 0.01 }
             ],
-            solution: "1) 35 hm = 3500 m.\n2) 120 dam = 1200 m.\n3) 4000 dm = 400 m.\n4) Suma total = 3500 + 1200 + 400 = 5100 m.\n5) Como 5100 m > 5000 m, la afirmación es VERDADERA y supera la meta por 100 m."
+            solution: "1) 35 hm = 3500 m.\n2) 120 dam = 1200 m.\n3) 4000 dm = 400 m.\n4) Suma total = 3500 + 1200 + 400 = 5100 m.\n5) Supera la meta de 5000 m por 100 m."
           }
         ]
       },
@@ -1194,59 +1323,60 @@
           {
             id: "M2-Q1",
             type: "B",
-            typeLabel: "Tipo B · Matriz de Coordenadas ASCII",
-            title: "1. Observa la matriz del plano cartesiano. Halla las coordenadas de A, B y C y calcula la suma (Xa + Xb + Xc) y la suma (Ya + Yb + Yc).",
-            instruction: "No confundas el eje horizontal X con el eje vertical Y.",
-            diagramType: "ascii",
-            diagram:
-`  Y ▲
-  6 | .   .   .   A   .   .
-  5 | .   B   .   .   .   .
-  4 | .   .   .   .   .   .
-  3 | .   .   .   .   .   .
-  2 | .   .   .   .   C   .
-  1 | .   .   .   .   .   .
-  0 +────────────────────────► X
-    0   1   2   3   4   5   6`,
+            typeLabel: "Tipo B · Lectura Analítica en Plano Cartesiano",
+            title: "1. Observa la ubicación de los puntos A, B y C en el plano cartesiano. Extrae sus coordenadas y calcula la suma de abscisas (Xa + Xb + Xc) y la suma de ordenadas (Ya + Yb + Yc).",
+            instruction: "Lee primero la coordenada horizontal X y luego la vertical Y de cada punto.",
+            svgContent: svgCartesianGeoGebra({
+              maxX: 7, maxY: 7,
+              points: [
+                { label: "A", x: 4, y: 6, color: "#E11D48", showProj: true },
+                { label: "B", x: 2, y: 5, color: "#2563EB", showProj: true },
+                { label: "C", x: 5, y: 2, color: "#059669", showProj: true }
+              ]
+            }),
             inputs: [
               { label: "Suma de abscisas (Xa+Xb+Xc)", unit: "u", expected: 11, tolerance: 0.01 },
               { label: "Suma de ordenadas (Ya+Yb+Yc)", unit: "u", expected: 13, tolerance: 0.01 }
             ],
-            solution: "1) Leemos del gráfico: A = (4, 6), B = (2, 5), C = (5, 2).\n2) Suma de X = 4 + 2 + 5 = 11.\n3) Suma de Y = 6 + 5 + 2 = 13."
+            solution: "1) Leemos del plano: A = (4, 6), B = (2, 5), C = (5, 2).\n2) Suma de X = 4 + 2 + 5 = 11.\n3) Suma de Y = 6 + 5 + 2 = 13."
           },
           {
             id: "M2-Q2",
             type: "C",
             typeLabel: "Tipo C · Vértice Faltante en Paralelogramo Inclinado",
             title: "2. Los puntos A(1, 1), B(5, 1) y C(7, 4) son tres vértices consecutivos de un paralelogramo ABCD. Deduce las coordenadas (Xd, Yd) del cuarto vértice D.",
-            instruction: "En un paralelogramo, el desplazamiento de A hacia B es idéntico al desplazamiento de D hacia C.",
-            diagramType: "ascii",
-            diagram:
-`  Y ▲
-  4 | .   .   D(?,?)──────────C(7,4)
-  3 | .   .  /               /
-  2 | .   . /               /
-  1 | .  A(1,1)──────────B(5,1)
-  0 +──────────────────────────────► X
-    0   1   2   3   4   5   6   7`,
+            instruction: "En todo paralelogramo, los lados opuestos son paralelos y tienen exactamente la misma longitud.",
+            svgContent: svgCartesianGeoGebra({
+              maxX: 8, maxY: 6,
+              polygons: [{ coords: [[1,1], [5,1], [7,4], [3,4]], fill: "url(#gradPurple)", stroke: "#7C3AED", dashed: true }],
+              points: [
+                { label: "A(1,1)", x: 1, y: 1, color: "#2563EB", dy: 8 },
+                { label: "B(5,1)", x: 5, y: 1, color: "#2563EB", dy: 8 },
+                { label: "C(7,4)", x: 7, y: 4, color: "#2563EB", dx: -45, dy: -22 },
+                { label: "D(?,?)", x: 3, y: 4, color: "#E11D48", dx: -15, dy: -22 }
+              ]
+            }),
             inputs: [
               { label: "Coordenada X de D", unit: "Xd", expected: 3, tolerance: 0.01 },
               { label: "Coordenada Y de D", unit: "Yd", expected: 4, tolerance: 0.01 }
             ],
-            solution: "1) La base AB es horizontal y mide 5 - 1 = 4 unidades.\n2) Por tanto, el lado superior DC también es horizontal a altura Y = 4 y mide 4 unidades.\n3) Xd = 7 - 4 = 3; Yd = 4. El vértice es D(3, 4)."
+            solution: "1) La base AB es horizontal y mide 5 - 1 = 4 unidades.\n2) El lado superior DC también es horizontal a altura Y = 4 y mide 4 unidades.\n3) Xd = 7 - 4 = 3; Yd = 4 → D(3, 4)."
           },
           {
             id: "M2-Q3",
             type: "A",
             typeLabel: "Tipo A · Coordenadas con Decimales (Punto Medio)",
-            title: "3. Un segmento une los puntos P(1.5, 2.5) y Q(6.5, 5.5). Calcula las coordenadas (Xm, Ym) del punto exactamente a la mitad del segmento.",
-            instruction: "El punto medio se obtiene promediando las X: (X1 + X2) ÷ 2, y promediando las Y: (Y1 + Y2) ÷ 2.",
-            diagramType: "ascii",
-            diagram:
-`  P(1.5, 2.5) ────────● M(Xm, Ym) ──────── Q(6.5, 5.5)
-  
-  Fórmula del Punto Medio:
-  Xm = (Xp + Xq) / 2       |       Ym = (Yp + Yq) / 2`,
+            title: "3. Un segmento une los puntos P(1.5, 2.5) y Q(6.5, 5.5). Calcula las coordenadas (Xm, Ym) del punto medio M del segmento.",
+            instruction: "Promedia las abscisas: (Xp + Xq) ÷ 2, y promedia las ordenadas: (Yp + Yq) ÷ 2.",
+            svgContent: svgCartesianGeoGebra({
+              maxX: 8, maxY: 7,
+              vectors: [{ from: [1.5, 2.5], to: [6.5, 5.5], color: "#2563EB" }],
+              points: [
+                { label: "P(1.5, 2.5)", x: 1.5, y: 2.5, color: "#2563EB", dy: 8 },
+                { label: "M(Xm, Ym)", x: 4, y: 4, color: "#E11D48", dy: -22 },
+                { label: "Q(6.5, 5.5)", x: 6.5, y: 5.5, color: "#2563EB", dx: -65, dy: -22 }
+              ]
+            }),
             inputs: [
               { label: "Abscisa Xm", unit: "X", expected: 4, tolerance: 0.01 },
               { label: "Ordenada Ym", unit: "Y", expected: 4, tolerance: 0.01 }
@@ -1257,14 +1387,20 @@
             id: "M2-Q4",
             type: "A",
             typeLabel: "Tipo A · Transformación Compuesta (Doble Traslación)",
-            title: "4. El vértice de un dron está en R(2.5, 7). Primero aplica el vector de traslación T1(+4.5, -2.5) y luego T2(-3, +1.5). ¿En qué coordenada final (Xf, Yf) termina?",
-            instruction: "Suma algebraicamente los desplazamientos horizontales a X y los verticales a Y.",
-            diagramType: "ascii",
-            diagram:
-`  Inicio: R(2.5, 7)
-    ├──► 1.° Traslación T1: (X + 4.5 , Y - 2.5)
-    └──► 2.° Traslación T2: (X - 3.0 , Y + 1.5)
-  Final:  R''(Xf, Yf)`,
+            title: "4. Un dron inicia en R(2.5, 7). Primero aplica el vector de traslación T1(+4.5, -2.5) y luego T2(-3, +1.5). ¿En qué coordenada final (Xf, Yf) termina?",
+            instruction: "Sigue la trayectoria de los vectores punteados sumando los cambios en X y en Y.",
+            svgContent: svgCartesianGeoGebra({
+              maxX: 8, maxY: 8,
+              vectors: [
+                { from: [2.5, 7], to: [7, 4.5], color: "#F59E0B", dashed: true },
+                { from: [7, 4.5], to: [4, 6], color: "#10B981", dashed: true }
+              ],
+              points: [
+                { label: "R(2.5, 7)", x: 2.5, y: 7, color: "#2563EB", dy: -20 },
+                { label: "T1(+4.5,-2.5)", x: 7, y: 4.5, color: "#D97706", dx: -75, dy: 8 },
+                { label: "Final(?,?)", x: 4, y: 6, color: "#059669", dy: -22 }
+              ]
+            }),
             inputs: [
               { label: "Coordenada final Xf", unit: "X", expected: 4, tolerance: 0.01 },
               { label: "Coordenada final Yf", unit: "Y", expected: 6, tolerance: 0.01 }
@@ -1274,123 +1410,152 @@
           {
             id: "M2-Q5",
             type: "B",
-            typeLabel: "Tipo B · Rotación de 90° en Sentido Horario alrededor de un Pivote",
-            title: "5. Observa la bandera en forma de 'L' con pivote en O(2, 2) y punta superior en P(2, 6). Si toda la figura gira 90° en sentido HORARIO alrededor del pivote O(2, 2), ¿cuál será la nueva coordenada de la punta P'?",
-            instruction: "Observa cuánto mide el mástil vertical OP y hacia dónde apunta tras girar 90° como las agujas del reloj.",
-            diagramType: "ascii",
-            diagram:
-`  Y ▲
-  6 | .   P(2,6)══╗
-  5 | .   ║       ║
-  4 | .   ║   ───────► Giro 90° Horario (⟳)
-  3 | .   ║            alrededor de O(2,2)
-  2 | .   O(2,2)·······► ¿P'(Xp, Yp)?
-  1 | .   .   .   .   .   .
-  0 +────────────────────────► X
-    0   1   2   3   4   5   6`,
+            typeLabel: "Tipo B · Rotación de 90° en Sentido Horario sobre Pivote",
+            title: "5. Observa la figura en 'L' con pivote en O(2, 2) y extremo superior en P(2, 6). Si gira 90° en sentido HORARIO alrededor de O(2, 2), ¿cuál será la nueva coordenada de P'?",
+            instruction: "Observa la longitud del brazo vertical OP y su posición al rotar 90° a la derecha.",
+            svgContent: svgCartesianGeoGebra({
+              maxX: 8, maxY: 7,
+              polygons: [
+                { coords: [[2,2], [2,6], [3.2,6], [3.2,5.2], [2.6,5.2], [2.6,2]], fill: "url(#gradBlue)", stroke: "#2563EB" },
+                { coords: [[2,2], [6,2], [6,0.8], [5.2,0.8], [5.2,1.4], [2,1.4]], fill: "url(#gradEmerald)", stroke: "#059669", dashed: true }
+              ],
+              points: [
+                { label: "O(2,2) Pivote", x: 2, y: 2, color: "#0F172A", dx: -75, dy: 6 },
+                { label: "P(2,6)", x: 2, y: 6, color: "#2563EB", dx: -45, dy: -20 },
+                { label: "P'(?,?) ⟳90°", x: 6, y: 2, color: "#E11D48", dx: -20, dy: -22 }
+              ]
+            }),
             inputs: [
               { label: "Nueva X de P'", unit: "X", expected: 6, tolerance: 0.01 },
               { label: "Nueva Y de P'", unit: "Y", expected: 2, tolerance: 0.01 }
             ],
-            solution: "1) El segmento OP es vertical hacia arriba y mide 6 - 2 = 4 unidades.\n2) Al girar 90° en sentido horario alrededor de O(2, 2), el segmento pasa a ser horizontal apuntando hacia la derecha.\n3) Por tanto, desde O(2, 2) sumamos 4 en X: P' = (2 + 4, 2) = (6, 2)."
+            solution: "1) El segmento OP es vertical hacia arriba y mide 6 - 2 = 4 u.\n2) Al girar 90° en sentido horario alrededor de O(2, 2), queda horizontal hacia la derecha.\n3) P' = (2 + 4, 2) = (6, 2)."
           },
           {
             id: "M2-Q6",
             type: "A",
             typeLabel: "Tipo A · Reflexión Axial + Traslación",
-            title: "6. Un punto M(2, 5) se refleja como en un espejo respecto a la recta vertical X = 6, obteniendo M'. Luego M' se traslada 2 unidades hacia abajo. ¿Cuáles son las coordenadas finales (Xf, Yf)?",
-            instruction: "Calcula primero a qué distancia está M(2, 5) del espejo X = 6 para hallar su reflejo al otro lado.",
-            diagramType: "ascii",
-            diagram:
-`                    Espejo (X = 6)
-                        |
-      M(2, 5) ──(4 u)──►|◄──(4 u)── M'(?, 5)
-                        |              │
-                        |              ▼ (Baja 2 u)
-                        |           Mf(Xf, Yf)`,
+            title: "6. El punto M(2, 5) se refleja respecto al eje vertical de simetría X = 6 (obteniendo M') y luego baja 2 unidades. ¿Cuáles son las coordenadas finales (Xf, Yf)?",
+            instruction: "Mide la distancia horizontal desde M(2, 5) hasta la línea espejo X = 6.",
+            svgContent: svgCartesianGeoGebra({
+              maxX: 11, maxY: 7,
+              extraSVG: `<line x1="${48 + 6*(320/11)}" y1="20" x2="${48 + 6*(320/11)}" y2="210" stroke="#7C3AED" stroke-width="3" stroke-dasharray="6,4"/>
+                         <text x="${48 + 6*(320/11)}" y="16" text-anchor="middle" font-family="Fredoka" font-size="11" fill="#6D28D9" font-weight="bold">Espejo X = 6</text>`,
+              vectors: [
+                { from: [2, 5], to: [10, 5], color: "#7C3AED", dashed: true },
+                { from: [10, 5], to: [10, 3], color: "#E11D48", dashed: true }
+              ],
+              points: [
+                { label: "M(2,5)", x: 2, y: 5, color: "#2563EB", dy: -22 },
+                { label: "M'", x: 10, y: 5, color: "#7C3AED", dy: -22 },
+                { label: "Final(?,?)", x: 10, y: 3, color: "#E11D48", dx: -60, dy: 8 }
+              ]
+            }),
             inputs: [
               { label: "Coordenada Xf", unit: "X", expected: 10, tolerance: 0.01 },
               { label: "Coordenada Yf", unit: "Y", expected: 3, tolerance: 0.01 }
             ],
-            solution: "1) De X = 2 al espejo X = 6 hay 4 unidades de distancia.\n2) El punto reflejado M' está 4 unidades a la derecha del espejo: X' = 6 + 4 = 10, manteniendo Y' = 5 → M'(10, 5).\n3) Al bajar 2 unidades en Y: Yf = 5 - 2 = 3. Resultado final: (10, 3)."
+            solution: "1) De X = 2 al espejo X = 6 hay 4 u. El reflejo M' está 4 u a la derecha del espejo: M'(6 + 4, 5) = (10, 5).\n2) Al bajar 2 u en Y: Final = (10, 3)."
           },
           {
             id: "M2-Q7",
             type: "C",
             typeLabel: "Tipo C · Problema Inverso de Transformaciones",
-            title: "7. Después de trasladar un punto inicial A(Xo, Yo) 5 unidades a la derecha y 3 hacia abajo, y luego reflejarlo sobre el eje X (cambiando el signo de Y), se obtuvo el punto final (8, -4). ¿Cuál era el punto inicial A(Xo, Yo)?",
-            instruction: "Deshaz los pasos en orden inverso desde (8, -4) hasta regresar al inicio.",
-            diagramType: "ascii",
-            diagram:
-`  A(Xo, Yo) ──[+5 en X, -3 en Y]──► A'(?, ?) ──[Reflejo Eje X]──► Final (8, -4)`,
+            title: "7. Después de trasladar un punto inicial A(Xo, Yo) con (+5 en X, -3 en Y) y luego reflejarlo sobre el eje X (cambiando el signo de Y), se llegó a (8, -4). ¿Cuál era el punto inicial A(Xo, Yo)?",
+            instruction: "Invierte las operaciones desde el final hacia el principio.",
+            svgContent: `
+              <svg viewBox="0 0 400 190">
+                ${SVG_DEFS}
+                <rect x="20" y="65" width="95" height="60" rx="12" fill="#DBEAFE" stroke="#2563EB" stroke-width="2.5"/>
+                <text x="67" y="92" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#1E3A8A" font-weight="bold">Inicio A</text>
+                <text x="67" y="112" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="#2563EB" font-weight="bold">(Xo, Yo)</text>
+
+                <line x1="115" y1="95" x2="152" y2="95" stroke="#334155" stroke-width="2.5" marker-end="url(#arrowDark)"/>
+                <text x="133" y="82" text-anchor="middle" font-family="Fredoka" font-size="10.5" fill="#475569">+5X, -3Y</text>
+
+                <rect x="155" y="65" width="90" height="60" rx="12" fill="#F3E8FF" stroke="#7C3AED" stroke-width="2.5"/>
+                <text x="200" y="92" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#5B21B6" font-weight="bold">Intermedio</text>
+                <text x="200" y="112" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="#6D28D9" font-weight="bold">A'(8, 4)</text>
+
+                <line x1="245" y1="95" x2="282" y2="95" stroke="#334155" stroke-width="2.5" marker-end="url(#arrowDark)"/>
+                <text x="263" y="82" text-anchor="middle" font-family="Fredoka" font-size="10.5" fill="#475569">Reflejo X</text>
+
+                <rect x="285" y="65" width="95" height="60" rx="12" fill="#ECFDF5" stroke="#059669" stroke-width="2.5"/>
+                <text x="332" y="92" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#065F46" font-weight="bold">Final</text>
+                <text x="332" y="112" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="#059669" font-weight="bold">(8, -4)</text>
+              </svg>
+            `,
             inputs: [
               { label: "Abscisa inicial Xo", unit: "X", expected: 3, tolerance: 0.01 },
               { label: "Ordenada inicial Yo", unit: "Y", expected: 7, tolerance: 0.01 }
             ],
-            solution: "1) Antes del reflejo en el eje X, el punto A' tenía la misma X y el signo opuesto en Y: A' = (8, 4).\n2) Deshacemos la traslación (+5, -3) restando 5 en X y sumando 3 en Y:\n   • Xo = 8 - 5 = 3.\n   • Yo = 4 + 3 = 7.\n3) El punto original era A(3, 7)."
+            solution: "1) Antes del reflejo sobre el eje X, el punto era A'(8, 4).\n2) Deshacemos (+5, -3): Xo = 8 - 5 = 3; Yo = 4 + 3 = 7.\n3) Punto inicial: A(3, 7)."
           },
           {
             id: "M2-Q8",
             type: "B",
             typeLabel: "Tipo B · Deducción de Vértice en Rombo Simétrico",
-            title: "8. En el diagrama se muestran tres vértices de un rombo: A(4, 7) arriba, B(1, 4) a la izquierda y C(4, 1) abajo. Halla el vértice derecho D(Xd, Yd) y la suma de las dos diagonales del rombo.",
-            instruction: "Las diagonales de un rombo se cortan perpendicularmente en su punto medio.",
-            diagramType: "ascii",
-            diagram:
-`                A(4, 7)
-                  /│\\
-                 / │ \\
-        B(1, 4) ───┼─── D(Xd, Yd)
-                 \\ │ /
-                  \\│/
-                C(4, 1)`,
+            title: "8. Se muestran tres vértices de un rombo: A(4, 7), B(1, 4) y C(4, 1). Halla el vértice derecho D(Xd, Yd) y la suma de las longitudes de sus dos diagonales.",
+            instruction: "Observa el centro de simetría donde se cruzan las diagonales del rombo.",
+            svgContent: svgCartesianGeoGebra({
+              maxX: 8, maxY: 8,
+              polygons: [{ coords: [[4,7], [7,4], [4,1], [1,4]], fill: "url(#gradAmber)", stroke: "#D97706" }],
+              points: [
+                { label: "A(4,7)", x: 4, y: 7, color: "#D97706", dy: -20 },
+                { label: "B(1,4)", x: 1, y: 4, color: "#D97706", dy: -20 },
+                { label: "C(4,1)", x: 4, y: 1, color: "#D97706", dy: 8 },
+                { label: "D(?,?)", x: 7, y: 4, color: "#E11D48", dx: -45, dy: -20 }
+              ]
+            }),
             inputs: [
               { label: "Abscisa Xd", unit: "X", expected: 7, tolerance: 0.01 },
               { label: "Ordenada Yd", unit: "Y", expected: 4, tolerance: 0.01 },
               { label: "Suma de las 2 diagonales", unit: "u", expected: 12, tolerance: 0.01 }
             ],
-            solution: "1) El centro del rombo está en (4, 4). Como B(1, 4) está 3 unidades a la izquierda del centro, D está 3 unidades a la derecha: D = (4 + 3, 4) = (7, 4).\n2) Diagonal vertical AC = 7 - 1 = 6 u. Diagonal horizontal BD = 7 - 1 = 6 u.\n3) Suma de diagonales = 6 + 6 = 12 u."
+            solution: "1) El centro del rombo es (4, 4). Como B está 3 u a la izquierda, D está 3 u a la derecha: D(7, 4).\n2) Cada diagonal mide 7 - 1 = 6 u. Suma = 6 + 6 = 12 u."
           },
           {
             id: "M2-Q9",
             type: "D",
             typeLabel: "Tipo D · Selección Múltiple Compleja (Marca TODAS las verdaderas)",
-            title: "9. Dado el triángulo con vértices A(1, 1), B(4, 1) y C(1, 5), selecciona TODAS las proposiciones que sean VERDADERAS.",
-            instruction: "Analiza las longitudes de los catetos y el efecto de trasladar o rotar el triángulo.",
-            diagramType: "ascii",
-            diagram:
-`  Y ▲
-  5 | C(1,5)
-  4 | │ \\
-  3 | │  \\
-  2 | │   \\
-  1 | A(1,1)───B(4,1)
-  0 +───────────────► X`,
+            title: "9. Dado el triángulo rectángulo A(1, 1), B(4, 1) y C(1, 5), selecciona TODAS las proposiciones que sean VERDADERAS.",
+            instruction: "Analiza la base, la altura, el área y la traslación del triángulo en el gráfico.",
+            svgContent: svgCartesianGeoGebra({
+              maxX: 6, maxY: 6,
+              polygons: [{ coords: [[1,1], [4,1], [1,5]], fill: "url(#gradBlue)", stroke: "#2563EB" }],
+              points: [
+                { label: "A(1,1)", x: 1, y: 1, color: "#2563EB", dy: 8 },
+                { label: "B(4,1)", x: 4, y: 1, color: "#2563EB", dy: 8 },
+                { label: "C(1,5)", x: 1, y: 5, color: "#2563EB", dy: -20 }
+              ]
+            }),
             options: [
               { id: "A", text: "El cateto horizontal AB mide 3 u y el cateto vertical AC mide 4 u.", correct: true },
               { id: "B", text: "Si el triángulo se traslada con T(2, 3), el nuevo vértice C' queda en (3, 8).", correct: true },
               { id: "C", text: "Al rotar una figura 180°, su área se duplica.", correct: false },
               { id: "D", text: "El área del triángulo ABC es (3 × 4) ÷ 2 = 6 u².", correct: true }
             ],
-            solution: "• 1.ª Verdadera: AB = 4 - 1 = 3 u; AC = 5 - 1 = 4 u.\n• 2.ª Verdadera: C'(1 + 2, 5 + 3) = (3, 8).\n• 3.ª Falsa: Las rotaciones y traslaciones son movimientos rígidos (isometrías); conservan intactos el tamaño y el área.\n• 4.ª Verdadera: Área = (base × altura) / 2 = (3 × 4) / 2 = 6 u²."
+            solution: "• 1.ª Verdadera: AB = 3 u; AC = 4 u.\n• 2.ª Verdadera: C'(1+2, 5+3) = (3, 8).\n• 3.ª Falsa: Los giros conservan el área intacta.\n• 4.ª Verdadera: Área = (3 × 4)/2 = 6 u²."
           },
           {
             id: "M2-Q10",
             type: "D",
-            typeLabel: "Tipo D · Rotación Antihoraria de 90° alrededor del Origen",
-            title: "10. Cuando un punto (X, Y) gira 90° en sentido ANTIHORARIO alrededor del origen (0, 0), su nueva posición es (-Y, X). Si aplicamos este giro al punto Q(5, 3) y luego le sumamos (+6, +1), ¿qué punto final obtenemos?",
-            instruction: "Aplica primero la regla (-Y, X) a Q(5, 3) y luego suma el vector de traslación.",
-            diagramType: "ascii",
-            diagram:
-`  Regla de giro 90° Antihorario (⟲) desde (0,0):
-  (X, Y)  ───►  (-Y, X)
-  
-  Q(5, 3) ──[Giro 90° ⟲]──► Q'(?, ?) ──[+6 en X, +1 en Y]──► Final (Xf, Yf)`,
+            typeLabel: "Tipo D · Rotación Antihoraria de 90° + Traslación",
+            title: "10. Al rotar un punto (X, Y) 90° en sentido ANTIHORARIO alrededor del origen (0, 0), pasa a (-Y, X). Si aplicamos este giro a Q(5, 3) y luego le sumamos (+6, +1), ¿qué coordenada final obtenemos?",
+            instruction: "Aplica primero (-Y, X) a Q(5, 3) y luego traslada el resultado.",
+            svgContent: `
+              <svg viewBox="0 0 400 185">
+                <rect x="20" y="35" width="360" height="115" rx="14" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+                <text x="200" y="68" text-anchor="middle" font-family="Fredoka" font-size="14" fill="#1E1B4B" font-weight="bold">Regla de Rotación 90° Antihorario (⟲): (X, Y) → (-Y, X)</text>
+                <text x="200" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="14" fill="#2563EB" font-weight="bold">Q(5, 3)  ──[Giro 90° ⟲]──►  Q'(-3, 5)</text>
+                <text x="200" y="132" text-anchor="middle" font-family="JetBrains Mono" font-size="14" fill="#059669" font-weight="bold">Q'(-3, 5)  ──[+6 en X, +1 en Y]──►  Final (Xf, Yf)</text>
+              </svg>
+            `,
             inputs: [
               { label: "Coordenada final Xf", unit: "X", expected: 3, tolerance: 0.01 },
               { label: "Coordenada final Yf", unit: "Y", expected: 6, tolerance: 0.01 }
             ],
-            solution: "1) Al rotar Q(5, 3) 90° antihorario obtenemos Q'(-3, 5).\n2) Aplicamos la traslación (+6, +1): Xf = -3 + 6 = 3; Yf = 5 + 1 = 6.\n3) Punto final: (3, 6)."
+            solution: "1) Giro 90° antihorario de Q(5, 3) → Q'(-3, 5).\n2) Traslación (+6, +1): Xf = -3 + 6 = 3; Yf = 5 + 1 = 6.\n3) Punto final: (3, 6)."
           }
         ]
       },
@@ -1404,217 +1569,234 @@
           {
             id: "M3-Q1",
             type: "B",
-            typeLabel: "Tipo B · Deducción de Lados Ocultos en Polígono Escalonado",
-            title: "1. Analiza el plano del polígono en forma de 'L' e ingresa la medida del lado oculto X, el PERÍMETRO total y el ÁREA total.",
-            instruction: "Ningún dato está en el texto: debes extraer todas las medidas directamente del diagrama ASCII.",
-            diagramType: "ascii",
-            diagram:
-`                  18 cm
-      +───────────────────────────+
-      |                           |
-      |                           | 6 cm
-      |            11 cm          |
-  14  |            +──────────────+
-  cm  |            |
-      |            | 8 cm
-      |            |
-      +────────────+
-          X = ¿?`,
+            typeLabel: "Tipo B · Deducción de Lado Oculto en Polígono en 'L'",
+            title: "1. Analiza el plano vectorial del polígono en 'L' e ingresa la medida del lado oculto X, el PERÍMETRO total y el ÁREA total.",
+            instruction: "Extrae todas las medidas directamente de las cotas del dibujo.",
+            svgContent: `
+              <svg viewBox="0 0 380 215">
+                ${SVG_DEFS}
+                <polygon points="75,35 295,35 295,105 160,105 160,185 75,185" fill="url(#gradBlue)" stroke="#1D4ED8" stroke-width="3" stroke-linejoin="round"/>
+                <text x="185" y="25" text-anchor="middle" font-family="Fredoka" font-size="14" fill="#1E3A8A" font-weight="bold">18 cm</text>
+                <text x="322" y="75" text-anchor="middle" font-family="Fredoka" font-size="14" fill="#1E3A8A" font-weight="bold">6 cm</text>
+                <text x="228" y="123" text-anchor="middle" font-family="Fredoka" font-size="14" fill="#1E3A8A" font-weight="bold">11 cm</text>
+                <text x="190" y="152" text-anchor="middle" font-family="Fredoka" font-size="14" fill="#1E3A8A" font-weight="bold">8 cm</text>
+                <text x="45" y="115" text-anchor="middle" font-family="Fredoka" font-size="14" fill="#1E3A8A" font-weight="bold">14 cm</text>
+                <line x1="75" y1="185" x2="160" y2="185" stroke="#E11D48" stroke-width="4.5"/>
+                <text x="118" y="205" text-anchor="middle" font-family="Fredoka" font-size="15" fill="#E11D48" font-weight="bold">X = ¿? cm</text>
+              </svg>
+            `,
             inputs: [
               { label: "Lado inferior X", unit: "cm", expected: 7, tolerance: 0.01 },
               { label: "Perímetro Total", unit: "cm", expected: 64, tolerance: 0.01 },
               { label: "Área Total", unit: "cm²", expected: 164, tolerance: 0.01 }
             ],
-            solution: "1) Lado oculto X: como el ancho superior es 18 cm y el escalón interior mide 11 cm, X = 18 - 11 = 7 cm.\n2) Perímetro Total = 18 + 6 + 11 + 8 + 7 + 14 = 64 cm.\n3) Área Total (dividiendo en dos rectángulos): Rectángulo superior (18 × 6 = 108 cm²) + Rectángulo inferior izquierdo (7 × 8 = 56 cm²) = 164 cm²."
+            solution: "1) Lado oculto X = 18 - 11 = 7 cm.\n2) Perímetro Total = 18 + 6 + 11 + 8 + 7 + 14 = 64 cm.\n3) Área Total = (18 × 6) + (7 × 8) = 108 + 56 = 164 cm²."
           },
           {
             id: "M3-Q2",
             type: "A",
             typeLabel: "Tipo A · Área Sombreada (Círculo Inscrito en Cuadrado)",
-            title: "2. Un círculo está perfectamente inscrito dentro de un cuadrado de lado 10 cm (el diámetro del círculo es 10 cm). Usando π = 3.14, calcula el ÁREA SOMBREADA de las 4 esquinas exteriores al círculo.",
+            title: "2. Un círculo está inscrito dentro de un cuadrado de lado 10 cm. Usando π = 3.14, calcula el ÁREA SOMBREADA de las 4 esquinas exteriores al círculo.",
             instruction: "Resta el área del círculo al área del cuadrado: Área Sombreada = L² - π · r².",
-            diagramType: "svg",
             svgContent: `
-              <svg viewBox="0 0 240 190" width="100%" style="max-width:280px;">
-                <rect x="45" y="20" width="150" height="150" fill="#F59E0B" stroke="#1E293B" stroke-width="3" />
-                <circle cx="120" cy="95" r="75" fill="#FFFFFF" stroke="#1E293B" stroke-width="3" />
-                <line x1="120" y1="95" x2="195" y2="95" stroke="#E11D48" stroke-width="3" />
-                <circle cx="120" cy="95" r="4" fill="#1E293B" />
-                <text x="135" y="88" font-family="Fredoka" font-size="13" fill="#BE123C" font-weight="bold">r = 5 cm</text>
-                <text x="95" y="15" font-family="Fredoka" font-size="14" fill="#1E293B" font-weight="bold">Lado = 10 cm</text>
+              <svg viewBox="0 0 280 195">
+                ${SVG_DEFS}
+                <rect x="65" y="20" width="150" height="150" rx="4" fill="url(#gradAmber)" stroke="#B45309" stroke-width="3" />
+                <circle cx="140" cy="95" r="75" fill="#FFFFFF" stroke="#1E293B" stroke-width="3" />
+                <line x1="140" y1="95" x2="215" y2="95" stroke="#E11D48" stroke-width="3" />
+                <circle cx="140" cy="95" r="4.5" fill="#1E293B" />
+                <text x="175" y="87" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#BE123C" font-weight="bold">r = 5 cm</text>
+                <text x="140" y="14" text-anchor="middle" font-family="Fredoka" font-size="14" fill="#92400E" font-weight="bold">Lado = 10 cm</text>
               </svg>
             `,
             inputs: [
               { label: "Área del Cuadrado", unit: "cm²", expected: 100, tolerance: 0.01 },
               { label: "Área Sombreada (π=3.14)", unit: "cm²", expected: 21.5, tolerance: 0.05 }
             ],
-            solution: "1) Área del cuadrado = 10 cm × 10 cm = 100 cm².\n2) Como el diámetro es 10 cm, el radio del círculo es r = 5 cm.\n3) Área del círculo = 3.14 × 5² = 3.14 × 25 = 78.5 cm².\n4) Área sombreada = 100 - 78.5 = 21.5 cm²."
+            solution: "1) Área del cuadrado = 10 × 10 = 100 cm².\n2) Radio r = 5 cm → Área del círculo = 3.14 × 25 = 78.5 cm².\n3) Área sombreada = 100 - 78.5 = 21.5 cm²."
           },
           {
             id: "M3-Q3",
             type: "A",
             typeLabel: "Tipo A · Figura Compuesta (Rectángulo + Semicírculo)",
-            title: "3. Una cancha tiene forma de un rectángulo de 20 m de largo por 8 m de ancho, unido en uno de sus lados de 8 m a un SEMICÍRCULO. Usando π = 3.14, halla el ÁREA TOTAL de la cancha.",
-            instruction: "Observa que el lado de 8 m es el diámetro del semicírculo, por lo que su radio es r = 4 m. ¡No olvides dividir entre 2 el área del círculo!",
-            diagramType: "svg",
+            title: "3. Una cancha está formada por un rectángulo de 20 m × 8 m unido a un SEMICÍRCULO lateral. Usando π = 3.14, halla el ÁREA TOTAL de la cancha.",
+            instruction: "El lado de 8 m es el diámetro del semicírculo, por lo que su radio es r = 4 m.",
             svgContent: `
-              <svg viewBox="0 0 280 180" width="100%" style="max-width:310px;">
-                <rect x="40" y="40" width="150" height="100" fill="#BAE6FD" stroke="#0284C7" stroke-width="3" />
-                <path d="M 190 40 A 50 50 0 0 1 190 140 Z" fill="#6EE7B7" stroke="#059669" stroke-width="3" />
-                <line x1="190" y1="40" x2="190" y2="140" stroke="#047857" stroke-width="2" stroke-dasharray="5,4" />
-                <text x="95" y="32" font-family="Fredoka" font-size="14" fill="#0369A1" font-weight="bold">20 m</text>
-                <text x="8" y="95" font-family="Fredoka" font-size="14" fill="#0369A1" font-weight="bold">8 m</text>
-                <text x="196" y="95" font-family="Fredoka" font-size="13" fill="#065F46" font-weight="bold">r = 4 m</text>
+              <svg viewBox="0 0 320 185">
+                ${SVG_DEFS}
+                <rect x="45" y="40" width="160" height="105" fill="url(#gradBlue)" stroke="#1D4ED8" stroke-width="3" />
+                <path d="M 205 40 A 52.5 52.5 0 0 1 205 145 Z" fill="url(#gradEmerald)" stroke="#059669" stroke-width="3" />
+                <line x1="205" y1="40" x2="205" y2="145" stroke="#047857" stroke-width="2.5" stroke-dasharray="5,4" />
+                <text x="125" y="30" text-anchor="middle" font-family="Fredoka" font-size="14" fill="#1E3A8A" font-weight="bold">20 m</text>
+                <text x="22" y="96" text-anchor="middle" font-family="Fredoka" font-size="14" fill="#1E3A8A" font-weight="bold">8 m</text>
+                <text x="232" y="96" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#065F46" font-weight="bold">r = 4 m</text>
               </svg>
             `,
             inputs: [
               { label: "Área del Rectángulo", unit: "m²", expected: 160, tolerance: 0.01 },
               { label: "Área Total (con semicírculo)", unit: "m²", expected: 185.12, tolerance: 0.05 }
             ],
-            solution: "1) Área del rectángulo = 20 × 8 = 160 m².\n2) El diámetro del semicírculo es 8 m → radio r = 4 m.\n3) Área del semicírculo = (3.14 × 4²) ÷ 2 = (3.14 × 16) ÷ 2 = 25.12 m².\n4) Área Total = 160 + 25.12 = 185.12 m²."
+            solution: "1) Área del rectángulo = 20 × 8 = 160 m².\n2) Área del semicírculo = (3.14 × 4²) ÷ 2 = 25.12 m².\n3) Área Total = 160 + 25.12 = 185.12 m²."
           },
           {
             id: "M3-Q4",
             type: "C",
             typeLabel: "Tipo C · Igualación Algebraica de Perímetros",
-            title: "4. El perímetro de un rectángulo de base (2x + 3) cm y altura (x + 1) cm es igual al de un cuadrado cuyo lado mide 11 cm (Perímetro = 44 cm). Despeja x y calcula el ÁREA del rectángulo.",
-            instruction: "Plantea: 2·(2x + 3) + 2·(x + 1) = 44. Halla x, luego sustituye para conocer la base y altura reales.",
-            diagramType: "ascii",
-            diagram:
-`        Base = (2x + 3) cm                  Lado = 11 cm
-      +────────────────────+               +────────────+
-      |                    | (x + 1) cm    |  Cuadrado  |
-      +────────────────────+               |  P = 44 cm |
-       P = 2(2x+3) + 2(x+1)       =        +────────────+`,
+            title: "4. El perímetro de un rectángulo de base (2x + 3) cm y altura (x + 1) cm es igual al de un cuadrado de lado 11 cm (Perímetro = 44 cm). Despeja x y calcula el ÁREA del rectángulo.",
+            instruction: "Plantea: 2·(2x + 3) + 2·(x + 1) = 44. Despeja x y sustituye para hallar base y altura.",
+            svgContent: `
+              <svg viewBox="0 0 380 185">
+                ${SVG_DEFS}
+                <rect x="25" y="50" width="150" height="90" rx="6" fill="url(#gradPurple)" stroke="#7C3AED" stroke-width="3"/>
+                <text x="100" y="40" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#5B21B6" font-weight="bold">Base = (2x + 3) cm</text>
+                <text x="100" y="100" text-anchor="middle" font-family="Fredoka" font-size="12.5" fill="#4C1D95" font-weight="bold">Altura = (x + 1)</text>
+                <text x="208" y="102" text-anchor="middle" font-family="Fredoka" font-size="22" fill="#0F172A" font-weight="bold">=</text>
+                <rect x="240" y="40" width="110" height="110" rx="6" fill="url(#gradAmber)" stroke="#D97706" stroke-width="3"/>
+                <text x="295" y="92" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#92400E" font-weight="bold">Cuadrado</text>
+                <text x="295" y="112" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#B45309" font-weight="bold">L = 11 cm (P=44)</text>
+              </svg>
+            `,
             inputs: [
               { label: "Valor de la incógnita x", unit: "cm", expected: 6, tolerance: 0.01 },
               { label: "Área del Rectángulo", unit: "cm²", expected: 105, tolerance: 0.01 }
             ],
-            solution: "1) Perímetro del cuadrado = 4 × 11 = 44 cm.\n2) Perímetro del rectángulo: 2(2x + 3) + 2(x + 1) = 4x + 6 + 2x + 2 = 6x + 8.\n3) Igualamos: 6x + 8 = 44  ⇒  6x = 36  ⇒  x = 6.\n4) Dimensiones del rectángulo: Base = 2(6) + 3 = 15 cm; Altura = 6 + 1 = 7 cm.\n5) Área del rectángulo = 15 × 7 = 105 cm²."
+            solution: "1) 2(2x + 3) + 2(x + 1) = 6x + 8 = 44  ⇒  6x = 36  ⇒  x = 6.\n2) Base = 2(6) + 3 = 15 cm; Altura = 6 + 1 = 7 cm.\n3) Área = 15 × 7 = 105 cm²."
           },
           {
             id: "M3-Q5",
             type: "B",
             typeLabel: "Tipo B · Círculo en el Plano Cartesiano",
-            title: "5. En el plano cartesiano, los extremos de un diámetro de un círculo son los puntos A(2, 5) y B(10, 5). Deduce el radio r del círculo y el coeficiente que acompaña a π en su área (A = ___ π u²).",
-            instruction: "El diámetro es la distancia entre A(2, 5) y B(10, 5), y el radio es la mitad del diámetro.",
-            diagramType: "ascii",
-            diagram:
-`  Y ▲
-  8 | .   .   .   .   ╭───────╮
-  5 | .   A(2,5)──────┼───●───┼──────B(10,5)
-  2 | .   .   .   .   ╰───────╯
-  0 +──────────────────────────────────────► X
-    0     2           6              10`,
+            title: "5. En el plano cartesiano, los extremos del diámetro de un círculo son A(2, 5) y B(10, 5). Deduce el radio r y el coeficiente de su área (A = ___ π u²).",
+            instruction: "El diámetro es la distancia horizontal entre A y B, y el radio es la mitad.",
+            svgContent: svgCartesianGeoGebra({
+              maxX: 11, maxY: 9,
+              extraSVG: `<circle cx="${48 + 6*(320/11)}" cy="${210 - 5*(185/9)}" r="${4*(320/11)}" fill="url(#gradEmerald)" stroke="#059669" stroke-width="3"/>
+                         <line x1="${48 + 2*(320/11)}" y1="${210 - 5*(185/9)}" x2="${48 + 10*(320/11)}" y2="${210 - 5*(185/9)}" stroke="#E11D48" stroke-width="2.8" stroke-dasharray="5,4"/>`,
+              points: [
+                { label: "A(2,5)", x: 2, y: 5, color: "#E11D48", dy: -22 },
+                { label: "Centro(6,5)", x: 6, y: 5, color: "#0F172A", dy: 10 },
+                { label: "B(10,5)", x: 10, y: 5, color: "#E11D48", dx: -55, dy: -22 }
+              ]
+            }),
             inputs: [
               { label: "Radio r del círculo", unit: "u", expected: 4, tolerance: 0.01 },
               { label: "Área = ___ π", unit: "π u²", expected: 16, tolerance: 0.01 }
             ],
-            solution: "1) Diámetro AB = 10 - 2 = 8 unidades.\n2) Radio r = 8 ÷ 2 = 4 unidades.\n3) Área = π · r² = π · 4² = 16π u²."
+            solution: "1) Diámetro AB = 10 - 2 = 8 u  ⇒  Radio r = 4 u.\n2) Área = π · 4² = 16π u²."
           },
           {
             id: "M3-Q6",
             type: "A",
             typeLabel: "Tipo A · Área de Trapecio con Hueco Rectangular",
-            title: "6. Un jardín tiene forma de trapecio con base mayor B = 16 m, base menor b = 10 m y altura h = 8 m. En su interior hay una piscina rectangular de 5 m × 4 m. ¿Cuál es el área de césped (región sombreada)?",
-            instruction: "Fórmula del área del trapecio: A = ((B + b) × h) ÷ 2. Luego resta el área de la piscina.",
-            diagramType: "svg",
+            title: "6. Un jardín en forma de trapecio (B = 16 m, b = 10 m, h = 8 m) tiene en su interior una piscina rectangular de 5 m × 4 m. ¿Cuál es el área de césped?",
+            instruction: "Calcula el área del trapecio ((B + b) × h ÷ 2) y réstale el área de la piscina.",
             svgContent: `
-              <svg viewBox="0 0 280 180" width="100%" style="max-width:300px;">
-                <polygon points="65,35 215,35 250,150 30,150" fill="#86EFAC" stroke="#15803D" stroke-width="3" />
-                <rect x="105" y="75" width="70" height="50" fill="#BAE6FD" stroke="#0284C7" stroke-width="2.5" />
-                <line x1="65" y1="35" x2="65" y2="150" stroke="#1E293B" stroke-width="2" stroke-dasharray="4,4" />
-                <text x="115" y="27" font-family="Fredoka" font-size="13" fill="#14532D" font-weight="bold">b = 10 m</text>
-                <text x="112" y="170" font-family="Fredoka" font-size="13" fill="#14532D" font-weight="bold">B = 16 m</text>
-                <text x="36" y="98" font-family="Fredoka" font-size="12" fill="#1E293B" font-weight="bold">h=8m</text>
-                <text x="115" y="105" font-family="Fredoka" font-size="12" fill="#0369A1" font-weight="bold">5×4 m</text>
+              <svg viewBox="0 0 300 185">
+                ${SVG_DEFS}
+                <polygon points="75,35 225,35 265,155 35,155" fill="url(#gradEmerald)" stroke="#059669" stroke-width="3" />
+                <rect x="115" y="78" width="70" height="50" rx="4" fill="#BAE6FD" stroke="#0284C7" stroke-width="2.5" />
+                <line x1="75" y1="35" x2="75" y2="155" stroke="#0F172A" stroke-width="2" stroke-dasharray="4,4" />
+                <text x="150" y="26" text-anchor="middle" font-family="Fredoka" font-size="13.5" fill="#065F46" font-weight="bold">b = 10 m</text>
+                <text x="150" y="175" text-anchor="middle" font-family="Fredoka" font-size="13.5" fill="#065F46" font-weight="bold">B = 16 m</text>
+                <text x="52" y="100" text-anchor="middle" font-family="Fredoka" font-size="12" fill="#0F172A" font-weight="bold">h=8m</text>
+                <text x="150" y="108" text-anchor="middle" font-family="Fredoka" font-size="12" fill="#0369A1" font-weight="bold">5×4 m</text>
               </svg>
             `,
             inputs: [
               { label: "Área del Trapecio", unit: "m²", expected: 104, tolerance: 0.01 },
               { label: "Área de Césped", unit: "m²", expected: 84, tolerance: 0.01 }
             ],
-            solution: "1) Área del trapecio = ((16 + 10) × 8) ÷ 2 = (26 × 8) ÷ 2 = 104 m².\n2) Área de la piscina = 5 × 4 = 20 m².\n3) Área de césped = 104 - 20 = 84 m²."
+            solution: "1) Área del trapecio = ((16 + 10) × 8) ÷ 2 = 104 m².\n2) Área de la piscina = 5 × 4 = 20 m².\n3) Área de césped = 104 - 20 = 84 m²."
           },
           {
             id: "M3-Q7",
             type: "C",
-            typeLabel: "Tipo C · Problema Inverso de Corona Circular",
-            title: "7. El área de un círculo es 36π cm². Si aumentamos su radio en 2 cm para formar un círculo más grande, ¿cuántos π cm² mide el área del nuevo círculo grande?",
-            instruction: "Despeja primero el radio original a partir de r² = 36, súmale 2 cm y vuelve a elevar al cuadrado.",
-            diagramType: "ascii",
-            diagram:
-`  Círculo Inicial: Área = 36π cm²  ──►  Radio inicial r = ¿?
-  Nuevo Círculo:   Radio R = r + 2 cm  ──►  Nueva Área = R² · π cm²`,
+            typeLabel: "Tipo C · Problema Inverso de Expansión Circular",
+            title: "7. El área de un círculo inicial es 36π cm². Si aumentamos su radio en 2 cm para formar un círculo mayor, ¿cuántos π cm² mide la nueva área?",
+            instruction: "Despeja primero el radio inicial r sabiendo que r² = 36.",
+            svgContent: `
+              <svg viewBox="0 0 320 190">
+                ${SVG_DEFS}
+                <circle cx="160" cy="95" r="78" fill="url(#gradPurple)" stroke="#7C3AED" stroke-width="3" stroke-dasharray="6,4"/>
+                <circle cx="160" cy="95" r="54" fill="url(#gradBlue)" stroke="#2563EB" stroke-width="3"/>
+                <circle cx="160" cy="95" r="4" fill="#0F172A"/>
+                <text x="160" y="88" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#1E3A8A" font-weight="bold">A = 36π cm²</text>
+                <text x="160" y="160" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#5B21B6" font-weight="bold">Nuevo Radio = r + 2 cm</text>
+              </svg>
+            `,
             inputs: [
               { label: "Radio original r", unit: "cm", expected: 6, tolerance: 0.01 },
               { label: "Nueva Área (___ π)", unit: "π cm²", expected: 64, tolerance: 0.01 }
             ],
-            solution: "1) Como π · r² = 36π, entonces r² = 36 → r = 6 cm.\n2) Nuevo radio R = 6 + 2 = 8 cm.\n3) Nueva área = π · 8² = 64π cm²."
+            solution: "1) r² = 36 → r = 6 cm.\n2) Nuevo radio R = 6 + 2 = 8 cm.\n3) Nueva área = π · 8² = 64π cm²."
           },
           {
             id: "M3-Q8",
             type: "B",
             typeLabel: "Tipo B · Perímetro de Escalera de 3 Peldaños (Truco Olímpico)",
-            title: "8. Observa este polígono escalonado de 3 peldaños. Aunque no conoces la medida individual de cada peldaño, sabes que el ancho total de la base es 15 cm y la altura total izquierda es 11 cm. ¿Cuál es el PERÍMETRO total?",
-            instruction: "En toda figura escalonada sin hundimientos, la suma de todos los tramos horizontales de los peldaños equivale a la base, y la suma de los tramos verticales equivale a la altura.",
-            diagramType: "ascii",
-            diagram:
-`      +──────+
-      |      |
-      |      +───────+
-  11  |              |
-  cm  |              +───────+
-      |                      |
-      +──────────────────────+
-               15 cm`,
+            title: "8. Observa este polígono escalonado. Aunque no conoces la medida de cada peldaño individual, la base total mide 15 cm y la altura izquierda mide 11 cm. ¿Cuál es su PERÍMETRO total?",
+            instruction: "Proyecta visualmente los tramos horizontales hacia la base y los verticales hacia la pared izquierda.",
+            svgContent: `
+              <svg viewBox="0 0 340 195">
+                ${SVG_DEFS}
+                <polygon points="65,30 125,30 125,70 195,70 195,110 265,110 265,155 65,155" fill="url(#gradAmber)" stroke="#D97706" stroke-width="3.2" stroke-linejoin="round"/>
+                <text x="35" y="98" text-anchor="middle" font-family="Fredoka" font-size="14" fill="#92400E" font-weight="bold">11 cm</text>
+                <text x="165" y="178" text-anchor="middle" font-family="Fredoka" font-size="14" fill="#92400E" font-weight="bold">Base = 15 cm</text>
+              </svg>
+            `,
             inputs: [{ label: "Perímetro Total", unit: "cm", expected: 52, tolerance: 0.01 }],
-            solution: "1) La suma de los 3 tramos horizontales superiores es exactamente igual a la base: 15 cm.\n2) La suma de los 3 tramos verticales derechos es exactamente igual a la altura izquierda: 11 cm.\n3) Por tanto, el perímetro equivale al de un rectángulo de 15 × 11: P = 2 × (15 + 11) = 52 cm."
+            solution: "1) Los 3 tramos horizontales superiores suman 15 cm.\n2) Los 3 tramos verticales derechos suman 11 cm.\n3) Perímetro = 2 × (15 + 11) = 52 cm."
           },
           {
             id: "M3-Q9",
             type: "D",
             typeLabel: "Tipo D · Selección Múltiple Compleja (Marca TODAS las verdaderas)",
             title: "9. Compara un Cuadrado de lado 6 cm y un Círculo de diámetro 6 cm. Selecciona TODAS las afirmaciones que sean VERDADERAS.",
-            instruction: "Analiza cuidadosamente el radio del círculo antes de evaluar cada opción.",
-            diagramType: "ascii",
-            diagram:
-`  Figura 1: Cuadrado de lado L = 6 cm
-  Figura 2: Círculo de diámetro D = 6 cm (por tanto, radio r = 3 cm)`,
+            instruction: "Observa con cuidado el radio del círculo antes de marcar.",
+            svgContent: `
+              <svg viewBox="0 0 360 175">
+                ${SVG_DEFS}
+                <rect x="45" y="35" width="105" height="105" rx="6" fill="url(#gradBlue)" stroke="#2563EB" stroke-width="3"/>
+                <text x="97" y="92" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#1E3A8A" font-weight="bold">L = 6 cm</text>
+                <circle cx="260" cy="87" r="52.5" fill="url(#gradRose)" stroke="#E11D48" stroke-width="3"/>
+                <line x1="207.5" y1="87" x2="312.5" y2="87" stroke="#9F1239" stroke-width="2.5" stroke-dasharray="4,3"/>
+                <text x="260" y="80" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#881337" font-weight="bold">D = 6 cm</text>
+              </svg>
+            `,
             options: [
               { id: "1", text: "El perímetro del cuadrado es 24 cm.", correct: true },
               { id: "2", text: "El área del círculo en función de π es 36π cm².", correct: false },
               { id: "3", text: "El área exacta del círculo es 9π cm².", correct: true },
-              { id: "4", text: "El área del cuadrado (36 cm²) es mayor que el área del círculo (9 × 3.14 = 28.26 cm²).", correct: true }
+              { id: "4", text: "El área del cuadrado (36 cm²) es mayor que el área del círculo (28.26 cm²).", correct: true }
             ],
-            solution: "• 1.ª Verdadera: 4 × 6 = 24 cm.\n• 2.ª Falsa: Como el diámetro es 6 cm, el radio es r = 3 cm (no 6 cm).\n• 3.ª Verdadera: A = π · 3² = 9π cm².\n• 4.ª Verdadera: 36 cm² > 28.26 cm²."
+            solution: "• 1.ª Verdadera (24 cm).\n• 2.ª Falsa (el radio es 3 cm, no 6 cm).\n• 3.ª Verdadera (9π cm²).\n• 4.ª Verdadera (36 > 28.26)."
           },
           {
             id: "M3-Q10",
             type: "D",
-            typeLabel: "Tipo D · Verdadero/Falso Demostrado (Triángulo Inscrito)",
-            title: "10. En un rectángulo de base 12 cm y altura 8 cm se dibuja un triángulo cuya base coincide con la base de 12 cm y su vértice superior toca el lado opuesto del rectángulo. Calcula el área del triángulo y el área que queda fuera de él.",
-            instruction: "Demuestra que el triángulo inscrito ocupa exactamente la mitad del área del rectángulo.",
-            diagramType: "svg",
+            typeLabel: "Tipo D · Demostración de Triángulo Inscrito",
+            title: "10. En un rectángulo de 12 cm × 8 cm se inscribe un triángulo cuya base coincide con la base de 12 cm y su cúspide toca el borde superior. Calcula el área del triángulo y el área exterior.",
+            instruction: "Usa la fórmula A = (base × altura) ÷ 2.",
             svgContent: `
-              <svg viewBox="0 0 260 165" width="100%" style="max-width:290px;">
-                <rect x="30" y="25" width="200" height="115" fill="#FDE68A" stroke="#B45309" stroke-width="3" />
-                <polygon points="30,140 230,140 110,25" fill="#38BDF8" stroke="#0369A1" stroke-width="3" />
-                <text x="105" y="158" font-family="Fredoka" font-size="13" fill="#1E293B" font-weight="bold">Base = 12 cm</text>
-                <text x="235" y="88" font-family="Fredoka" font-size="13" fill="#1E293B" font-weight="bold">8 cm</text>
+              <svg viewBox="0 0 280 175">
+                ${SVG_DEFS}
+                <rect x="35" y="25" width="200" height="115" rx="4" fill="url(#gradAmber)" stroke="#D97706" stroke-width="3" />
+                <polygon points="35,140 235,140 120,25" fill="url(#gradBlue)" stroke="#1D4ED8" stroke-width="3" />
+                <text x="135" y="160" text-anchor="middle" font-family="Fredoka" font-size="13.5" fill="#0F172A" font-weight="bold">Base = 12 cm</text>
+                <text x="258" y="88" text-anchor="middle" font-family="Fredoka" font-size="13.5" fill="#0F172A" font-weight="bold">8 cm</text>
               </svg>
             `,
             inputs: [
               { label: "Área del Triángulo Azul", unit: "cm²", expected: 48, tolerance: 0.01 },
               { label: "Área Amarilla Exterior", unit: "cm²", expected: 48, tolerance: 0.01 }
             ],
-            solution: "1) Área del rectángulo = 12 × 8 = 96 cm².\n2) Área del triángulo = (base × altura) ÷ 2 = (12 × 8) ÷ 2 = 48 cm².\n3) Área exterior amarilla = 96 - 48 = 48 cm²."
+            solution: "1) Área del rectángulo = 12 × 8 = 96 cm².\n2) Área del triángulo = (12 × 8) ÷ 2 = 48 cm².\n3) Área exterior = 96 - 48 = 48 cm²."
           }
         ]
       },
 
       // ========================================================================
-      // MÓDULO 4: EVALUACIÓN INTEGRAL DE OLIMPIADA (10 PREGUNTAS COMBINADAS)
+      // MÓDULO 4: EVALUACIÓN INTEGRAL DE OLIMPIADA (10 PREGUNTAS)
       // ========================================================================
       4: {
         title: "Módulo 4: Evaluación Integral de Olimpiada (Máxima Dificultad)",
@@ -1622,80 +1804,89 @@
           {
             id: "M4-Q1",
             type: "A",
-            typeLabel: "Tipo A · Plano Cartesiano + Conversión de Unidades + Área",
-            title: "1. En un plano cartesiano donde cada unidad (1 u) representa 2 decámetros (2 dam) en la vida real, se traza el rectángulo con vértices A(1, 1), B(6, 1), C(6, 4) y D(1, 4). ¿Cuántos METROS CUADRADOS (m²) mide el terreno real?",
-            instruction: "1.° Halla la base y la altura en unidades del plano. 2.° Convierte esas medidas a metros reales (1 u = 2 dam = 20 m). 3.° Multiplica base × altura en metros.",
-            diagramType: "ascii",
-            diagram:
-`  Y ▲
-  4 | .  D(1,4)───────────────C(6,4)
-  3 | .  │                        │
-  2 | .  │   Escala: 1 u = 2 dam  │
-  1 | .  A(1,1)───────────────B(6,1)
-  0 +─────────────────────────────────► X`,
+            typeLabel: "Tipo A · Plano Cartesiano + Escala Métrica + Área",
+            title: "1. En este plano donde cada unidad (1 u) representa 2 decámetros (2 dam) reales, se ubica el terreno rectangular A(1, 1), B(6, 1), C(6, 4) y D(1, 4). Calcula su PERÍMETRO real en metros y su ÁREA real en m².",
+            instruction: "1 u = 2 dam = 20 m. Convierte primero la base y la altura a metros reales.",
+            svgContent: svgCartesianGeoGebra({
+              maxX: 7, maxY: 5,
+              polygons: [{ coords: [[1,1], [6,1], [6,4], [1,4]], fill: "url(#gradEmerald)", stroke: "#059669" }],
+              points: [
+                { label: "A(1,1)", x: 1, y: 1, color: "#059669", dy: 8 },
+                { label: "B(6,1)", x: 6, y: 1, color: "#059669", dy: 8 },
+                { label: "C(6,4)", x: 6, y: 4, color: "#059669", dx: -45, dy: -20 },
+                { label: "D(1,4)", x: 1, y: 4, color: "#059669", dy: -20 }
+              ]
+            }),
             inputs: [
               { label: "Perímetro real en metros", unit: "m", expected: 320, tolerance: 0.01 },
               { label: "Área real en metros cuadrados", unit: "m²", expected: 6000, tolerance: 0.1 }
             ],
-            solution: "1) En el plano: Base = 6 - 1 = 5 u; Altura = 4 - 1 = 3 u.\n2) Como 1 u = 2 dam = 20 m:\n   • Base real = 5 × 20 m = 100 m.\n   • Altura real = 3 × 20 m = 60 m.\n3) Perímetro real = 2 × (100 + 60) = 320 m.\n4) Área real = 100 m × 60 m = 6000 m²."
+            solution: "1) Base en plano = 5 u × 20 m/u = 100 m; Altura = 3 u × 20 m/u = 60 m.\n2) Perímetro real = 2(100 + 60) = 320 m.\n3) Área real = 100 × 60 = 6000 m²."
           },
           {
             id: "M4-Q2",
             type: "B",
-            typeLabel: "Tipo B · Diagrama de Pista Atlética + Conversión a Kilómetros",
-            title: "2. Una pista atlética está formada por un rectángulo central y dos semicírculos en los extremos. Extrae las medidas del diagrama (usando π = 3.14) y calcula cuántos METROS recorre un ciclista al dar 1 vuelta completa por el borde exterior.",
-            instruction: "Al dar la vuelta por el borde exterior, recorre los 2 tramos rectos de 1.2 hm más la circunferencia completa (2·π·r) que forman los dos semicírculos.",
-            diagramType: "ascii",
-            diagram:
-`               1.2 hm (Tramo recto superior)
-          ╭─────────────────────────────────╮
-         ╱│                                 │╲
-        │ │ Diámetro = 500 dm               │ │
-         ╲│                                 │╱
-          ╰─────────────────────────────────╯
-               1.2 hm (Tramo recto inferior)`,
+            typeLabel: "Tipo B · Pista Atlética Compuesta + Conversión",
+            title: "2. Una pista atlética consta de dos rectas de 1.2 hm cada una y dos cabeceras semicirculares de diámetro 500 dm. Usando π = 3.14, ¿cuántos METROS mide 1 vuelta completa por el borde exterior?",
+            instruction: "Convierte 1.2 hm y 500 dm a metros. Recuerda que dos semicírculos forman 1 circunferencia completa (π × Diámetro).",
+            svgContent: `
+              <svg viewBox="0 0 360 185">
+                ${SVG_DEFS}
+                <path d="M 100 40 L 260 40 A 52 52 0 0 1 260 144 L 100 144 A 52 52 0 0 1 100 40 Z" fill="url(#gradRose)" stroke="#E11D48" stroke-width="3.5"/>
+                <line x1="100" y1="40" x2="100" y2="144" stroke="#0F172A" stroke-width="2" stroke-dasharray="5,4"/>
+                <line x1="260" y1="40" x2="260" y2="144" stroke="#0F172A" stroke-width="2" stroke-dasharray="5,4"/>
+                <text x="180" y="28" text-anchor="middle" font-family="Fredoka" font-size="13.5" fill="#9F1239" font-weight="bold">Recta = 1.2 hm</text>
+                <text x="180" y="168" text-anchor="middle" font-family="Fredoka" font-size="13.5" fill="#9F1239" font-weight="bold">Recta = 1.2 hm</text>
+                <text x="180" y="96" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#0F172A" font-weight="bold">Diámetro = 500 dm</text>
+              </svg>
+            `,
             inputs: [
               { label: "Diámetro en metros", unit: "m", expected: 50, tolerance: 0.01 },
               { label: "Longitud de 1 vuelta (π=3.14)", unit: "m", expected: 397, tolerance: 0.5 }
             ],
-            solution: "1) Convertimos a metros: cada recta mide 1.2 hm = 120 m. El diámetro mide 500 dm = 50 m.\n2) Los dos semicírculos juntos forman 1 circunferencia completa de diámetro D = 50 m: Longitud curva = π × D = 3.14 × 50 = 157 m.\n3) Vuelta completa = 120 m + 120 m + 157 m = 397 m."
+            solution: "1) Rectas: 1.2 hm = 120 m cada una. Diámetro: 500 dm = 50 m.\n2) Curvas: 3.14 × 50 m = 157 m.\n3) Vuelta completa = 120 + 120 + 157 = 397 m."
           },
           {
             id: "M4-Q3",
             type: "C",
-            typeLabel: "Tipo C · Transformación Compuesta e Inversa en el Plano",
-            title: "3. El centro de un círculo está en C(2, 3). El círculo se traslada con el vector T(4, 2) y luego gira 90° en sentido HORARIO alrededor del punto P(6, 1). ¿En qué coordenada final (Xf, Yf) queda el centro del círculo?",
-            instruction: "Halla primero C' tras la traslación y observa su posición respecto al pivote P(6, 1).",
-            diagramType: "ascii",
-            diagram:
-`  1.° Traslación: C(2, 3) + (4, 2) ──► C'(6, 5)
-  2.° Giro de 90° Horario (⟳) de C'(6, 5) alrededor del pivote P(6, 1):
-  
-      C'(6, 5)
-         │  (Distancia vertical = 4 u)
-         └─── Pivote P(6, 1) ───► ¿Cf(Xf, Yf)?`,
+            typeLabel: "Tipo C · Transformación Compuesta con Pivote",
+            title: "3. El punto C(2, 3) se traslada con el vector T(4, 2) hasta C' y luego gira 90° en sentido HORARIO alrededor del pivote P(6, 1). ¿En qué coordenada final (Xf, Yf) queda?",
+            instruction: "Observa en el gráfico la posición de C'(6, 5) respecto al pivote P(6, 1) antes de girar.",
+            svgContent: svgCartesianGeoGebra({
+              maxX: 11, maxY: 6,
+              vectors: [
+                { from: [2, 3], to: [6, 5], color: "#2563EB", dashed: true },
+                { from: [6, 5], to: [10, 1], color: "#E11D48", dashed: true }
+              ],
+              points: [
+                { label: "C(2,3)", x: 2, y: 3, color: "#2563EB", dy: -20 },
+                { label: "C'(6,5)", x: 6, y: 5, color: "#7C3AED", dy: -20 },
+                { label: "Pivote P(6,1)", x: 6, y: 1, color: "#0F172A", dx: -75, dy: 8 },
+                { label: "Final(?,?)", x: 10, y: 1, color: "#E11D48", dx: -55, dy: -22 }
+              ]
+            }),
             inputs: [
               { label: "Coordenada final Xf", unit: "X", expected: 10, tolerance: 0.01 },
               { label: "Coordenada final Yf", unit: "Y", expected: 1, tolerance: 0.01 }
             ],
-            solution: "1) Tras trasladar C(2, 3) con T(4, 2) obtenemos C'(6, 5).\n2) C'(6, 5) está exactamente 4 unidades arriba del pivote P(6, 1).\n3) Al rotar 90° en sentido horario alrededor de P(6, 1), queda 4 unidades a la derecha de P: Cf = (6 + 4, 1) = (10, 1)."
+            solution: "1) C(2, 3) + (4, 2) = C'(6, 5), que está 4 u arriba de P(6, 1).\n2) Al girar 90° horario alrededor de P(6, 1), queda 4 u a la derecha de P: (6 + 4, 1) = (10, 1)."
           },
           {
             id: "M4-Q4",
             type: "A",
-            typeLabel: "Tipo A · Área Sombreada entre Dos Círculos Concéntricos",
-            title: "4. En el plano cartesiano, dos círculos tienen el mismo centro O(5, 5). El círculo interior pasa por A(5, 8) y el círculo exterior pasa por B(10, 5). Calcula el área de la corona circular (región entre ambos círculos) en múltiplos de π.",
-            instruction: "Halla el radio menor r (de O a A) y el radio mayor R (de O a B), y calcula (R² - r²)·π.",
-            diagramType: "svg",
+            typeLabel: "Tipo A · Corona Circular en el Plano Cartesiano",
+            title: "4. Dos círculos concéntricos tienen centro en O(5, 5). El círculo interior pasa por A(5, 8) y el exterior por B(10, 5). Halla el radio menor r, el radio mayor R y el área sombreada (___ π u²).",
+            instruction: "Área de la corona circular = (R² - r²) · π.",
             svgContent: `
-              <svg viewBox="0 0 240 190" width="100%" style="max-width:270px;">
-                <circle cx="120" cy="95" r="75" fill="#DDD6FE" stroke="#6D28D9" stroke-width="3" />
-                <circle cx="120" cy="95" r="45" fill="#FFFFFF" stroke="#2563EB" stroke-width="3" />
-                <circle cx="120" cy="95" r="4" fill="#0F172A" />
-                <line x1="120" y1="95" x2="120" y2="50" stroke="#2563EB" stroke-width="2.5" />
-                <line x1="120" y1="95" x2="195" y2="95" stroke="#6D28D9" stroke-width="2.5" />
-                <text x="72" y="75" font-family="Fredoka" font-size="11" fill="#1D4ED8" font-weight="bold">A(5,8)</text>
-                <text x="140" y="112" font-family="Fredoka" font-size="11" fill="#5B21B6" font-weight="bold">O(5,5)→B(10,5)</text>
+              <svg viewBox="0 0 280 190">
+                ${SVG_DEFS}
+                <circle cx="140" cy="95" r="75" fill="url(#gradPurple)" stroke="#6D28D9" stroke-width="3" />
+                <circle cx="140" cy="95" r="45" fill="#FFFFFF" stroke="#2563EB" stroke-width="3" />
+                <circle cx="140" cy="95" r="4.5" fill="#0F172A" />
+                <line x1="140" y1="95" x2="140" y2="50" stroke="#2563EB" stroke-width="2.5" />
+                <line x1="140" y1="95" x2="215" y2="95" stroke="#6D28D9" stroke-width="2.5" />
+                <text x="115" y="72" font-family="Fredoka" font-size="11.5" fill="#1D4ED8" font-weight="bold">A(5,8)</text>
+                <text x="175" y="112" font-family="Fredoka" font-size="11.5" fill="#5B21B6" font-weight="bold">B(10,5)</text>
               </svg>
             `,
             inputs: [
@@ -1703,148 +1894,151 @@
               { label: "Radio mayor R", unit: "u", expected: 5, tolerance: 0.01 },
               { label: "Área Sombreada = ___ π", unit: "π u²", expected: 16, tolerance: 0.01 }
             ],
-            solution: "1) Radio menor r: de (5, 5) a (5, 8) hay 8 - 5 = 3 u.\n2) Radio mayor R: de (5, 5) a (10, 5) hay 10 - 5 = 5 u.\n3) Área de la corona = π·R² - π·r² = (25 - 9)π = 16π u²."
+            solution: "1) r = 8 - 5 = 3 u; R = 10 - 5 = 5 u.\n2) Área = (5² - 3²)π = (25 - 9)π = 16π u²."
           },
           {
             id: "M4-Q5",
             type: "B",
-            typeLabel: "Tipo B · Diagrama de Marco Simétrico con Unidades Mixtas",
-            title: "5. Un cuadro rectangular externo mide 8 dm de ancho por 60 cm de alto. Tiene un marco de madera de 50 mm de grosor uniforme en los 4 lados. ¿Cuántos CENTÍMETROS CUADRADOS (cm²) mide el lienzo interior?",
-            instruction: "¡Atención! El grosor de 50 mm se resta DOS veces al ancho (izquierda y derecha) y DOS veces al alto (arriba y abajo).",
-            diagramType: "ascii",
-            diagram:
-`                Ancho externo = 8 dm
-      +──────────────────────────────────────+
-      |             ↕ 50 mm                  |
-      |    +────────────────────────────+    |
-      |◄──►|                            |◄──►| Alto externo
-      |50mm|      LIENZO INTERIOR       |50mm| = 60 cm
-      |    |        ¿Área en cm²?       |    |
-      |    +────────────────────────────+    |
-      |             ↕ 50 mm                  |
-      +──────────────────────────────────────+`,
+            typeLabel: "Tipo B · Marco Simétrico con Unidades Mixtas",
+            title: "5. Un cuadro externo mide 8 dm de ancho por 60 cm de alto y tiene un marco uniforme de 50 mm de grosor en los 4 lados. Calcula el ancho, el alto y el ÁREA del lienzo interior en cm².",
+            instruction: "El grosor de 50 mm (5 cm) se resta en ambos lados (izquierda/derecha y arriba/abajo).",
+            svgContent: `
+              <svg viewBox="0 0 340 195">
+                ${SVG_DEFS}
+                <rect x="45" y="25" width="230" height="145" rx="6" fill="url(#gradAmber)" stroke="#B45309" stroke-width="3"/>
+                <rect x="70" y="50" width="180" height="95" rx="4" fill="#FFFFFF" stroke="#0284C7" stroke-width="2.5"/>
+                <text x="160" y="18" text-anchor="middle" font-family="Fredoka" font-size="13.5" fill="#92400E" font-weight="bold">Ancho Externo = 8 dm</text>
+                <text x="308" y="100" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#92400E" font-weight="bold">60 cm</text>
+                <text x="160" y="102" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#0369A1" font-weight="bold">Lienzo Interior (Grosor = 50 mm)</text>
+              </svg>
+            `,
             inputs: [
-              { label: "Ancho interior del lienzo", unit: "cm", expected: 70, tolerance: 0.01 },
-              { label: "Alto interior del lienzo", unit: "cm", expected: 50, tolerance: 0.01 },
-              { label: "Área del lienzo interior", unit: "cm²", expected: 3500, tolerance: 0.1 }
+              { label: "Ancho interior", unit: "cm", expected: 70, tolerance: 0.01 },
+              { label: "Alto interior", unit: "cm", expected: 50, tolerance: 0.01 },
+              { label: "Área del lienzo", unit: "cm²", expected: 3500, tolerance: 0.1 }
             ],
-            solution: "1) Convertimos todo a cm: Ancho externo = 8 dm = 80 cm; Alto externo = 60 cm; Grosor = 50 mm = 5 cm.\n2) Ancho interior = 80 - 2(5) = 70 cm.\n3) Alto interior = 60 - 2(5) = 50 cm.\n4) Área del lienzo = 70 cm × 50 cm = 3500 cm²."
+            solution: "1) Ancho externo = 80 cm; Grosor = 5 cm.\n2) Ancho interior = 80 - 10 = 70 cm; Alto interior = 60 - 10 = 50 cm.\n3) Área = 70 × 50 = 3500 cm²."
           },
           {
             id: "M4-Q6",
             type: "C",
-            typeLabel: "Tipo C · Despeje Algebraico de Poliedro (Aristas de un Cubo)",
-            title: "6. Para construir el esqueleto completo de las 12 aristas de un cubo se usaron exactamente 3.6 metros de alambre sin que sobrara nada. ¿Cuántos CENTÍMETROS CUADRADOS (cm²) de cartulina se necesitan para forrar sus 6 caras?",
-            instruction: "1.° Convierte 3.6 m a cm y divide entre 12 aristas para hallar la arista L. 2.° Calcula el área total de las 6 caras cuadradas (6 × L²).",
-            diagramType: "ascii",
-            diagram:
-`        +───────────+
-       /           /|
-      +───────────+ |  • Total de aristas de un cubo = 12
-      |           | |  • Suma de las 12 aristas = 3.6 m = 360 cm
-      |           | +  • Área superficial total = 6 × L²
-      |           |/
-      +───────────+`,
+            typeLabel: "Tipo C · Aristas y Área Superficial de un Cubo",
+            title: "6. Para construir el esqueleto de las 12 aristas de un cubo se usaron 3.6 metros de alambre. ¿Cuántos cm mide cada arista L y cuántos cm² mide el área total de sus 6 caras?",
+            instruction: "Convierte 3.6 m a cm, divide entre 12 aristas y luego aplica Área Total = 6 × L².",
+            svgContent: `
+              <svg viewBox="0 0 280 190">
+                ${SVG_DEFS}
+                <polygon points="95,35 205,35 175,65 65,65" fill="url(#gradBlue)" stroke="#1D4ED8" stroke-width="2.5"/>
+                <rect x="65" y="65" width="110" height="95" fill="url(#gradBlue)" stroke="#1D4ED8" stroke-width="2.5"/>
+                <polygon points="175,65 205,35 205,130 175,160" fill="url(#gradPurple)" stroke="#1D4ED8" stroke-width="2.5"/>
+                <text x="120" y="118" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#1E3A8A" font-weight="bold">12 Aristas = 3.6 m</text>
+              </svg>
+            `,
             inputs: [
               { label: "Longitud de 1 arista L", unit: "cm", expected: 30, tolerance: 0.01 },
               { label: "Área total de las 6 caras", unit: "cm²", expected: 5400, tolerance: 0.1 }
             ],
-            solution: "1) 3.6 m = 360 cm de alambre.\n2) Como el cubo tiene 12 aristas iguales: L = 360 ÷ 12 = 30 cm.\n3) Área de 1 cara = 30 × 30 = 900 cm².\n4) Área de las 6 caras = 6 × 900 = 5400 cm²."
+            solution: "1) 360 cm ÷ 12 = 30 cm por arista.\n2) Área de 6 caras = 6 × (30 × 30) = 5400 cm²."
           },
           {
             id: "M4-Q7",
             type: "A",
-            typeLabel: "Tipo A · Área de Polígono en el Plano Cartesiano",
-            title: "7. Calcula el área exacta del cuadrilátero formado por los vértices A(1, 1), B(7, 1), C(5, 6) y D(2, 6) en el plano cartesiano.",
-            instruction: "Observa que los lados AB y DC son horizontales (paralelos), por lo que la figura es un TRAPECIO.",
-            diagramType: "ascii",
-            diagram:
-`  Y ▲
-  6 | .   .  D(2,6)─────C(5,6)
-  5 | .   .  /              \\
-  3 | .   . /   h = ¿?       \\
-  1 | .  A(1,1)──────────────B(7,1)
-  0 +──────────────────────────────► X`,
+            typeLabel: "Tipo A · Área de Trapecio en el Plano Cartesiano",
+            title: "7. Calcula la altura h y el área exacta del trapecio formado por A(1, 1), B(7, 1), C(5, 6) y D(2, 6) en el plano cartesiano.",
+            instruction: "Halla la base mayor AB, la base menor DC y la altura vertical h restando coordenadas.",
+            svgContent: svgCartesianGeoGebra({
+              maxX: 8, maxY: 7,
+              polygons: [{ coords: [[1,1], [7,1], [5,6], [2,6]], fill: "url(#gradBlue)", stroke: "#2563EB" }],
+              points: [
+                { label: "A(1,1)", x: 1, y: 1, color: "#2563EB", dy: 8 },
+                { label: "B(7,1)", x: 7, y: 1, color: "#2563EB", dy: 8 },
+                { label: "C(5,6)", x: 5, y: 6, color: "#2563EB", dy: -20 },
+                { label: "D(2,6)", x: 2, y: 6, color: "#2563EB", dx: -45, dy: -20 }
+              ]
+            }),
             inputs: [
               { label: "Altura h del trapecio", unit: "u", expected: 5, tolerance: 0.01 },
               { label: "Área del trapecio", unit: "u²", expected: 22.5, tolerance: 0.05 }
             ],
-            solution: "1) Base mayor inferior AB = 7 - 1 = 6 u.\n2) Base menor superior DC = 5 - 2 = 3 u.\n3) Altura vertical h = 6 - 1 = 5 u.\n4) Área = ((6 + 3) × 5) ÷ 2 = 45 ÷ 2 = 22.5 u²."
+            solution: "1) Base mayor AB = 6 u; Base menor DC = 3 u; Altura h = 6 - 1 = 5 u.\n2) Área = ((6 + 3) × 5) ÷ 2 = 22.5 u²."
           },
           {
             id: "M4-Q8",
             type: "C",
             typeLabel: "Tipo C · Sistema Inglés + Área y Perímetro",
-            title: "8. Una mesa rectangular tiene un área de 12 pies cuadrados (ft²). Si su ancho mide 36 pulgadas (in), ¿cuántas PULGADAS (in) mide el PERÍMETRO total de la mesa?",
-            instruction: "Convierte primero las 36 pulgadas a pies (1 pie = 12 in) para hallar el largo en pies, y luego convierte el perímetro a pulgadas.",
-            diagramType: "ascii",
-            diagram:
-`  Equivalencia: 1 ft = 12 in  ⇒  36 in = 3 ft
-  
-              Largo = ¿ ? ft
-        +────────────────────────+
-        |   Área = 12 ft²        | Ancho = 36 in (3 ft)
-        +────────────────────────+`,
+            title: "8. Una mesa rectangular tiene un área de 12 pies cuadrados (ft²). Si su ancho mide 36 pulgadas (in), ¿cuántos pies mide su largo y cuántas PULGADAS (in) mide su PERÍMETRO?",
+            instruction: "1 pie (ft) = 12 pulgadas (in). Convierte primero 36 in a pies.",
+            svgContent: `
+              <svg viewBox="0 0 340 180">
+                ${SVG_DEFS}
+                <rect x="65" y="40" width="190" height="105" rx="8" fill="url(#gradEmerald)" stroke="#059669" stroke-width="3"/>
+                <text x="160" y="98" text-anchor="middle" font-family="Fredoka" font-size="15" fill="#065F46" font-weight="bold">Área = 12 ft²</text>
+                <text x="160" y="30" text-anchor="middle" font-family="Fredoka" font-size="13.5" fill="#0F172A" font-weight="bold">Largo = ¿? ft</text>
+                <text x="298" y="96" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#E11D48" font-weight="bold">36 in (3 ft)</text>
+              </svg>
+            `,
             inputs: [
               { label: "Largo de la mesa en pies", unit: "ft", expected: 4, tolerance: 0.01 },
               { label: "Perímetro total en pulgadas", unit: "in", expected: 168, tolerance: 0.1 }
             ],
-            solution: "1) Ancho = 36 in ÷ 12 = 3 ft.\n2) Como Área = Largo × Ancho = 12 ft², entonces Largo = 12 ÷ 3 = 4 ft (48 in).\n3) Perímetro en pies = 2 × (4 + 3) = 14 ft.\n4) Perímetro en pulgadas = 14 ft × 12 in/ft = 168 in."
+            solution: "1) Ancho = 36 in = 3 ft  ⇒  Largo = 12 ÷ 3 = 4 ft.\n2) Perímetro = 2(4 + 3) = 14 ft = 168 in."
           },
           {
             id: "M4-Q9",
             type: "D",
             typeLabel: "Tipo D · Selección Múltiple Compleja de Olimpiada",
-            title: "9. Evalúa las siguientes 4 afirmaciones de geometría y medición y selecciona TODAS las que sean VERDADERAS.",
-            instruction: "Revisa cada cálculo con extremo cuidado antes de enviar.",
-            diagramType: "ascii",
-            diagram:
-`  (I)   Si el radio de un círculo se duplica, su área se cuadruplica (se multiplica por 4).
-  (II)  1.5 km - 85 dam = 650 m.
-  (III) Al rotar el punto (4, 2) 90° horario alrededor de (0,0) en el I cuadrante, la distancia al origen cambia.
-  (IV)  Una pirámide pentagonal tiene 6 caras, 6 vértices y 10 aristas.`,
+            title: "9. Evalúa las siguientes 4 proposiciones matemáticas y selecciona TODAS las que sean VERDADERAS.",
+            instruction: "Verifica cada propiedad geométrica antes de marcar.",
+            svgContent: `
+              <svg viewBox="0 0 400 185">
+                <rect x="20" y="20" width="360" height="145" rx="14" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+                <text x="35" y="52" font-family="Fredoka" font-size="12.5" fill="#1E3A8A" font-weight="bold">• (I) Si el radio r se duplica (2r), el área pasa a 4πr² (se cuadruplica).</text>
+                <text x="35" y="82" font-family="Fredoka" font-size="12.5" fill="#1E3A8A" font-weight="bold">• (II) 1.5 km - 85 dam = 1500 m - 850 m = 650 m.</text>
+                <text x="35" y="112" font-family="Fredoka" font-size="12.5" fill="#1E3A8A" font-weight="bold">• (III) ¿Cambiará la distancia al origen al rotar un punto?</text>
+                <text x="35" y="142" font-family="Fredoka" font-size="12.5" fill="#1E3A8A" font-weight="bold">• (IV) Pirámide pentagonal: 6 caras, 6 vértices y 10 aristas.</text>
+              </svg>
+            `,
             options: [
               { id: "I", text: "(I) Si el radio de un círculo se duplica, su área se multiplica por 4.", correct: true },
               { id: "II", text: "(II) 1.5 km - 85 dam = 650 m.", correct: true },
               { id: "III", text: "(III) Al rotar un punto alrededor del origen, su distancia al origen cambia.", correct: false },
               { id: "IV", text: "(IV) Una pirámide de base pentagonal tiene 6 caras, 6 vértices y 10 aristas.", correct: true }
             ],
-            solution: "• (I) Verdadera: π(2r)² = 4πr².\n• (II) Verdadera: 1500 m - 850 m = 650 m.\n• (III) Falsa: La rotación conserva la distancia al centro de giro.\n• (IV) Verdadera: 1 base + 5 triángulos = 6 caras; 5 + 1 = 6 vértices; 5 + 5 = 10 aristas."
+            solution: "Las afirmaciones (I), (II) y (IV) son verdaderas. La (III) es falsa porque la rotación es una isometría que conserva las distancias."
           },
           {
             id: "M4-Q10",
             type: "D",
-            typeLabel: "Tipo D · Demostración Numérica Final (Figura Compuesta en 'U')",
-            title: "10. Una pieza metálica cuadrada de 20 cm × 20 cm tiene un recorte rectangular en la parte superior central de 8 cm de ancho por 12 cm de profundidad (formando una 'U'). Calcula su PERÍMETRO exterior total y su ÁREA neta.",
-            instruction: "¡Cuidado con el perímetro! Al hacer el recorte de 12 cm hacia adentro, se agregan dos paredes verticales internas de 12 cm.",
-            diagramType: "ascii",
-            diagram:
-`        6 cm      8 cm     6 cm
-      +──────+          +──────+
-      |      | 12 cm    |      |
-      |      +──────────+      |
-  20  |                        | 20 cm
-  cm  |                        |
-      +────────────────────────+
-                20 cm`,
+            typeLabel: "Tipo D · Demostración Numérica Final (Figura en 'U')",
+            title: "10. Una placa cuadrada de 20 cm × 20 cm tiene un recorte rectangular superior de 8 cm de ancho por 12 cm de profundidad. Calcula su PERÍMETRO exterior total y su ÁREA neta.",
+            instruction: "¡No olvides sumar las dos paredes verticales internas de 12 cm al calcular el perímetro!",
+            svgContent: `
+              <svg viewBox="0 0 320 200">
+                ${SVG_DEFS}
+                <polygon points="65,30 115,30 115,120 185,120 185,30 235,30 235,175 65,175" fill="url(#gradBlue)" stroke="#1D4ED8" stroke-width="3" stroke-linejoin="round"/>
+                <text x="90" y="22" text-anchor="middle" font-family="Fredoka" font-size="12.5" fill="#1E3A8A" font-weight="bold">6 cm</text>
+                <text x="210" y="22" text-anchor="middle" font-family="Fredoka" font-size="12.5" fill="#1E3A8A" font-weight="bold">6 cm</text>
+                <text x="150" y="112" text-anchor="middle" font-family="Fredoka" font-size="12.5" fill="#E11D48" font-weight="bold">8 cm</text>
+                <text x="142" y="75" text-anchor="middle" font-family="Fredoka" font-size="12" fill="#E11D48" font-weight="bold">↕ 12 cm</text>
+                <text x="35" y="105" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#1E3A8A" font-weight="bold">20 cm</text>
+                <text x="150" y="193" text-anchor="middle" font-family="Fredoka" font-size="13" fill="#1E3A8A" font-weight="bold">20 cm</text>
+              </svg>
+            `,
             inputs: [
               { label: "Perímetro Total de la 'U'", unit: "cm", expected: 104, tolerance: 0.01 },
               { label: "Área Neta de la 'U'", unit: "cm²", expected: 304, tolerance: 0.01 }
             ],
-            solution: "1) Perímetro: Sumamos todos los bordes: 20 (abajo) + 20 (izquierda) + 20 (derecha) + 6 + 6 (arriba) + 8 (fondo del recorte) + 12 + 12 (paredes verticales del recorte) = 104 cm.\n2) Área Neta: Área del cuadrado (20 × 20 = 400 cm²) menos el recorte (8 × 12 = 96 cm²) = 304 cm²."
+            solution: "1) Perímetro = 20 + 20 + 20 + 6 + 6 + 8 + 12 + 12 = 104 cm.\n2) Área Neta = (20 × 20) - (8 × 12) = 400 - 96 = 304 cm²."
           }
         ]
       }
     };
 
     /* ==========================================================================
-       MOTOR DE ESTADO DE LA EVALUACIÓN (GUARDADO DE RESPUESTAS Y CALIFICACIÓN)
+       MOTOR DE ESTADO DE LA EVALUACIÓN
        ========================================================================== */
     let activeModuleId = null;
     let currentQIndex = 0;
-    // userAnswers almacena por índice de pregunta (0..9):
-    // Para preguntas numéricas: array de strings ["2620", ...]
-    // Para preguntas Tipo D de selección múltiple compleja: Set de IDs seleccionados
     let userAnswers = {};
     let activeTouchFields = [];
     let selectedFieldIdx = 0;
@@ -1940,16 +2134,9 @@
       qTitle.textContent = q.title;
       qInstruction.textContent = q.instruction;
 
-      // Renderizar diagrama izquierdo (ASCII o SVG)
-      if (q.diagramType === 'svg') {
-        diagramStage.className = 'diagram-stage light-stage';
-        diagramStage.innerHTML = q.svgContent;
-      } else {
-        diagramStage.className = 'diagram-stage';
-        diagramStage.innerHTML = `<pre class="ascii-blueprint">${q.diagram}</pre>`;
-      }
+      // Renderizar gráfico vectorial SVG estilizado
+      diagramStage.innerHTML = q.svgContent;
 
-      // Renderizar panel derecho de respuesta
       answerStage.innerHTML = '';
       activeTouchFields = [];
       selectedFieldIdx = 0;
@@ -1980,11 +2167,9 @@
       renderNavPills();
     }
 
-    // Panel de Selección Múltiple Compleja (Tipo D)
     function renderComplexOptions(q, qIdx) {
       const list = document.createElement('div');
       list.className = 'complex-options-list';
-
       const selectedSet = userAnswers[qIdx];
 
       q.options.forEach(opt => {
@@ -2012,11 +2197,9 @@
       answerStage.append(list, note);
     }
 
-    // Panel de Entrada Numérica con Teclado Táctil Olímpico (Incluye '.' y '-')
     function renderNumericNumpadWorkspace(q, qIdx) {
       const fieldsRow = document.createElement('div');
       fieldsRow.className = 'fields-row';
-
       const storedValues = userAnswers[qIdx];
 
       q.inputs.forEach((inp, fIdx) => {
@@ -2034,19 +2217,13 @@
         unit.className = 'unit-tag';
         unit.textContent = inp.unit;
 
-        activeTouchFields.push({
-          el: display,
-          qIdx,
-          fIdx
-        });
-
+        activeTouchFields.push({ el: display, qIdx, fIdx });
         display.addEventListener('click', () => selectTouchField(fIdx));
 
         group.append(lbl, display, unit);
         fieldsRow.appendChild(group);
       });
 
-      // Construir teclado numérico táctil
       const pad = document.createElement('div');
       pad.className = 'olymp-numpad';
 
@@ -2060,7 +2237,6 @@
         pad.appendChild(btn);
       });
 
-      // Botón Borrar
       const delBtn = document.createElement('button');
       delBtn.type = 'button';
       delBtn.className = 'num-key k-del';
@@ -2068,7 +2244,6 @@
       delBtn.addEventListener('click', () => handleOlympKey('DEL'));
       pad.appendChild(delBtn);
 
-      // Botón Limpiar todo el campo
       const clrBtn = document.createElement('button');
       clrBtn.type = 'button';
       clrBtn.className = 'num-key k-del';
@@ -2076,7 +2251,6 @@
       clrBtn.addEventListener('click', () => handleOlympKey('CLR'));
       pad.appendChild(clrBtn);
 
-      // Botón Siguiente Casilla
       const nextFieldBtn = document.createElement('button');
       nextFieldBtn.type = 'button';
       nextFieldBtn.className = 'num-key k-next';
@@ -2084,7 +2258,6 @@
       nextFieldBtn.addEventListener('click', () => handleOlympKey('NEXT_FIELD'));
       pad.appendChild(nextFieldBtn);
 
-      // Botón Siguiente Pregunta
       const saveNextBtn = document.createElement('button');
       saveNextBtn.type = 'button';
       saveNextBtn.className = 'num-key k-save';
@@ -2139,7 +2312,6 @@
       updateSavedIndicator();
     }
 
-    // Soporte para teclado físico conectado
     window.addEventListener('keydown', (e) => {
       if (!examScreen.classList.contains('active')) return;
       if ((e.key >= '0' && e.key <= '9') || e.key === '.' || e.key === '-') {
@@ -2152,7 +2324,6 @@
       }
     });
 
-    // Botones Anterior / Siguiente
     document.getElementById('prevQBtn').addEventListener('click', () => {
       if (currentQIndex > 0) {
         currentQIndex--;
@@ -2172,9 +2343,6 @@
 
     document.getElementById('gradeModuleBtn').addEventListener('click', gradeCurrentModule);
 
-    /* ==========================================================================
-       CALIFICACIÓN SOBRE 10 Y GENERACIÓN DEL SOLUCIONARIO PASO A PASO
-       ========================================================================== */
     function gradeCurrentModule() {
       const mod = MODULES_DB[activeModuleId];
       let correctCount = 0;
